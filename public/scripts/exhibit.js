@@ -1030,6 +1030,7 @@ const AttractorMode = {
     this.timers.forEach((timer) => window.clearTimeout(timer));
     this.timers = [];
     els.attractorBalloon?.classList.remove('is-rising');
+    els.attractorCardLayer?.querySelector('.attractor-clipping')?.classList.remove('is-fading');
   },
 
   queue(callback, delay) {
@@ -1099,7 +1100,24 @@ const AttractorMode = {
       return;
     }
     renderAttractorClipping(firstRecord, { staticCard: true });
-    this.queue(() => this.runCycle(), 900);
+    this.scheduleNextCycle(8200);
+  },
+
+  fadeCurrentClipping(callback) {
+    const clipping = els.attractorCardLayer?.querySelector('.attractor-clipping');
+    if (!clipping || prefersReducedMotion()) {
+      callback();
+      return;
+    }
+    clipping.classList.add('is-fading');
+    this.queue(callback, 850);
+  },
+
+  scheduleNextCycle(delay) {
+    this.queue(() => {
+      if (!state.isAttractorActive) return;
+      this.fadeCurrentClipping(() => this.runCycle());
+    }, delay);
   },
 
   runCycle() {
@@ -1119,8 +1137,8 @@ const AttractorMode = {
     this.queue(() => {
       renderAttractorClipping(record);
       els.attractorBalloon?.classList.remove('is-rising');
+      this.scheduleNextCycle(7600 + ((state.attractorIndex % 5) * 1200));
     }, 5300);
-    this.queue(() => this.runCycle(), 11200 + ((state.attractorIndex % 5) * 1500));
   },
 };
 
@@ -1133,6 +1151,7 @@ function installLocalTestHooks() {
     resetInteractiveState,
     attractorPoolStats,
     renderAttractorClipping: () => renderAttractorClipping(nextAttractorRecord() || state.attractorPool[0]),
+    fadeAttractorClipping: () => AttractorMode.fadeCurrentClipping(() => {}),
     runAttractorCycle: () => AttractorMode.runCycle(),
   };
 }
