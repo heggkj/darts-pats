@@ -11,7 +11,7 @@ import '../styles/corridor.css';
     <title>The Breeze Between Town and Gown</title>
   </head>
   <body>
-    <a class="skip-link" href="#walk-years">Skip to the corridor</a>
+    <a class="skip-link" href="#walk-years">Skip to the Memory Corridor</a>
 
     <nav class="memory-rail" aria-labelledby="memory-rail-title">
       <div class="memory-rail__header">
@@ -20,45 +20,45 @@ import '../styles/corridor.css';
       </div>
       <div class="memory-rail__tokens">
         <button class="rail-token rail-token--threshold is-active" data-rail-target="threshold" type="button" aria-current="true">
-          <span class="rail-token__stamp">Front page</span>
+          <span class="rail-token__stamp">Start</span>
           <strong>Threshold</strong>
         </button>
         <button class="rail-token rail-token--years" data-rail-target="walk-years" type="button">
-          <span class="rail-token__stamp">Floor file</span>
-          <strong>Walk the Years</strong>
+          <span class="rail-token__stamp">Hall</span>
+          <strong>Memory Corridor</strong>
         </button>
         <button class="rail-token rail-token--friction" data-rail-target="friction-map" type="button">
-          <span class="rail-token__stamp">String board</span>
-          <strong>The Friction Map</strong>
-        </button>
-        <button class="rail-token rail-token--trouble" data-rail-target="trouble-spots" type="button">
-          <span class="rail-token__stamp">Trouble tab</span>
-          <strong>The Trouble Spots</strong>
+          <span class="rail-token__stamp">Strings</span>
+          <strong>Follow the Strings</strong>
         </button>
         <button class="rail-token rail-token--drawer" data-rail-target="open-drawer" type="button">
-          <span class="rail-token__stamp">Pull handle</span>
+          <span class="rail-token__stamp">Drawer</span>
           <strong>Open the Drawer</strong>
         </button>
         <button class="rail-token rail-token--editor" data-rail-target="editor-game" type="button">
-          <span class="rail-token__stamp">Ink desk</span>
+          <span class="rail-token__stamp">Desk</span>
           <strong>Editor’s Table</strong>
         </button>
         <button class="rail-token rail-token--reflection" data-rail-target="reflection-wall" type="button">
-          <span class="rail-token__stamp">Last note</span>
+          <span class="rail-token__stamp">Wall</span>
           <strong>Reflection Wall</strong>
         </button>
+        <button class="rail-token rail-token--class" id="class-tray-toggle" type="button" aria-expanded="false" aria-controls="class-tray">
+          <span class="rail-token__stamp">Years</span>
+          <strong>Class of…</strong>
+        </button>
       </div>
-      <div class="memory-lane" aria-labelledby="memory-lane-title">
-        <p class="memory-lane__eyebrow" id="memory-lane-title">Take me to my years</p>
-        <div class="memory-lane__dial" aria-hidden="true"></div>
-        <label class="memory-lane__label" for="memory-year">Choose a year</label>
-        <input id="memory-year" type="range" min="1991" max="2026" value="2008" step="1" />
-        <output class="memory-lane__year" id="memory-year-output" for="memory-year">2008</output>
-        <div class="memory-lane__buttons">
-          <button class="memory-lane__step" id="memory-year-back" type="button" aria-label="Choose previous year">−</button>
-          <button class="memory-lane__go" id="memory-year-go" type="button">Pull year</button>
-          <button class="memory-lane__step" id="memory-year-forward" type="button" aria-label="Choose next year">+</button>
+      <div class="class-tray" id="class-tray" hidden aria-labelledby="class-tray-title">
+        <p class="class-tray__title" id="class-tray-title">Class of…</p>
+        <label class="class-tray__label" for="class-year">Show my four JMU years</label>
+        <input id="class-year" type="range" min="1991" max="2026" value="2004" step="1" />
+        <output class="class-tray__window" id="class-year-output" for="class-year">Class of 2004: 2001–2004</output>
+        <div class="class-tray__buttons">
+          <button class="class-tray__step" id="class-year-back" type="button" aria-label="Choose previous class year">−</button>
+          <button class="class-tray__go" id="class-year-go" type="button">Show my four JMU years</button>
+          <button class="class-tray__step" id="class-year-forward" type="button" aria-label="Choose next class year">+</button>
         </div>
+        <button class="class-tray__clear" id="class-year-clear" type="button">Show all years</button>
       </div>
     </nav>
 
@@ -140,26 +140,22 @@ import '../styles/corridor.css';
       <section class="corridor" id="walk-years" data-chapter="walk-years" aria-labelledby="corridor-title">
         <div class="section-heading">
           <p class="kicker">2.5D corridor</p>
-          <h2 id="corridor-title">Walk the Years</h2>
-          <p id="corridor-subtitle">Use the floor timeline, topic doors, or filters to move through the archive.</p>
+          <h2 id="corridor-title">The Memory Corridor</h2>
+          <p id="corridor-subtitle">A quieter hallway of floor years, wall cards, and civic friction.</p>
+          <button class="active-memory-chip" id="class-window-chip" type="button" hidden></button>
         </div>
 
         <aside class="word-breeze" id="word-breeze" aria-labelledby="word-breeze-title">
           <div>
-            <p class="kicker" id="word-breeze-title">Word Breeze</p>
-            <p>The archive is whispering about...</p>
+            <p id="word-breeze-title">The archive is whispering about…</p>
           </div>
           <div class="word-breeze__cloud" id="word-breeze-cloud" aria-label="Words drifting through this view"></div>
           <div class="word-breeze__list" id="word-breeze-list" hidden aria-live="polite"></div>
         </aside>
 
-        <div class="walk-controls" aria-label="Walk the corridor">
-          <button class="walk-button" data-walk="left" type="button" aria-label="Walk left through the corridor">← Walk left</button>
-          <p>Swipe the hallway or use the walk buttons.</p>
-          <button class="walk-button" data-walk="right" type="button" aria-label="Walk right through the corridor">Walk right →</button>
-        </div>
-
         <div class="corridor-pan" id="corridor-pan" tabindex="0" aria-label="Swipe or drag sideways to walk through the corridor">
+          <button class="corridor-edge-button corridor-edge-button--left" data-walk="left" type="button" aria-label="Walk left through the corridor">‹</button>
+          <button class="corridor-edge-button corridor-edge-button--right" data-walk="right" type="button" aria-label="Walk right through the corridor">›</button>
           <div class="corridor-stage" aria-live="polite" data-corridor-stage>
             <div class="corridor-stage__ceiling" aria-hidden="true"></div>
             <div class="corridor-stage__vanish" aria-hidden="true"></div>
@@ -177,9 +173,11 @@ import '../styles/corridor.css';
                 <h3 id="current-view-title">All town-gown Darts & Pats</h3>
                 <p id="current-view-summary">Loading the archive…</p>
                 <div class="view-meters" id="view-meters"></div>
+                <div class="featured-cards" id="featured-cards" aria-label="Featured cards from this corridor view"></div>
+                <a class="button button--small button--ghost back-wall__drawer-link" href="#open-drawer">Open the full drawer</a>
               </div>
               <div class="corridor-walkway">
-                <div class="trouble-spots" id="trouble-spots" data-chapter="trouble-spots" aria-label="The Trouble Spots">
+                <div class="trouble-spots" id="trouble-spots" aria-label="Topic stations">
                   <div class="topic-doors" id="topic-doors" aria-label="Topic doors and stations"></div>
                 </div>
                 <div class="floor-run" aria-labelledby="floor-title">
@@ -197,7 +195,6 @@ import '../styles/corridor.css';
                   <div class="floor-timeline" id="floor-timeline" aria-label="Timeline floor from 1991 to 2026"></div>
                 </div>
               </div>
-              <p class="corridor-hint">Open any card on either wall, or use a topic station to let the hallway rearrange itself.</p>
             </div>
             <aside class="wall wall--right" aria-label="Pats wall">
               <div class="wall__label">
@@ -209,10 +206,6 @@ import '../styles/corridor.css';
             </aside>
           </div>
         </div>
-        <div class="walk-controls walk-controls--bottom" aria-label="Walk the corridor">
-          <button class="walk-button" data-walk="left" type="button" aria-label="Walk left through the corridor">← Walk left</button>
-          <button class="walk-button" data-walk="right" type="button" aria-label="Walk right through the corridor">Walk right →</button>
-        </div>
       </section>
 
       <section class="network-section" id="friction-map" data-chapter="friction-map" aria-labelledby="network-title">
@@ -223,8 +216,13 @@ import '../styles/corridor.css';
         </div>
         <div class="string-room-actions" aria-label="Follow the Strings actions">
           <button class="button button--small button--ghost" id="return-corridor" type="button">Return to Memory Corridor</button>
-          <button class="button button--small" id="use-string-theme" type="button">Use this theme in Memory Corridor</button>
-          <button class="button button--small button--ghost" id="clear-string-theme" type="button">Clear corridor theme</button>
+          <details class="send-corridor" id="send-corridor">
+            <summary>Send to corridor</summary>
+            <div class="send-corridor__actions">
+              <button class="button button--small button--ghost" id="use-string-theme" type="button">Also show this theme in the corridor</button>
+              <button class="button button--small button--ghost" id="clear-string-theme" type="button">Clear corridor theme</button>
+            </div>
+          </details>
         </div>
         <div class="network-board string-board" id="network-board">
           <svg id="network-edges" aria-hidden="true"></svg>
@@ -250,7 +248,7 @@ import '../styles/corridor.css';
           <p>Read a hidden card, guess whether it was a Dart or Pat, then reveal how it appeared and where it fits in the exhibit.</p>
         </div>
         <div class="game-card">
-          <p class="game-pool-note" id="game-pool-note">Some cards are held out because they name their own form.</p>
+          <p class="game-pool-note" id="game-pool-note">Some cards are held out or masked because they give away their own form.</p>
           <blockquote id="game-text">Loading a card…</blockquote>
           <div class="game-fieldset" aria-label="Editor guesses">
             <fieldset>

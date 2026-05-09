@@ -2,7 +2,7 @@ const DATA_URL = '/data/town_gown_exhibit_records_enriched.json';
 const SUMMARY_URL = '/data/town_gown_exhibit_analysis_summary.json';
 const IDLE_RESET_MS = 105000;
 const IDLE_WARNING_MS = 2400;
-const SELF_SPOILING_FORM_RE = /\b(dart|darts|pat|pats)\b/i;
+const EDITOR_FORM_WORD_RE = /\b(dart|darts|pat|pats)\b/gi;
 
 const topicIcons = {
   housing_landlords_apartments: '/assets/generated/icon-housing.svg',
@@ -50,11 +50,13 @@ const state = {
   summary: null,
   filtered: [],
   year: 'all',
+  classYear: 'all',
   era: 'all',
   topic: 'all',
   kind: 'all',
   search: '',
   gameRecord: null,
+  gameChallengeText: '',
   gameKindGuess: '',
   gameTopicGuess: '',
   activeRecordId: null,
@@ -79,6 +81,8 @@ const els = {
   currentTitle: document.querySelector('#current-view-title'),
   currentSummary: document.querySelector('#current-view-summary'),
   viewMeters: document.querySelector('#view-meters'),
+  featuredCards: document.querySelector('#featured-cards'),
+  classWindowChip: document.querySelector('#class-window-chip'),
   wordBreeze: document.querySelector('#word-breeze'),
   wordBreezeCloud: document.querySelector('#word-breeze-cloud'),
   wordBreezeList: document.querySelector('#word-breeze-list'),
@@ -93,6 +97,7 @@ const els = {
   returnCorridor: document.querySelector('#return-corridor'),
   useStringTheme: document.querySelector('#use-string-theme'),
   clearStringTheme: document.querySelector('#clear-string-theme'),
+  sendCorridor: document.querySelector('#send-corridor'),
   gameText: document.querySelector('#game-text'),
   gamePoolNote: document.querySelector('#game-pool-note'),
   gameResult: document.querySelector('#game-result'),
@@ -109,11 +114,14 @@ const els = {
   idleOverlay: document.querySelector('#idle-overlay'),
   railButtons: document.querySelectorAll('[data-rail-target]'),
   chapterSections: document.querySelectorAll('[data-chapter]'),
-  memoryYear: document.querySelector('#memory-year'),
-  memoryYearOutput: document.querySelector('#memory-year-output'),
-  memoryYearGo: document.querySelector('#memory-year-go'),
-  memoryYearBack: document.querySelector('#memory-year-back'),
-  memoryYearForward: document.querySelector('#memory-year-forward'),
+  classTrayToggle: document.querySelector('#class-tray-toggle'),
+  classTray: document.querySelector('#class-tray'),
+  classYear: document.querySelector('#class-year'),
+  classYearOutput: document.querySelector('#class-year-output'),
+  classYearGo: document.querySelector('#class-year-go'),
+  classYearBack: document.querySelector('#class-year-back'),
+  classYearForward: document.querySelector('#class-year-forward'),
+  classYearClear: document.querySelector('#class-year-clear'),
 };
 
 let idleTimer = null;
@@ -169,17 +177,45 @@ function recordSearchBlob(record) {
   ].filter(Boolean).join(' '));
 }
 
-function editorChallengeText(record) {
-  return [
-    record.text_full,
-    record.text,
-    record.title,
-    record.summary,
-  ].filter(Boolean).join(' ');
+function classWindowYears(classYear = state.classYear) {
+  if (classYear === 'all') return [];
+  const end = Math.min(2026, Math.max(1991, Number(classYear) || 1991));
+  const start = Math.max(1991, end - 3);
+  return Array.from({ length: end - start + 1 }, (_, index) => start + index);
+}
+
+function classWindowLabel(classYear = state.classYear) {
+  const years = classWindowYears(classYear);
+  if (!years.length) return '';
+  const end = years[years.length - 1];
+  const range = years.length === 1 ? `${years[0]}` : `${years[0]}–${end}`;
+  return `Class of ${end}: ${range}`;
+}
+
+function editorChallenge(record) {
+  const original = String(record.text_full || '').replace(/\s+/g, ' ').trim();
+  let maskCount = 0;
+  const masked = original
+    .replace(EDITOR_FORM_WORD_RE, () => {
+      maskCount += 1;
+      return '[form hidden]';
+    })
+    .replace(/^\s*(?:a|an|the)\s+\[form hidden\]\s+(to|for)\s+/i, (_, prep) => `${prep.charAt(0).toUpperCase()}${prep.slice(1)} `)
+    .replace(/^\s*\[form hidden\]\s+(to|for)\s+/i, (_, prep) => `${prep.charAt(0).toUpperCase()}${prep.slice(1)} `)
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  const wordCount = (masked.match(/[a-zA-Z]{3,}/g) || []).length;
+  const hiddenShare = masked.length ? (maskCount * '[form hidden]'.length) / masked.length : 1;
+  return {
+    text: masked,
+    maskCount,
+    playable: masked.length >= 60 && wordCount >= 10 && maskCount <= 4 && hiddenShare <= 0.28,
+  };
 }
 
 function isEditorEligible(record) {
-  return !SELF_SPOILING_FORM_RE.test(editorChallengeText(record));
+  return editorChallenge(record).playable;
 }
 
 function getEditorPool() {
@@ -209,8 +245,11 @@ function topicMatches(record, topicValue) {
 
 function filterRecords() {
   const query = normalize(state.search).trim();
+  const activeClassYears = classWindowYears();
   state.filtered = state.records.filter((record) => {
-    const yearOk = state.year === 'all' || String(record.year) === state.year;
+    const yearOk = activeClassYears.length
+      ? activeClassYears.includes(Number(record.year))
+      : state.year === 'all' || String(record.year) === state.year;
     const eraOk = state.era === 'all' || record.era === state.era;
     const topicOk = topicMatches(record, state.topic);
     const kindOk = state.kind === 'all' || record.kind === state.kind;
@@ -225,11 +264,19 @@ function updateControlsFromState() {
   els.topic.value = state.topic;
   els.kind.value = state.kind;
   els.search.value = state.search;
-  if (state.year !== 'all') syncMemoryYear(state.year);
+  if (state.classYear !== 'all') syncClassYear(state.classYear);
+  updateClassWindowChip();
 }
 
 function applyState(patch = {}) {
-  Object.assign(state, patch);
+  const nextPatch = { ...patch };
+  if (Object.hasOwn(nextPatch, 'classYear') && nextPatch.classYear !== 'all') {
+    nextPatch.year = 'all';
+  }
+  if (Object.hasOwn(nextPatch, 'year') && nextPatch.year !== 'all') {
+    nextPatch.classYear = 'all';
+  }
+  Object.assign(state, nextPatch);
   updateControlsFromState();
   filterRecords();
   renderAll();
@@ -257,17 +304,18 @@ function renderStats() {
   const mood = total === 0 ? 'quiet' : Math.abs(darts - pats) <= Math.max(2, total * 0.12) ? 'mixed' : darts > pats ? 'dart-heavy' : 'pat-heavy';
 
   const titleParts = [];
+  if (state.classYear !== 'all') titleParts.push(classWindowLabel());
   if (state.year !== 'all') titleParts.push(state.year);
   if (state.era !== 'all') titleParts.push(state.era);
   if (state.topic !== 'all') titleParts.push(getTopicLabel(state.topic));
   if (state.kind !== 'all') titleParts.push(getKindLabel(state.kind));
 
   els.currentTitle.textContent = titleParts.length ? titleParts.join(' / ') : 'All town-gown Darts & Pats';
-  els.currentSummary.textContent = `Showing ${total} ${pluralize(total, 'record')} from The Breeze: ${darts} ${pluralize(darts, 'Dart')} and ${pats} ${pluralize(pats, 'Pat')}. The hallway mood is ${mood}${state.search ? ` for “${state.search}”` : ''}.`;
+  els.currentSummary.textContent = `The hallway is ${mood}${state.search ? ` around “${state.search}”` : ''}: ${darts} sharp notes, ${pats} warm notes, ${total} openable cards.`;
   els.viewMeters.innerHTML = `
-    <div class="view-meter"><b>${total}</b><span>openable cards</span></div>
-    <div class="view-meter view-meter--dart"><b>${dartShare}%</b><span>Dart share</span></div>
-    <div class="view-meter view-meter--pat"><b>${patShare}%</b><span>Pat share</span></div>
+    <div class="view-meter"><b>${total}</b><span>cards</span></div>
+    <div class="view-meter view-meter--dart"><b>${dartShare}%</b><span>Darts</span></div>
+    <div class="view-meter view-meter--pat"><b>${patShare}%</b><span>Pats</span></div>
   `;
 }
 
@@ -293,9 +341,19 @@ function makeRecordCard(record, options = {}) {
 function renderWalls() {
   const darts = state.filtered.filter((record) => record.kind === 'DART');
   const pats = state.filtered.filter((record) => record.kind === 'PAT');
+  const wallSort = (a, b) => (b.tone_intensity || 0) - (a.tone_intensity || 0) || dateSort(a, b);
 
-  els.dartRack.innerHTML = darts.length ? darts.map((record, index) => makeRecordCard(record, { depth: index })).join('') : '<p class="empty-note">No Darts in this view. The wall is listening, which is ominous.</p>';
-  els.patRack.innerHTML = pats.length ? pats.map((record, index) => makeRecordCard(record, { depth: index })).join('') : '<p class="empty-note">No Pats in this view. Warmth has left the hallway for a minute.</p>';
+  els.dartRack.innerHTML = darts.length ? [...darts].sort(wallSort).slice(0, 4).map((record, index) => makeRecordCard(record, { depth: index })).join('') : '<p class="empty-note">No Darts in this view.</p>';
+  els.patRack.innerHTML = pats.length ? [...pats].sort(wallSort).slice(0, 4).map((record, index) => makeRecordCard(record, { depth: index })).join('') : '<p class="empty-note">No Pats in this view.</p>';
+}
+
+function renderFeaturedCards() {
+  if (!els.featuredCards) return;
+  const featured = [...state.filtered]
+    .sort((a, b) => (b.tone_intensity || 0) - (a.tone_intensity || 0) || dateSort(a, b))
+    .slice(0, 4);
+
+  els.featuredCards.innerHTML = featured.length ? featured.map((record, index) => makeRecordCard(record, { compact: true, depth: index })).join('') : '<p class="empty-note">No featured cards in this view.</p>';
 }
 
 function yearMoodClass(year) {
@@ -323,7 +381,12 @@ function renderTimeline() {
 }
 
 function renderTopicDoors() {
-  els.topicDoors.innerHTML = state.summary.topics.map((topic, index) => {
+  const topics = state.summary.topics || [];
+  const visibleTopics = topics.slice(0, 7);
+  const activeTopic = topics.find((topic) => topic.topic === state.topic);
+  if (activeTopic && !visibleTopics.some((topic) => topic.topic === activeTopic.topic)) visibleTopics.push(activeTopic);
+
+  els.topicDoors.innerHTML = visibleTopics.map((topic, index) => {
     const active = state.topic === topic.topic;
     const icon = topicIcons[topic.topic] || topicIcons.other_unspecified;
     const prop = topicObjects[topic.topic] || topicObjects.other_unspecified;
@@ -381,7 +444,7 @@ function wordBreezeItems() {
 
   return [...counts.entries()]
     .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
-    .slice(0, 16)
+    .slice(0, 10)
     .map(([word, count], index) => ({ word, count, label: breezeWordLabel(word), level: (index % 5) + 1 }));
 }
 
@@ -424,8 +487,7 @@ function renderWordBreezeList(term) {
 
 function renderGamePoolNote() {
   if (!els.gamePoolNote) return;
-  const visibleWithheld = state.filtered.filter((record) => !isEditorEligible(record)).length;
-  els.gamePoolNote.textContent = `${state.editorWithheldRecords.length} archive cards are held out of this game because they name their own form${visibleWithheld ? `; ${visibleWithheld} are in the current corridor view` : ''}.`;
+  els.gamePoolNote.textContent = 'Some cards are held out or masked because they give away their own form.';
 }
 
 function renderAll() {
@@ -433,6 +495,7 @@ function renderAll() {
   renderWalls();
   renderTimeline();
   renderTopicDoors();
+  renderFeaturedCards();
   renderShelf();
   renderWordBreeze();
   if (state.wordBreezeTerm) renderWordBreezeList(state.wordBreezeTerm);
@@ -575,12 +638,23 @@ function renderDrawer(record) {
 
 function makeGameCard() {
   const pool = getEditorPool();
-  const visibleWithheld = state.filtered.filter((record) => !isEditorEligible(record)).length;
+  if (!pool.length) {
+    state.gameRecord = null;
+    state.gameChallengeText = '';
+    els.gameText.textContent = 'No playable card is available in this view.';
+    els.gameResult.textContent = 'Try clearing a filter or opening the full drawer.';
+    els.gameRelated.innerHTML = '';
+    updateGameRevealState();
+    return;
+  }
+
   state.gameRecord = pool[Math.floor(Math.random() * pool.length)];
+  const challenge = editorChallenge(state.gameRecord);
+  state.gameChallengeText = challenge.text;
   state.gameKindGuess = '';
   state.gameTopicGuess = '';
-  els.gameText.textContent = state.gameRecord?.text_full || 'No card available.';
-  els.gamePoolNote.textContent = `${state.editorWithheldRecords.length} archive cards are held out of this game because they name their own form${visibleWithheld ? `; ${visibleWithheld} are in the current corridor view` : ''}.`;
+  els.gameText.textContent = state.gameChallengeText || 'No card available.';
+  renderGamePoolNote();
   els.gameResult.textContent = 'Choose a form and a topic. No points. Just interpretation with ink on its fingers.';
   els.gameRelated.innerHTML = '';
   els.gameTopicGuess.value = '';
@@ -604,6 +678,7 @@ function revealGameGuess() {
   const topicVerdict = sameTopic ? 'and your topic guess belongs in the same hallway station' : 'and your topic guess opens a neighboring civic door';
   const related = relatedRecords(record);
 
+  els.gameText.textContent = record.text_full || state.gameChallengeText;
   els.gameResult.innerHTML = `
     ${escapeHtml(kindVerdict)}, ${escapeHtml(topicVerdict)}. It appeared as a <strong>${escapeHtml(record.kind)}</strong> on ${escapeHtml(formatDate(record.date))}, tagged as <strong>${escapeHtml(record.primary_topic_label)}</strong>.
     <button class="button button--small button--ghost" data-record-id="${record.id}" type="button">Open this card</button>
@@ -792,7 +867,7 @@ function renderNetwork() {
   els.stringYears.innerHTML = topYears.map(([year, count]) => `<span style="--year-weight:${Math.max(0.18, count / maxYearCount).toFixed(2)}">${year}</span>`).join('');
 
   if (els.useStringTheme) {
-    els.useStringTheme.textContent = `Use “${selectedTheme.label}” in Memory Corridor`;
+    els.useStringTheme.textContent = `Also show “${selectedTheme.label}” in the corridor`;
   }
 }
 
@@ -852,7 +927,7 @@ function bindMemoryRail() {
       if (!target) return;
       setActiveChapter(targetId);
       scrollToElement(target);
-      if (targetId === 'walk-years' || targetId === 'trouble-spots') {
+      if (targetId === 'walk-years') {
         window.requestAnimationFrame(() => els.corridorPan?.focus({ preventScroll: true }));
       }
     });
@@ -876,19 +951,41 @@ function bindMemoryRail() {
   }
 }
 
-function syncMemoryYear(year = els.memoryYear?.value || '2008') {
-  if (!els.memoryYear || !els.memoryYearOutput) return;
-  const min = Number(els.memoryYear.min);
-  const max = Number(els.memoryYear.max);
+function syncClassYear(year = els.classYear?.value || '2004') {
+  if (!els.classYear || !els.classYearOutput) return;
+  const min = Number(els.classYear.min);
+  const max = Number(els.classYear.max);
   const numericYear = Math.min(max, Math.max(min, Number(year) || min));
-  els.memoryYear.value = String(numericYear);
-  els.memoryYearOutput.value = String(numericYear);
-  els.memoryYearOutput.textContent = String(numericYear);
+  els.classYear.value = String(numericYear);
+  els.classYearOutput.value = classWindowLabel(numericYear);
+  els.classYearOutput.textContent = classWindowLabel(numericYear);
 }
 
-function nudgeMemoryYear(delta) {
-  if (!els.memoryYear) return;
-  syncMemoryYear(Number(els.memoryYear.value) + delta);
+function updateClassWindowChip() {
+  if (!els.classWindowChip) return;
+  if (state.classYear === 'all') {
+    els.classWindowChip.hidden = true;
+    els.classWindowChip.textContent = '';
+    return;
+  }
+
+  const label = classWindowLabel();
+  els.classWindowChip.hidden = false;
+  els.classWindowChip.textContent = label;
+  els.classWindowChip.setAttribute('aria-label', `${label}. Tap to change class years.`);
+}
+
+function setClassTrayOpen(open) {
+  if (!els.classTray || !els.classTrayToggle) return;
+  els.classTray.hidden = !open;
+  els.classTrayToggle.setAttribute('aria-expanded', String(open));
+  els.classTrayToggle.classList.toggle('is-open', open);
+  if (open) window.requestAnimationFrame(() => els.classYear?.focus({ preventScroll: true }));
+}
+
+function nudgeClassYear(delta) {
+  if (!els.classYear) return;
+  syncClassYear(Number(els.classYear.value) + delta);
 }
 
 function focusYearTile(year) {
@@ -907,13 +1004,21 @@ function focusYearTile(year) {
   });
 }
 
-function jumpToMemoryYear() {
-  if (!els.memoryYear) return;
-  const year = els.memoryYear.value;
-  applyState({ year });
+function jumpToClassYear() {
+  if (!els.classYear) return;
+  const classYear = els.classYear.value;
+  applyState({ classYear });
+  setClassTrayOpen(false);
   setActiveChapter('walk-years');
   scrollToElement(document.querySelector('#walk-years'));
-  focusYearTile(year);
+  focusYearTile(classYear);
+}
+
+function clearClassYear() {
+  applyState({ classYear: 'all' });
+  setClassTrayOpen(false);
+  setActiveChapter('walk-years');
+  scrollToElement(document.querySelector('#walk-years'));
 }
 
 function useSelectedStringThemeInCorridor() {
@@ -931,7 +1036,8 @@ function clearStringThemeFromCorridor() {
 
 function startOver({ showOverlay = false } = {}) {
   if (els.drawer?.open) els.drawer.close();
-  applyState({ year: 'all', era: 'all', topic: 'all', kind: 'all', search: '' });
+  setClassTrayOpen(false);
+  applyState({ year: 'all', classYear: 'all', era: 'all', topic: 'all', kind: 'all', search: '' });
   makeGameCard();
   resetCorridorPan();
   window.history.replaceState(null, '', `${window.location.origin}${window.location.pathname}${window.location.search}`);
@@ -1043,21 +1149,30 @@ function bindEvents() {
   els.topic.addEventListener('change', (event) => applyState({ topic: event.target.value }));
   els.kind.addEventListener('change', (event) => applyState({ kind: event.target.value }));
   els.search.addEventListener('input', (event) => applyState({ search: event.target.value }));
-  els.reset.addEventListener('click', () => applyState({ year: 'all', era: 'all', topic: 'all', kind: 'all', search: '' }));
+  els.reset.addEventListener('click', () => applyState({ year: 'all', classYear: 'all', era: 'all', topic: 'all', kind: 'all', search: '' }));
   els.startOver.addEventListener('click', () => startOver());
   els.kioskEnter.addEventListener('click', enterCorridor);
   els.presentationMode.addEventListener('click', togglePresentationMode);
   document.addEventListener('fullscreenchange', updatePresentationButton);
-  els.memoryYear?.addEventListener('input', (event) => syncMemoryYear(event.target.value));
-  els.memoryYearGo?.addEventListener('click', jumpToMemoryYear);
-  els.memoryYearBack?.addEventListener('click', () => nudgeMemoryYear(-1));
-  els.memoryYearForward?.addEventListener('click', () => nudgeMemoryYear(1));
+  els.classTrayToggle?.addEventListener('click', () => setClassTrayOpen(els.classTray?.hidden));
+  els.classWindowChip?.addEventListener('click', () => setClassTrayOpen(true));
+  els.classYear?.addEventListener('input', (event) => syncClassYear(event.target.value));
+  els.classYearGo?.addEventListener('click', jumpToClassYear);
+  els.classYearBack?.addEventListener('click', () => nudgeClassYear(-1));
+  els.classYearForward?.addEventListener('click', () => nudgeClassYear(1));
+  els.classYearClear?.addEventListener('click', clearClassYear);
   els.returnCorridor?.addEventListener('click', () => {
     setActiveChapter('walk-years');
     scrollToElement(document.querySelector('#walk-years'));
   });
-  els.useStringTheme?.addEventListener('click', useSelectedStringThemeInCorridor);
-  els.clearStringTheme?.addEventListener('click', clearStringThemeFromCorridor);
+  els.useStringTheme?.addEventListener('click', () => {
+    useSelectedStringThemeInCorridor();
+    if (els.sendCorridor) els.sendCorridor.open = false;
+  });
+  els.clearStringTheme?.addEventListener('click', () => {
+    clearStringThemeFromCorridor();
+    if (els.sendCorridor) els.sendCorridor.open = false;
+  });
   els.walkButtons.forEach((button) => {
     button.addEventListener('click', () => walkCorridor(button.dataset.walk));
   });
