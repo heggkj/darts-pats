@@ -1,0 +1,174 @@
+---
+import '../styles/global.css';
+import '../styles/corridor.css';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A 2.5D interactive exhibit exploring JMU, Harrisonburg, and Rockingham County through town-gown Darts & Pats from The Breeze." />
+    <title>The Breeze Between Town and Gown</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#corridor">Skip to the corridor</a>
+
+    <main class="exhibit-shell" id="top">
+      <section class="threshold" aria-labelledby="threshold-title">
+        <div class="threshold__paper" aria-hidden="true"></div>
+        <p class="kicker">The Breeze archive / Darts & Pats / 1991–2026</p>
+        <h1 id="threshold-title">The Breeze Between Town and Gown</h1>
+        <p class="threshold__lede">
+          A walk through the petty, pointed, generous, funny, and revealing notes JMU people published about living beside Harrisonburg and Rockingham County.
+        </p>
+        <div class="threshold__actions">
+          <a class="button button--primary" href="#corridor">Enter the corridor</a>
+          <a class="button button--ghost" href="#editor-game">Try the editor table</a>
+        </div>
+        <dl class="stat-strip" id="stat-strip" aria-live="polite">
+          <div>
+            <dt>Records</dt>
+            <dd>616</dd>
+          </div>
+          <div>
+            <dt>Darts</dt>
+            <dd>373</dd>
+          </div>
+          <div>
+            <dt>Pats</dt>
+            <dd>243</dd>
+          </div>
+          <div>
+            <dt>Years</dt>
+            <dd>1991–2026</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="curator-note" aria-labelledby="curator-title">
+        <h2 id="curator-title">A public argument, one index card at a time</h2>
+        <p>
+          Darts and Pats are tiny letters, but together they expose a durable civic problem: shared space. Housing, crosswalks, buses, parties, storefronts, police, volunteers, and downtown life all become evidence of how campus and locality tug on each other.
+        </p>
+      </section>
+
+      <section class="controls-panel" aria-label="Filter the exhibit">
+        <div class="control-group">
+          <label for="year-filter">Year</label>
+          <select id="year-filter">
+            <option value="all">All years</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label for="era-filter">Era</label>
+          <select id="era-filter">
+            <option value="all">All eras</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label for="topic-filter">Topic</label>
+          <select id="topic-filter">
+            <option value="all">All topics</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label for="kind-filter">Form</label>
+          <select id="kind-filter">
+            <option value="all">Darts and Pats</option>
+            <option value="DART">Darts only</option>
+            <option value="PAT">Pats only</option>
+          </select>
+        </div>
+        <div class="control-group control-group--search">
+          <label for="search-filter">Search text, entities, source</label>
+          <input id="search-filter" type="search" placeholder="Try Main Street, bus, landlord, Mercy House…" />
+        </div>
+        <button class="button button--small" id="reset-filters" type="button">Reset</button>
+      </section>
+
+      <section class="corridor" id="corridor" aria-labelledby="corridor-title">
+        <div class="section-heading">
+          <p class="kicker">2.5D corridor</p>
+          <h2 id="corridor-title">Walk the relationship</h2>
+          <p id="corridor-subtitle">Use the floor timeline, topic doors, or filters to move through the archive.</p>
+        </div>
+
+        <div class="corridor-stage" aria-live="polite">
+          <div class="corridor-stage__ceiling" aria-hidden="true"></div>
+          <aside class="wall wall--left" aria-label="Darts wall">
+            <div class="wall__label"><span>🎯</span> Darts</div>
+            <div class="card-rack" id="dart-rack"></div>
+          </aside>
+          <div class="corridor-center">
+            <div class="back-wall">
+              <p class="kicker">Current view</p>
+              <h3 id="current-view-title">All town-gown Darts & Pats</h3>
+              <p id="current-view-summary">Loading the archive…</p>
+              <div class="view-meters" id="view-meters"></div>
+            </div>
+            <div class="topic-doors" id="topic-doors" aria-label="Topic doors"></div>
+            <div class="floor-timeline" id="floor-timeline" aria-label="Timeline floor"></div>
+          </div>
+          <aside class="wall wall--right" aria-label="Pats wall">
+            <div class="wall__label"><span>🤲</span> Pats</div>
+            <div class="card-rack" id="pat-rack"></div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="network-section" aria-labelledby="network-title">
+        <div class="section-heading">
+          <p class="kicker">Bulletin-board network</p>
+          <h2 id="network-title">Follow the strings</h2>
+          <p>Topics, places, and Darts/Pats are pinned together as a civic memory board. Click a pin to filter the corridor.</p>
+        </div>
+        <div class="network-board" id="network-board">
+          <svg id="network-edges" aria-hidden="true"></svg>
+          <div id="network-nodes"></div>
+        </div>
+      </section>
+
+      <section class="reader-section" aria-labelledby="reader-title">
+        <div class="section-heading">
+          <p class="kicker">Reading drawer</p>
+          <h2 id="reader-title">Open the notes</h2>
+          <p>Every card opens into the original text. The exhibit works best when the data visualization sends people back to the words.</p>
+        </div>
+        <div class="shelf" id="reading-shelf"></div>
+      </section>
+
+      <section class="editor-game" id="editor-game" aria-labelledby="editor-game-title">
+        <div class="section-heading">
+          <p class="kicker">No-score interpretive game</p>
+          <h2 id="editor-game-title">You be the Breeze editor</h2>
+          <p>Read a hidden card, guess whether it was a Dart or Pat, then reveal how it appeared and where it fits in the exhibit.</p>
+        </div>
+        <div class="game-card">
+          <blockquote id="game-text">Loading a card…</blockquote>
+          <div class="game-controls">
+            <button class="button button--small" data-guess="DART" type="button">I call it a Dart</button>
+            <button class="button button--small" data-guess="PAT" type="button">I call it a Pat</button>
+            <button class="button button--small button--ghost" id="new-game-card" type="button">New card</button>
+          </div>
+          <p class="game-result" id="game-result" aria-live="polite"></p>
+        </div>
+      </section>
+
+      <section class="source-note" aria-labelledby="source-title">
+        <h2 id="source-title">Source note</h2>
+        <p>
+          All entries are drawn from Darts & Pats published in <em>The Breeze</em>, James Madison University’s student newspaper. They are presented as historical evidence of perception, humor, grievance, gratitude, and civic memory—not as neutral measurements of the town-gown relationship.
+        </p>
+      </section>
+    </main>
+
+    <dialog class="record-drawer" id="record-drawer" aria-labelledby="drawer-title">
+      <form method="dialog" class="drawer-close-form">
+        <button class="drawer-close" value="close" aria-label="Close card">×</button>
+      </form>
+      <article id="drawer-content"></article>
+    </dialog>
+
+    <script type="module" src="/scripts/exhibit.js"></script>
+  </body>
+</html>

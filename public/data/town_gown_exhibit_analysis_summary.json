@@ -1,0 +1,1596 @@
+{
+  "metadata": {
+    "title": "Darts & Pats Town-Gown Exhibit Analysis",
+    "record_count": 616,
+    "date_min": "1991-08-26",
+    "date_max": "2026-04-09",
+    "counts": {
+      "darts": 373,
+      "pats": 243
+    },
+    "note": "Sentiment uses The Breeze's DART/PAT form as the primary signal; tone_intensity and topics are heuristic fields intended for visualization, not final scholarly coding."
+  },
+  "topics": [
+    {
+      "topic": "housing_landlords_apartments",
+      "label": "Housing, landlords & apartment life",
+      "description": "Off-campus apartments, landlords, maintenance, roommates, rent, complexes, and the ordinary frictions of student life beyond campus.",
+      "count": 148,
+      "darts": 113,
+      "pats": 35,
+      "pat_share": 0.236,
+      "dart_share": 0.764,
+      "sample_ids": [
+        131,
+        882,
+        937,
+        1109,
+        1115
+      ]
+    },
+    {
+      "topic": "streets_traffic_pedestrians",
+      "label": "Streets, traffic & pedestrian safety",
+      "description": "Main Street, Port Republic Road, crosswalks, drivers, intersections, trains, traffic lights, and the hazards of moving between town and campus.",
+      "count": 96,
+      "darts": 76,
+      "pats": 20,
+      "pat_share": 0.208,
+      "dart_share": 0.792,
+      "sample_ids": [
+        101,
+        125,
+        175,
+        221,
+        537
+      ]
+    },
+    {
+      "topic": "neighbors_parties_student_behavior",
+      "label": "Neighbors, parties & student behavior",
+      "description": "Noise, parties, alcohol, trash, vandalism, and the social boundary between students and residents.",
+      "count": 72,
+      "darts": 53,
+      "pats": 19,
+      "pat_share": 0.264,
+      "dart_share": 0.736,
+      "sample_ids": [
+        205,
+        313,
+        412,
+        643,
+        701
+      ]
+    },
+    {
+      "topic": "community_service_mutual_aid",
+      "label": "Community service & mutual aid",
+      "description": "Volunteer work, charity, children, schools, fundraising, service learning, and moments when JMU people help the locality.",
+      "count": 62,
+      "darts": 10,
+      "pats": 52,
+      "pat_share": 0.839,
+      "dart_share": 0.161,
+      "sample_ids": [
+        120,
+        245,
+        268,
+        274,
+        342
+      ]
+    },
+    {
+      "topic": "transit_buses_mobility",
+      "label": "Transit, buses & mobility",
+      "description": "Harrisonburg Transit, bus drivers, routes, stops, shuttles, and mobility dependence.",
+      "count": 49,
+      "darts": 24,
+      "pats": 25,
+      "pat_share": 0.51,
+      "dart_share": 0.49,
+      "sample_ids": [
+        346,
+        481,
+        857,
+        978,
+        993
+      ]
+    },
+    {
+      "topic": "parking_towing_cars",
+      "label": "Parking, towing & cars",
+      "description": "Parking lots, tows, hit cars, car alarms, vehicles, winter driving, and local transport annoyances.",
+      "count": 46,
+      "darts": 34,
+      "pats": 12,
+      "pat_share": 0.261,
+      "dart_share": 0.739,
+      "sample_ids": [
+        407,
+        472,
+        829,
+        764,
+        1285
+      ]
+    },
+    {
+      "topic": "local_business_restaurants",
+      "label": "Local businesses & restaurants",
+      "description": "Restaurants, bars, stores, malls, employees, owners, and students as local consumers.",
+      "count": 31,
+      "darts": 12,
+      "pats": 19,
+      "pat_share": 0.613,
+      "dart_share": 0.387,
+      "sample_ids": [
+        69,
+        1650,
+        1655,
+        1790,
+        1855
+      ]
+    },
+    {
+      "topic": "other_unspecified",
+      "label": "Other town-gown moments",
+      "description": "Town-gown items that do not fit cleanly into a single recurring theme.",
+      "count": 31,
+      "darts": 15,
+      "pats": 16,
+      "pat_share": 0.516,
+      "dart_share": 0.484,
+      "sample_ids": [
+        514,
+        544,
+        678,
+        912,
+        1024
+      ]
+    },
+    {
+      "topic": "police_public_safety_services",
+      "label": "Police, public safety & city services",
+      "description": "Harrisonburg Police, JMU police, officers, public safety, snow plows, city crews, trash, and local public services.",
+      "count": 24,
+      "darts": 10,
+      "pats": 14,
+      "pat_share": 0.583,
+      "dart_share": 0.417,
+      "sample_ids": [
+        191,
+        402,
+        697,
+        771,
+        824
+      ]
+    },
+    {
+      "topic": "downtown_arts_events",
+      "label": "Downtown, arts & events",
+      "description": "Downtown, music, shows, festivals, arts spaces, Macrock, and the cultural exchange between students and town.",
+      "count": 22,
+      "darts": 9,
+      "pats": 13,
+      "pat_share": 0.591,
+      "dart_share": 0.409,
+      "sample_ids": [
+        430,
+        594,
+        738,
+        1211,
+        1437
+      ]
+    },
+    {
+      "topic": "campus_expansion_boundary_construction",
+      "label": "Campus edge, construction & expansion",
+      "description": "Construction, university growth, the campus edge, stadiums, buildings, and the built environment around JMU.",
+      "count": 12,
+      "darts": 8,
+      "pats": 4,
+      "pat_share": 0.333,
+      "dart_share": 0.667,
+      "sample_ids": [
+        1,
+        606,
+        956,
+        1451,
+        1454
+      ]
+    },
+    {
+      "topic": "civic_identity_media_reputation",
+      "label": "Civic identity, media & reputation",
+      "description": "How The Breeze, students, alumni, locals, and institutions talk about the campus-community relationship itself.",
+      "count": 12,
+      "darts": 4,
+      "pats": 8,
+      "pat_share": 0.667,
+      "dart_share": 0.333,
+      "sample_ids": [
+        308,
+        835,
+        1223,
+        2179,
+        3301
+      ]
+    },
+    {
+      "topic": "weather_environment",
+      "label": "Weather, environment & infrastructure",
+      "description": "Snow, ice, heat, recycling, trash, litter, environmental efforts, and shared infrastructure stress.",
+      "count": 11,
+      "darts": 5,
+      "pats": 6,
+      "pat_share": 0.545,
+      "dart_share": 0.455,
+      "sample_ids": [
+        43,
+        523,
+        550,
+        1112,
+        1231
+      ]
+    }
+  ],
+  "eras": [
+    {
+      "era": "1991–1999",
+      "count": 186,
+      "darts": 97,
+      "pats": 89,
+      "pat_share": 0.478,
+      "dominant_topics": [
+        {
+          "topic": "Community service & mutual aid",
+          "count": 36
+        },
+        {
+          "topic": "Housing, landlords & apartment life",
+          "count": 32
+        },
+        {
+          "topic": "Streets, traffic & pedestrian safety",
+          "count": 29
+        },
+        {
+          "topic": "Transit, buses & mobility",
+          "count": 15
+        },
+        {
+          "topic": "Neighbors, parties & student behavior",
+          "count": 14
+        }
+      ]
+    },
+    {
+      "era": "2000–2009",
+      "count": 211,
+      "darts": 140,
+      "pats": 71,
+      "pat_share": 0.336,
+      "dominant_topics": [
+        {
+          "topic": "Housing, landlords & apartment life",
+          "count": 53
+        },
+        {
+          "topic": "Neighbors, parties & student behavior",
+          "count": 43
+        },
+        {
+          "topic": "Streets, traffic & pedestrian safety",
+          "count": 29
+        },
+        {
+          "topic": "Parking, towing & cars",
+          "count": 20
+        },
+        {
+          "topic": "Community service & mutual aid",
+          "count": 16
+        }
+      ]
+    },
+    {
+      "era": "2010–2019",
+      "count": 182,
+      "darts": 119,
+      "pats": 63,
+      "pat_share": 0.346,
+      "dominant_topics": [
+        {
+          "topic": "Housing, landlords & apartment life",
+          "count": 52
+        },
+        {
+          "topic": "Streets, traffic & pedestrian safety",
+          "count": 32
+        },
+        {
+          "topic": "Transit, buses & mobility",
+          "count": 19
+        },
+        {
+          "topic": "Neighbors, parties & student behavior",
+          "count": 14
+        },
+        {
+          "topic": "Parking, towing & cars",
+          "count": 13
+        }
+      ]
+    },
+    {
+      "era": "2020–2026",
+      "count": 37,
+      "darts": 17,
+      "pats": 20,
+      "pat_share": 0.541,
+      "dominant_topics": [
+        {
+          "topic": "Housing, landlords & apartment life",
+          "count": 11
+        },
+        {
+          "topic": "Streets, traffic & pedestrian safety",
+          "count": 6
+        },
+        {
+          "topic": "Local businesses & restaurants",
+          "count": 4
+        },
+        {
+          "topic": "Weather, environment & infrastructure",
+          "count": 3
+        },
+        {
+          "topic": "Other town-gown moments",
+          "count": 3
+        }
+      ]
+    }
+  ],
+  "yearly": [
+    {
+      "year": 1991,
+      "count": 7,
+      "darts": 5,
+      "pats": 2,
+      "pat_share": 0.286,
+      "dart_share": 0.714,
+      "dominant_topic": "Streets, traffic & pedestrian safety"
+    },
+    {
+      "year": 1992,
+      "count": 19,
+      "darts": 7,
+      "pats": 12,
+      "pat_share": 0.632,
+      "dart_share": 0.368,
+      "dominant_topic": "Community service & mutual aid"
+    },
+    {
+      "year": 1993,
+      "count": 21,
+      "darts": 7,
+      "pats": 14,
+      "pat_share": 0.667,
+      "dart_share": 0.333,
+      "dominant_topic": "Community service & mutual aid"
+    },
+    {
+      "year": 1994,
+      "count": 19,
+      "darts": 8,
+      "pats": 11,
+      "pat_share": 0.579,
+      "dart_share": 0.421,
+      "dominant_topic": "Streets, traffic & pedestrian safety"
+    },
+    {
+      "year": 1995,
+      "count": 28,
+      "darts": 11,
+      "pats": 17,
+      "pat_share": 0.607,
+      "dart_share": 0.393,
+      "dominant_topic": "Community service & mutual aid"
+    },
+    {
+      "year": 1996,
+      "count": 21,
+      "darts": 11,
+      "pats": 10,
+      "pat_share": 0.476,
+      "dart_share": 0.524,
+      "dominant_topic": "Housing, landlords & apartment life"
+    },
+    {
+      "year": 1997,
+      "count": 23,
+      "darts": 14,
+      "pats": 9,
+      "pat_share": 0.391,
+      "dart_share": 0.609,
+      "dominant_topic": "Housing, landlords & apartment life"
+    },
+    {
+      "year": 1998,
+      "count": 29,
+      "darts": 23,
+      "pats": 6,
+      "pat_share": 0.207,
+      "dart_share": 0.793,
+      "dominant_topic": "Housing, landlords & apartment life"
+    },
+    {
+      "year": 1999,
+      "count": 19,
+      "darts": 11,
+      "pats": 8,
+      "pat_share": 0.421,
+      "dart_share": 0.579,
+      "dominant_topic": "Housing, landlords & apartment life"
+    },
+    {
+      "year": 2000,
+      "count": 32,
+      "darts": 20,
+      "pats": 12,
+      "pat_share": 0.375,
+      "dart_share": 0.625,
+      "dominant_topic": "Housing, landlords & apartment life"
+    },
+    {
+      "year": 2001,
+      "count": 24,
+      "darts": 16,
+      "pats": 8,
+      "pat_share": 0.333,
+      "dart_share": 0.667,
+      "dominant_topic": "Housing, landlords & apartment life"
+    },
+    {
+      "year": 2002,
+      "count": 22,
+      "darts": 12,
+      "pats": 10,
+      "pat_share": 0.455,
+      "dart_share": 0.545,
+      "dominant_topic": "Neighbors, parties & student behavior"
+    },
+    {
+      "year": 2003,
+      "count": 10,
+      "darts": 5,
+      "pats": 5,
+      "pat_share": 0.5,
+      "dart_share": 0.5,
+      "dominant_topic": "Neighbors, parties & student behavior"
+    },
+    {
+      "year": 2004,
+      "count": 16,
+      "darts": 7,
+      "pats": 9,
+      "pat_share": 0.562,
+      "dart_share": 0.438,
+      "dominant_topic": "Housing, landlords & apartment life"
+    },
+    {
+      "year": 2005,
+      "count": 20,
+      "darts": 15,
+      "pats": 5,
+      "pat_share": 0.25,
+      "dart_share": 0.75,
+      "dominant_topic": "Neighbors, parties & student behavior"
+    },
+    {
+      "year": 2006,
+      "count": 22,
+      "darts": 18,
+      "pats": 4,
+      "pat_share": 0.182,
+      "dart_share": 0.818,
+      "dominant_topic": "Streets, traffic & pedestrian safety"
+    },
+    {
+      "year": 2007,
+      "count": 22,
+      "darts": 20,
+      "pats": 2,
+      "pat_share": 0.091,
+      "dart_share": 0.909,
+      "dominant_topic": "Neighbors, parties & student behavior"
+    },
+    {
+      "year": 2008,
+      "count": 27,
+      "darts": 16,
+      "pats": 11,
+      "pat_share": 0.407,
+      "dart_share": 0.593,
+      "dominant_topic": "Housing, landlords & apartment life"
+    },
+    {
+      "year": 2009,
+      "count": 16,
+      "darts": 11,
+      "pats": 5,
+      "pat_share": 0.312,
+      "dart_share": 0.688,
+      "dominant_topic": "Housing, landlords & apartment life"
+    },
+    {
+      "year": 2010,
+      "count": 23,
+      "darts": 17,
+      "pats": 6,
+      "pat_share": 0.261,
+      "dart_share": 0.739,
+      "dominant_topic": "Housing, landlords & apartment life"
+    },
+    {
+      "year": 2011,
+      "count": 29,
+      "darts": 13,
+      "pats": 16,
+      "pat_share": 0.552,
+      "dart_share": 0.448,
+      "dominant_topic": "Housing, landlords & apartment life"
+    },
+    {
+      "year": 2012,
+      "count": 27,
+      "darts": 17,
+      "pats": 10,
+      "pat_share": 0.37,
+      "dart_share": 0.63,
+      "dominant_topic": "Streets, traffic & pedestrian safety"
+    },
+    {
+      "year": 2013,
+      "count": 34,
+      "darts": 25,
+      "pats": 9,
+      "pat_share": 0.265,
+      "dart_share": 0.735,
+      "dominant_topic": "Housing, landlords & apartment life"
+    },
+    {
+      "year": 2014,
+      "count": 25,
+      "darts": 17,
+      "pats": 8,
+      "pat_share": 0.32,
+      "dart_share": 0.68,
+      "dominant_topic": "Housing, landlords & apartment life"
+    },
+    {
+      "year": 2015,
+      "count": 19,
+      "darts": 13,
+      "pats": 6,
+      "pat_share": 0.316,
+      "dart_share": 0.684,
+      "dominant_topic": "Streets, traffic & pedestrian safety"
+    },
+    {
+      "year": 2016,
+      "count": 14,
+      "darts": 8,
+      "pats": 6,
+      "pat_share": 0.429,
+      "dart_share": 0.571,
+      "dominant_topic": "Housing, landlords & apartment life"
+    },
+    {
+      "year": 2017,
+      "count": 4,
+      "darts": 3,
+      "pats": 1,
+      "pat_share": 0.25,
+      "dart_share": 0.75,
+      "dominant_topic": "Housing, landlords & apartment life"
+    },
+    {
+      "year": 2018,
+      "count": 1,
+      "darts": 1,
+      "pats": 0,
+      "pat_share": 0.0,
+      "dart_share": 1.0,
+      "dominant_topic": "Campus edge, construction & expansion"
+    },
+    {
+      "year": 2019,
+      "count": 6,
+      "darts": 5,
+      "pats": 1,
+      "pat_share": 0.167,
+      "dart_share": 0.833,
+      "dominant_topic": "Transit, buses & mobility"
+    },
+    {
+      "year": 2020,
+      "count": 6,
+      "darts": 2,
+      "pats": 4,
+      "pat_share": 0.667,
+      "dart_share": 0.333,
+      "dominant_topic": "Weather, environment & infrastructure"
+    },
+    {
+      "year": 2021,
+      "count": 4,
+      "darts": 2,
+      "pats": 2,
+      "pat_share": 0.5,
+      "dart_share": 0.5,
+      "dominant_topic": "Housing, landlords & apartment life"
+    },
+    {
+      "year": 2022,
+      "count": 6,
+      "darts": 3,
+      "pats": 3,
+      "pat_share": 0.5,
+      "dart_share": 0.5,
+      "dominant_topic": "Community service & mutual aid"
+    },
+    {
+      "year": 2023,
+      "count": 9,
+      "darts": 7,
+      "pats": 2,
+      "pat_share": 0.222,
+      "dart_share": 0.778,
+      "dominant_topic": "Housing, landlords & apartment life"
+    },
+    {
+      "year": 2024,
+      "count": 7,
+      "darts": 3,
+      "pats": 4,
+      "pat_share": 0.571,
+      "dart_share": 0.429,
+      "dominant_topic": "Streets, traffic & pedestrian safety"
+    },
+    {
+      "year": 2025,
+      "count": 2,
+      "darts": 0,
+      "pats": 2,
+      "pat_share": 1.0,
+      "dart_share": 0.0,
+      "dominant_topic": "Civic identity, media & reputation"
+    },
+    {
+      "year": 2026,
+      "count": 3,
+      "darts": 0,
+      "pats": 3,
+      "pat_share": 1.0,
+      "dart_share": 0.0,
+      "dominant_topic": "Housing, landlords & apartment life"
+    }
+  ],
+  "network": {
+    "nodes": [
+      {
+        "id": "topic:Campus edge, construction & expansion",
+        "label": "Campus edge, construction & expansion",
+        "type": "topic",
+        "count": 12
+      },
+      {
+        "id": "sentiment:DART",
+        "label": "DART",
+        "type": "sentiment",
+        "count": 373
+      },
+      {
+        "id": "entity:Campus Police / Public Safety",
+        "label": "Campus Police / Public Safety",
+        "type": "entity",
+        "count": 5
+      },
+      {
+        "id": "topic:Weather, environment & infrastructure",
+        "label": "Weather, environment & infrastructure",
+        "type": "topic",
+        "count": 11
+      },
+      {
+        "id": "entity:Harrisonburg",
+        "label": "Harrisonburg",
+        "type": "entity",
+        "count": 169
+      },
+      {
+        "id": "entity:City of Harrisonburg",
+        "label": "City of Harrisonburg",
+        "type": "entity",
+        "count": 11
+      },
+      {
+        "id": "topic:Local businesses & restaurants",
+        "label": "Local businesses & restaurants",
+        "type": "topic",
+        "count": 31
+      },
+      {
+        "id": "sentiment:PAT",
+        "label": "PAT",
+        "type": "sentiment",
+        "count": 243
+      },
+      {
+        "id": "entity:JMU",
+        "label": "JMU",
+        "type": "entity",
+        "count": 80
+      },
+      {
+        "id": "topic:Streets, traffic & pedestrian safety",
+        "label": "Streets, traffic & pedestrian safety",
+        "type": "topic",
+        "count": 96
+      },
+      {
+        "id": "entity:Main Street",
+        "label": "Main Street",
+        "type": "entity",
+        "count": 47
+      },
+      {
+        "id": "topic:Community service & mutual aid",
+        "label": "Community service & mutual aid",
+        "type": "topic",
+        "count": 62
+      },
+      {
+        "id": "entity:Valley Mall",
+        "label": "Valley Mall",
+        "type": "entity",
+        "count": 8
+      },
+      {
+        "id": "topic:Housing, landlords & apartment life",
+        "label": "Housing, landlords & apartment life",
+        "type": "topic",
+        "count": 148
+      },
+      {
+        "id": "entity:Madison Manor",
+        "label": "Madison Manor",
+        "type": "entity",
+        "count": 2
+      },
+      {
+        "id": "topic:Police, public safety & city services",
+        "label": "Police, public safety & city services",
+        "type": "topic",
+        "count": 24
+      },
+      {
+        "id": "topic:Neighbors, parties & student behavior",
+        "label": "Neighbors, parties & student behavior",
+        "type": "topic",
+        "count": 72
+      },
+      {
+        "id": "entity:Harrisonburg Police",
+        "label": "Harrisonburg Police",
+        "type": "entity",
+        "count": 41
+      },
+      {
+        "id": "entity:Mercy House",
+        "label": "Mercy House",
+        "type": "entity",
+        "count": 8
+      },
+      {
+        "id": "topic:Civic identity, media & reputation",
+        "label": "Civic identity, media & reputation",
+        "type": "topic",
+        "count": 12
+      },
+      {
+        "id": "topic:Transit, buses & mobility",
+        "label": "Transit, buses & mobility",
+        "type": "topic",
+        "count": 49
+      },
+      {
+        "id": "entity:Harrisonburg Transit",
+        "label": "Harrisonburg Transit",
+        "type": "entity",
+        "count": 66
+      },
+      {
+        "id": "topic:Parking, towing & cars",
+        "label": "Parking, towing & cars",
+        "type": "topic",
+        "count": 46
+      },
+      {
+        "id": "entity:Rockingham County",
+        "label": "Rockingham County",
+        "type": "entity",
+        "count": 14
+      },
+      {
+        "id": "entity:Salvation Army",
+        "label": "Salvation Army",
+        "type": "entity",
+        "count": 2
+      },
+      {
+        "id": "topic:Downtown, arts & events",
+        "label": "Downtown, arts & events",
+        "type": "topic",
+        "count": 22
+      },
+      {
+        "id": "topic:Other town-gown moments",
+        "label": "Other town-gown moments",
+        "type": "topic",
+        "count": 31
+      },
+      {
+        "id": "entity:Port Republic Road",
+        "label": "Port Republic Road",
+        "type": "entity",
+        "count": 22
+      },
+      {
+        "id": "entity:Hunter's Ridge",
+        "label": "Hunter's Ridge",
+        "type": "entity",
+        "count": 14
+      },
+      {
+        "id": "entity:Olde Mill",
+        "label": "Olde Mill",
+        "type": "entity",
+        "count": 8
+      },
+      {
+        "id": "entity:Downtown Harrisonburg",
+        "label": "Downtown Harrisonburg",
+        "type": "entity",
+        "count": 19
+      },
+      {
+        "id": "entity:Artful Dodger",
+        "label": "Artful Dodger",
+        "type": "entity",
+        "count": 3
+      },
+      {
+        "id": "entity:South View",
+        "label": "South View",
+        "type": "entity",
+        "count": 19
+      },
+      {
+        "id": "entity:Sunchase",
+        "label": "Sunchase",
+        "type": "entity",
+        "count": 14
+      },
+      {
+        "id": "entity:Macrock",
+        "label": "Macrock",
+        "type": "entity",
+        "count": 2
+      },
+      {
+        "id": "entity:The Breeze",
+        "label": "The Breeze",
+        "type": "entity",
+        "count": 4
+      },
+      {
+        "id": "entity:Kline's",
+        "label": "Kline's",
+        "type": "entity",
+        "count": 2
+      },
+      {
+        "id": "entity:Stone Gate",
+        "label": "Stone Gate",
+        "type": "entity",
+        "count": 13
+      },
+      {
+        "id": "entity:Copper Beech",
+        "label": "Copper Beech",
+        "type": "entity",
+        "count": 14
+      },
+      {
+        "id": "entity:Pheasant Run",
+        "label": "Pheasant Run",
+        "type": "entity",
+        "count": 8
+      }
+    ],
+    "edges": [
+      {
+        "source": "topic:Campus edge, construction & expansion",
+        "target": "sentiment:DART",
+        "count": 8
+      },
+      {
+        "source": "entity:Campus Police / Public Safety",
+        "target": "sentiment:DART",
+        "count": 4
+      },
+      {
+        "source": "topic:Weather, environment & infrastructure",
+        "target": "sentiment:DART",
+        "count": 5
+      },
+      {
+        "source": "topic:Weather, environment & infrastructure",
+        "target": "entity:Harrisonburg",
+        "count": 4
+      },
+      {
+        "source": "entity:Harrisonburg",
+        "target": "sentiment:DART",
+        "count": 88
+      },
+      {
+        "source": "entity:City of Harrisonburg",
+        "target": "sentiment:DART",
+        "count": 8
+      },
+      {
+        "source": "topic:Local businesses & restaurants",
+        "target": "sentiment:PAT",
+        "count": 19
+      },
+      {
+        "source": "topic:Local businesses & restaurants",
+        "target": "entity:JMU",
+        "count": 3
+      },
+      {
+        "source": "entity:JMU",
+        "target": "sentiment:PAT",
+        "count": 42
+      },
+      {
+        "source": "topic:Streets, traffic & pedestrian safety",
+        "target": "sentiment:DART",
+        "count": 76
+      },
+      {
+        "source": "topic:Streets, traffic & pedestrian safety",
+        "target": "entity:Harrisonburg",
+        "count": 17
+      },
+      {
+        "source": "topic:Streets, traffic & pedestrian safety",
+        "target": "entity:Main Street",
+        "count": 42
+      },
+      {
+        "source": "entity:Main Street",
+        "target": "sentiment:DART",
+        "count": 37
+      },
+      {
+        "source": "topic:Streets, traffic & pedestrian safety",
+        "target": "entity:Campus Police / Public Safety",
+        "count": 3
+      },
+      {
+        "source": "topic:Community service & mutual aid",
+        "target": "sentiment:PAT",
+        "count": 52
+      },
+      {
+        "source": "topic:Community service & mutual aid",
+        "target": "entity:JMU",
+        "count": 16
+      },
+      {
+        "source": "topic:Community service & mutual aid",
+        "target": "entity:Valley Mall",
+        "count": 3
+      },
+      {
+        "source": "entity:Valley Mall",
+        "target": "sentiment:PAT",
+        "count": 5
+      },
+      {
+        "source": "topic:Housing, landlords & apartment life",
+        "target": "sentiment:DART",
+        "count": 113
+      },
+      {
+        "source": "entity:Madison Manor",
+        "target": "sentiment:DART",
+        "count": 2
+      },
+      {
+        "source": "topic:Police, public safety & city services",
+        "target": "sentiment:DART",
+        "count": 10
+      },
+      {
+        "source": "topic:Police, public safety & city services",
+        "target": "entity:Harrisonburg",
+        "count": 13
+      },
+      {
+        "source": "topic:Neighbors, parties & student behavior",
+        "target": "sentiment:DART",
+        "count": 53
+      },
+      {
+        "source": "topic:Streets, traffic & pedestrian safety",
+        "target": "entity:JMU",
+        "count": 10
+      },
+      {
+        "source": "entity:JMU",
+        "target": "sentiment:DART",
+        "count": 38
+      },
+      {
+        "source": "topic:Streets, traffic & pedestrian safety",
+        "target": "entity:Harrisonburg Police",
+        "count": 5
+      },
+      {
+        "source": "entity:Harrisonburg Police",
+        "target": "sentiment:DART",
+        "count": 22
+      },
+      {
+        "source": "topic:Community service & mutual aid",
+        "target": "sentiment:DART",
+        "count": 10
+      },
+      {
+        "source": "topic:Community service & mutual aid",
+        "target": "entity:Mercy House",
+        "count": 8
+      },
+      {
+        "source": "entity:Mercy House",
+        "target": "sentiment:PAT",
+        "count": 7
+      },
+      {
+        "source": "topic:Civic identity, media & reputation",
+        "target": "sentiment:PAT",
+        "count": 8
+      },
+      {
+        "source": "topic:Community service & mutual aid",
+        "target": "entity:Harrisonburg",
+        "count": 21
+      },
+      {
+        "source": "entity:Harrisonburg",
+        "target": "sentiment:PAT",
+        "count": 81
+      },
+      {
+        "source": "topic:Transit, buses & mobility",
+        "target": "sentiment:PAT",
+        "count": 25
+      },
+      {
+        "source": "topic:Transit, buses & mobility",
+        "target": "entity:Harrisonburg",
+        "count": 26
+      },
+      {
+        "source": "topic:Transit, buses & mobility",
+        "target": "entity:JMU",
+        "count": 8
+      },
+      {
+        "source": "topic:Transit, buses & mobility",
+        "target": "entity:Harrisonburg Transit",
+        "count": 46
+      },
+      {
+        "source": "entity:Harrisonburg Transit",
+        "target": "sentiment:PAT",
+        "count": 33
+      },
+      {
+        "source": "topic:Police, public safety & city services",
+        "target": "sentiment:PAT",
+        "count": 14
+      },
+      {
+        "source": "topic:Parking, towing & cars",
+        "target": "sentiment:DART",
+        "count": 34
+      },
+      {
+        "source": "topic:Neighbors, parties & student behavior",
+        "target": "sentiment:PAT",
+        "count": 19
+      },
+      {
+        "source": "topic:Neighbors, parties & student behavior",
+        "target": "entity:Harrisonburg",
+        "count": 18
+      },
+      {
+        "source": "entity:Rockingham County",
+        "target": "sentiment:PAT",
+        "count": 12
+      },
+      {
+        "source": "topic:Community service & mutual aid",
+        "target": "entity:Salvation Army",
+        "count": 2
+      },
+      {
+        "source": "entity:Salvation Army",
+        "target": "sentiment:PAT",
+        "count": 2
+      },
+      {
+        "source": "topic:Downtown, arts & events",
+        "target": "sentiment:PAT",
+        "count": 13
+      },
+      {
+        "source": "topic:Downtown, arts & events",
+        "target": "entity:Harrisonburg",
+        "count": 12
+      },
+      {
+        "source": "topic:Downtown, arts & events",
+        "target": "entity:JMU",
+        "count": 6
+      },
+      {
+        "source": "topic:Parking, towing & cars",
+        "target": "sentiment:PAT",
+        "count": 12
+      },
+      {
+        "source": "topic:Transit, buses & mobility",
+        "target": "sentiment:DART",
+        "count": 24
+      },
+      {
+        "source": "entity:Harrisonburg Transit",
+        "target": "sentiment:DART",
+        "count": 33
+      },
+      {
+        "source": "topic:Other town-gown moments",
+        "target": "sentiment:PAT",
+        "count": 16
+      },
+      {
+        "source": "topic:Other town-gown moments",
+        "target": "entity:Rockingham County",
+        "count": 3
+      },
+      {
+        "source": "topic:Streets, traffic & pedestrian safety",
+        "target": "entity:Port Republic Road",
+        "count": 19
+      },
+      {
+        "source": "entity:Port Republic Road",
+        "target": "sentiment:DART",
+        "count": 13
+      },
+      {
+        "source": "topic:Weather, environment & infrastructure",
+        "target": "sentiment:PAT",
+        "count": 6
+      },
+      {
+        "source": "topic:Weather, environment & infrastructure",
+        "target": "entity:JMU",
+        "count": 4
+      },
+      {
+        "source": "topic:Community service & mutual aid",
+        "target": "entity:Rockingham County",
+        "count": 6
+      },
+      {
+        "source": "topic:Campus edge, construction & expansion",
+        "target": "sentiment:PAT",
+        "count": 4
+      },
+      {
+        "source": "entity:Main Street",
+        "target": "sentiment:PAT",
+        "count": 10
+      },
+      {
+        "source": "topic:Campus edge, construction & expansion",
+        "target": "entity:Harrisonburg Transit",
+        "count": 3
+      },
+      {
+        "source": "topic:Other town-gown moments",
+        "target": "entity:Harrisonburg",
+        "count": 16
+      },
+      {
+        "source": "topic:Police, public safety & city services",
+        "target": "entity:Harrisonburg Police",
+        "count": 16
+      },
+      {
+        "source": "topic:Neighbors, parties & student behavior",
+        "target": "entity:Hunter's Ridge",
+        "count": 2
+      },
+      {
+        "source": "entity:Hunter's Ridge",
+        "target": "sentiment:DART",
+        "count": 10
+      },
+      {
+        "source": "entity:Harrisonburg Police",
+        "target": "sentiment:PAT",
+        "count": 19
+      },
+      {
+        "source": "topic:Parking, towing & cars",
+        "target": "entity:Hunter's Ridge",
+        "count": 3
+      },
+      {
+        "source": "topic:Civic identity, media & reputation",
+        "target": "sentiment:DART",
+        "count": 4
+      },
+      {
+        "source": "topic:Civic identity, media & reputation",
+        "target": "entity:Harrisonburg",
+        "count": 7
+      },
+      {
+        "source": "topic:Civic identity, media & reputation",
+        "target": "entity:City of Harrisonburg",
+        "count": 2
+      },
+      {
+        "source": "topic:Streets, traffic & pedestrian safety",
+        "target": "sentiment:PAT",
+        "count": 20
+      },
+      {
+        "source": "entity:Port Republic Road",
+        "target": "sentiment:PAT",
+        "count": 9
+      },
+      {
+        "source": "topic:Housing, landlords & apartment life",
+        "target": "sentiment:PAT",
+        "count": 35
+      },
+      {
+        "source": "entity:Olde Mill",
+        "target": "sentiment:PAT",
+        "count": 3
+      },
+      {
+        "source": "entity:Hunter's Ridge",
+        "target": "sentiment:PAT",
+        "count": 4
+      },
+      {
+        "source": "topic:Community service & mutual aid",
+        "target": "entity:Downtown Harrisonburg",
+        "count": 3
+      },
+      {
+        "source": "entity:Downtown Harrisonburg",
+        "target": "sentiment:PAT",
+        "count": 13
+      },
+      {
+        "source": "topic:Housing, landlords & apartment life",
+        "target": "entity:Olde Mill",
+        "count": 6
+      },
+      {
+        "source": "entity:Olde Mill",
+        "target": "sentiment:DART",
+        "count": 5
+      },
+      {
+        "source": "topic:Downtown, arts & events",
+        "target": "sentiment:DART",
+        "count": 9
+      },
+      {
+        "source": "topic:Civic identity, media & reputation",
+        "target": "entity:JMU",
+        "count": 4
+      },
+      {
+        "source": "topic:Housing, landlords & apartment life",
+        "target": "entity:Harrisonburg",
+        "count": 15
+      },
+      {
+        "source": "topic:Housing, landlords & apartment life",
+        "target": "entity:JMU",
+        "count": 8
+      },
+      {
+        "source": "topic:Transit, buses & mobility",
+        "target": "entity:Hunter's Ridge",
+        "count": 3
+      },
+      {
+        "source": "topic:Streets, traffic & pedestrian safety",
+        "target": "entity:Harrisonburg Transit",
+        "count": 5
+      },
+      {
+        "source": "topic:Housing, landlords & apartment life",
+        "target": "entity:Hunter's Ridge",
+        "count": 5
+      },
+      {
+        "source": "topic:Housing, landlords & apartment life",
+        "target": "entity:Harrisonburg Transit",
+        "count": 9
+      },
+      {
+        "source": "topic:Local businesses & restaurants",
+        "target": "sentiment:DART",
+        "count": 12
+      },
+      {
+        "source": "topic:Local businesses & restaurants",
+        "target": "entity:Valley Mall",
+        "count": 4
+      },
+      {
+        "source": "entity:Valley Mall",
+        "target": "sentiment:DART",
+        "count": 3
+      },
+      {
+        "source": "topic:Downtown, arts & events",
+        "target": "entity:Downtown Harrisonburg",
+        "count": 10
+      },
+      {
+        "source": "topic:Campus edge, construction & expansion",
+        "target": "entity:Harrisonburg",
+        "count": 4
+      },
+      {
+        "source": "topic:Parking, towing & cars",
+        "target": "entity:Harrisonburg",
+        "count": 9
+      },
+      {
+        "source": "topic:Parking, towing & cars",
+        "target": "entity:Harrisonburg Transit",
+        "count": 2
+      },
+      {
+        "source": "topic:Neighbors, parties & student behavior",
+        "target": "entity:Harrisonburg Police",
+        "count": 11
+      },
+      {
+        "source": "topic:Local businesses & restaurants",
+        "target": "entity:Artful Dodger",
+        "count": 3
+      },
+      {
+        "source": "entity:Artful Dodger",
+        "target": "sentiment:PAT",
+        "count": 3
+      },
+      {
+        "source": "topic:Other town-gown moments",
+        "target": "sentiment:DART",
+        "count": 15
+      },
+      {
+        "source": "entity:City of Harrisonburg",
+        "target": "sentiment:PAT",
+        "count": 3
+      },
+      {
+        "source": "topic:Housing, landlords & apartment life",
+        "target": "entity:South View",
+        "count": 9
+      },
+      {
+        "source": "entity:South View",
+        "target": "sentiment:PAT",
+        "count": 8
+      },
+      {
+        "source": "entity:South View",
+        "target": "sentiment:DART",
+        "count": 11
+      },
+      {
+        "source": "topic:Housing, landlords & apartment life",
+        "target": "entity:Harrisonburg Police",
+        "count": 7
+      },
+      {
+        "source": "topic:Local businesses & restaurants",
+        "target": "entity:Downtown Harrisonburg",
+        "count": 5
+      },
+      {
+        "source": "topic:Local businesses & restaurants",
+        "target": "entity:Harrisonburg",
+        "count": 7
+      },
+      {
+        "source": "topic:Neighbors, parties & student behavior",
+        "target": "entity:JMU",
+        "count": 11
+      },
+      {
+        "source": "topic:Parking, towing & cars",
+        "target": "entity:Sunchase",
+        "count": 4
+      },
+      {
+        "source": "entity:Sunchase",
+        "target": "sentiment:PAT",
+        "count": 5
+      },
+      {
+        "source": "topic:Parking, towing & cars",
+        "target": "entity:South View",
+        "count": 6
+      },
+      {
+        "source": "topic:Housing, landlords & apartment life",
+        "target": "entity:Sunchase",
+        "count": 10
+      },
+      {
+        "source": "entity:Sunchase",
+        "target": "sentiment:DART",
+        "count": 9
+      },
+      {
+        "source": "entity:Macrock",
+        "target": "sentiment:PAT",
+        "count": 2
+      },
+      {
+        "source": "topic:Streets, traffic & pedestrian safety",
+        "target": "entity:City of Harrisonburg",
+        "count": 4
+      },
+      {
+        "source": "topic:Civic identity, media & reputation",
+        "target": "entity:The Breeze",
+        "count": 4
+      },
+      {
+        "source": "topic:Parking, towing & cars",
+        "target": "entity:JMU",
+        "count": 2
+      },
+      {
+        "source": "entity:Kline's",
+        "target": "sentiment:DART",
+        "count": 2
+      },
+      {
+        "source": "entity:Rockingham County",
+        "target": "sentiment:DART",
+        "count": 2
+      },
+      {
+        "source": "entity:Downtown Harrisonburg",
+        "target": "sentiment:DART",
+        "count": 6
+      },
+      {
+        "source": "topic:Housing, landlords & apartment life",
+        "target": "entity:Stone Gate",
+        "count": 10
+      },
+      {
+        "source": "entity:Stone Gate",
+        "target": "sentiment:DART",
+        "count": 10
+      },
+      {
+        "source": "topic:Housing, landlords & apartment life",
+        "target": "entity:Copper Beech",
+        "count": 7
+      },
+      {
+        "source": "entity:Copper Beech",
+        "target": "sentiment:PAT",
+        "count": 6
+      },
+      {
+        "source": "topic:Campus edge, construction & expansion",
+        "target": "entity:JMU",
+        "count": 3
+      },
+      {
+        "source": "entity:Copper Beech",
+        "target": "sentiment:DART",
+        "count": 8
+      },
+      {
+        "source": "topic:Housing, landlords & apartment life",
+        "target": "entity:Pheasant Run",
+        "count": 7
+      },
+      {
+        "source": "entity:Pheasant Run",
+        "target": "sentiment:DART",
+        "count": 5
+      },
+      {
+        "source": "entity:Pheasant Run",
+        "target": "sentiment:PAT",
+        "count": 3
+      },
+      {
+        "source": "topic:Other town-gown moments",
+        "target": "entity:JMU",
+        "count": 2
+      },
+      {
+        "source": "topic:Police, public safety & city services",
+        "target": "entity:Rockingham County",
+        "count": 3
+      },
+      {
+        "source": "topic:Transit, buses & mobility",
+        "target": "entity:Copper Beech",
+        "count": 2
+      },
+      {
+        "source": "entity:Stone Gate",
+        "target": "sentiment:PAT",
+        "count": 3
+      },
+      {
+        "source": "topic:Police, public safety & city services",
+        "target": "entity:JMU",
+        "count": 3
+      },
+      {
+        "source": "topic:Neighbors, parties & student behavior",
+        "target": "entity:Copper Beech",
+        "count": 2
+      },
+      {
+        "source": "entity:The Breeze",
+        "target": "sentiment:PAT",
+        "count": 3
+      }
+    ]
+  }
+}
