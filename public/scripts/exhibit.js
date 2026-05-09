@@ -2,6 +2,7 @@ const DATA_URL = '/data/town_gown_exhibit_records_enriched.json';
 const SUMMARY_URL = '/data/town_gown_exhibit_analysis_summary.json';
 const IDLE_RESET_MS = 105000;
 const IDLE_WARNING_MS = 2400;
+const SELF_SPOILING_FORM_RE = /\b(dart|darts|pat|pats)\b/i;
 
 const topicIcons = {
   housing_landlords_apartments: '/assets/generated/icon-housing.svg',
@@ -35,6 +36,15 @@ const topicObjects = {
   other_unspecified: { station: 'Odd drawer', object: 'odd drawer', note: 'miscellaneous civic shrapnel, still worth opening' },
 };
 
+const wordBreezeStopwords = new Set([
+  'about', 'after', 'again', 'against', 'all', 'also', 'and', 'any', 'are', 'because', 'been', 'being', 'between',
+  'but', 'can', 'could', 'did', 'does', 'for', 'from', 'get', 'had', 'has', 'have', 'her', 'here', 'him', 'his',
+  'how', 'into', 'its', 'jmu', 'just', 'like', 'more', 'not', 'now', 'our', 'out', 'over', 'people', 'really',
+  'should', 'some', 'students', 'than', 'that', 'the', 'their', 'them', 'then', 'there', 'these', 'they', 'this',
+  'through', 'town', 'university', 'was', 'were', 'what', 'when', 'where', 'which', 'who', 'why', 'with', 'would',
+  'your', 'you', 'pat', 'pats', 'dart', 'darts', 'breeze',
+]);
+
 const state = {
   records: [],
   summary: null,
@@ -48,6 +58,11 @@ const state = {
   gameKindGuess: '',
   gameTopicGuess: '',
   activeRecordId: null,
+  editorEligibleRecords: [],
+  editorWithheldRecords: [],
+  stringGraph: null,
+  selectedStringTheme: '',
+  wordBreezeTerm: '',
 };
 
 const els = {
@@ -64,13 +79,22 @@ const els = {
   currentTitle: document.querySelector('#current-view-title'),
   currentSummary: document.querySelector('#current-view-summary'),
   viewMeters: document.querySelector('#view-meters'),
+  wordBreeze: document.querySelector('#word-breeze'),
+  wordBreezeCloud: document.querySelector('#word-breeze-cloud'),
+  wordBreezeList: document.querySelector('#word-breeze-list'),
   drawer: document.querySelector('#record-drawer'),
   drawerContent: document.querySelector('#drawer-content'),
   shelf: document.querySelector('#reading-shelf'),
   networkBoard: document.querySelector('#network-board'),
   networkEdges: document.querySelector('#network-edges'),
   networkNodes: document.querySelector('#network-nodes'),
+  stringSummary: document.querySelector('#string-summary'),
+  stringYears: document.querySelector('#string-years'),
+  returnCorridor: document.querySelector('#return-corridor'),
+  useStringTheme: document.querySelector('#use-string-theme'),
+  clearStringTheme: document.querySelector('#clear-string-theme'),
   gameText: document.querySelector('#game-text'),
+  gamePoolNote: document.querySelector('#game-pool-note'),
   gameResult: document.querySelector('#game-result'),
   gameRelated: document.querySelector('#game-related'),
   gameTopicGuess: document.querySelector('#game-topic-guess'),
@@ -143,6 +167,24 @@ function recordSearchBlob(record) {
     record.source?.newspaper,
     record.source?.pl2_pdf,
   ].filter(Boolean).join(' '));
+}
+
+function editorChallengeText(record) {
+  return [
+    record.text_full,
+    record.text,
+    record.title,
+    record.summary,
+  ].filter(Boolean).join(' ');
+}
+
+function isEditorEligible(record) {
+  return !SELF_SPOILING_FORM_RE.test(editorChallengeText(record));
+}
+
+function getEditorPool() {
+  const visibleEligible = state.filtered.filter(isEditorEligible);
+  return visibleEligible.length ? visibleEligible : state.editorEligibleRecords;
 }
 
 function getTopicLabel(topicValue) {
@@ -307,12 +349,94 @@ function renderShelf() {
   els.shelf.innerHTML = mixed.length ? mixed.map((record, index) => makeRecordCard(record, { compact: true, depth: index })).join('') : '<p class="empty-note">No readable cards in this filter yet.</p>';
 }
 
+function tokenizeBreezeText(record) {
+  const text = [
+    record.text_full,
+    record.primary_topic_label,
+    ...(record.topic_tag_labels || []),
+    ...(record.entities || []),
+  ].filter(Boolean).join(' ');
+  return normalize(text)
+    .replaceAll('&', ' ')
+    .replace(/[^a-z0-9\s-]/g, ' ')
+    .split(/\s+/)
+    .map((word) => word.replace(/^-+|-+$/g, ''))
+    .filter((word) => word.length >= 4 && !wordBreezeStopwords.has(word) && !/^\d+$/.test(word));
+}
+
+function breezeWordLabel(word) {
+  return word
+    .split('-')
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join('-');
+}
+
+function wordBreezeItems() {
+  const counts = new Map();
+  state.filtered.forEach((record) => {
+    const uniqueWords = new Set(tokenizeBreezeText(record));
+    uniqueWords.forEach((word) => counts.set(word, (counts.get(word) || 0) + 1));
+  });
+
+  return [...counts.entries()]
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .slice(0, 16)
+    .map(([word, count], index) => ({ word, count, label: breezeWordLabel(word), level: (index % 5) + 1 }));
+}
+
+function renderWordBreeze() {
+  if (!els.wordBreezeCloud) return;
+  const items = wordBreezeItems();
+  els.wordBreezeCloud.innerHTML = items.length ? items.map((item) => `
+    <button class="word-breeze__word word-breeze__word--${item.level}" data-breeze-term="${escapeHtml(item.word)}" type="button" aria-label="Show cards mentioning ${escapeHtml(item.label)}">
+      ${escapeHtml(item.label)}
+    </button>
+  `).join('') : '<span class="word-breeze__empty">The air is briefly still.</span>';
+}
+
+function renderWordBreezeList(term) {
+  if (!els.wordBreezeList) return;
+  const matches = state.filtered
+    .filter((record) => tokenizeBreezeText(record).includes(term))
+    .slice(0, 8);
+
+  if (!matches.length) {
+    els.wordBreezeList.hidden = true;
+    els.wordBreezeList.innerHTML = '';
+    return;
+  }
+
+  els.wordBreezeList.hidden = false;
+  els.wordBreezeList.innerHTML = `
+    <div class="word-breeze__drawer">
+      <div>
+        <strong>${escapeHtml(breezeWordLabel(term))}</strong>
+        <span>${matches.length} nearby ${pluralize(matches.length, 'card')}</span>
+      </div>
+      <button class="word-breeze__close" type="button" data-breeze-close aria-label="Close Word Breeze list">Close</button>
+      <div class="word-breeze__matches">
+        ${matches.map((record) => makeRelatedChip(record)).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function renderGamePoolNote() {
+  if (!els.gamePoolNote) return;
+  const visibleWithheld = state.filtered.filter((record) => !isEditorEligible(record)).length;
+  els.gamePoolNote.textContent = `${state.editorWithheldRecords.length} archive cards are held out of this game because they name their own form${visibleWithheld ? `; ${visibleWithheld} are in the current corridor view` : ''}.`;
+}
+
 function renderAll() {
   renderStats();
   renderWalls();
   renderTimeline();
   renderTopicDoors();
   renderShelf();
+  renderWordBreeze();
+  if (state.wordBreezeTerm) renderWordBreezeList(state.wordBreezeTerm);
+  renderGamePoolNote();
 }
 
 function sourceLine(record) {
@@ -450,11 +574,13 @@ function renderDrawer(record) {
 }
 
 function makeGameCard() {
-  const pool = state.filtered.length ? state.filtered : state.records;
+  const pool = getEditorPool();
+  const visibleWithheld = state.filtered.filter((record) => !isEditorEligible(record)).length;
   state.gameRecord = pool[Math.floor(Math.random() * pool.length)];
   state.gameKindGuess = '';
   state.gameTopicGuess = '';
   els.gameText.textContent = state.gameRecord?.text_full || 'No card available.';
+  els.gamePoolNote.textContent = `${state.editorWithheldRecords.length} archive cards are held out of this game because they name their own form${visibleWithheld ? `; ${visibleWithheld} are in the current corridor view` : ''}.`;
   els.gameResult.textContent = 'Choose a form and a topic. No points. Just interpretation with ink on its fingers.';
   els.gameRelated.innerHTML = '';
   els.gameTopicGuess.value = '';
@@ -496,104 +622,194 @@ function hashLabel(label) {
   return Math.abs(hash);
 }
 
-function networkSelection() {
-  const nodes = state.summary.network.nodes;
-  const topics = nodes.filter((node) => node.type === 'topic').sort((a, b) => b.count - a.count);
-  const entities = nodes.filter((node) => node.type === 'entity').sort((a, b) => b.count - a.count).slice(0, 16);
-  const sentiments = nodes.filter((node) => node.type === 'sentiment');
-  return [...sentiments, ...topics, ...entities];
+function recordThemeIds(record) {
+  return [...new Set([
+    record.primary_topic,
+    ...(record.topic_tags || []),
+  ].filter(Boolean))];
 }
 
-function computeNetworkPositions(selectedNodes) {
-  const positions = new Map();
-  const topics = selectedNodes.filter((node) => node.type === 'topic');
-  const entities = selectedNodes.filter((node) => node.type === 'entity');
+function addRelatedWeight(related, a, b, amount) {
+  if (!a || !b || a === b) return;
+  if (!related.has(a)) related.set(a, new Map());
+  if (!related.has(b)) related.set(b, new Map());
+  related.get(a).set(b, (related.get(a).get(b) || 0) + amount);
+  related.get(b).set(a, (related.get(b).get(a) || 0) + amount);
+}
 
-  selectedNodes.filter((node) => node.type === 'sentiment').forEach((node) => {
-    positions.set(node.id, node.label === 'DART' ? { x: 17, y: 52 } : { x: 83, y: 52 });
-  });
+function buildStringGraph() {
+  const themes = new Map((state.summary.topics || []).map((topic) => [topic.topic, {
+    id: topic.topic,
+    label: topic.label,
+    count: topic.count,
+    darts: topic.darts,
+    pats: topic.pats,
+  }]));
+  const recordsByTheme = new Map();
+  const related = new Map();
+  const entityThemes = new Map();
 
-  topics.forEach((node, index) => {
-    const angle = (index / topics.length) * Math.PI * 2 - Math.PI / 2;
-    positions.set(node.id, {
-      x: 50 + Math.cos(angle) * 28,
-      y: 50 + Math.sin(angle) * 34,
+  state.records.forEach((record) => {
+    const themesForRecord = recordThemeIds(record).filter((themeId) => themes.has(themeId));
+    themesForRecord.forEach((themeId) => {
+      if (!recordsByTheme.has(themeId)) recordsByTheme.set(themeId, []);
+      recordsByTheme.get(themeId).push(record);
+    });
+
+    for (let index = 0; index < themesForRecord.length; index += 1) {
+      for (let next = index + 1; next < themesForRecord.length; next += 1) {
+        addRelatedWeight(related, themesForRecord[index], themesForRecord[next], 2);
+      }
+    }
+
+    (record.entities || []).forEach((entity) => {
+      if (!entityThemes.has(entity)) entityThemes.set(entity, new Set());
+      themesForRecord.forEach((themeId) => entityThemes.get(entity).add(themeId));
     });
   });
 
-  entities.forEach((node, index) => {
-    const angle = (index / entities.length) * Math.PI * 2 + Math.PI / 8;
-    const jitter = (hashLabel(node.label) % 9) - 4;
-    positions.set(node.id, {
-      x: 50 + Math.cos(angle) * (38 + jitter),
-      y: 50 + Math.sin(angle) * (41 - jitter / 2),
-    });
+  entityThemes.forEach((themeSet) => {
+    const themeIds = [...themeSet];
+    for (let index = 0; index < themeIds.length; index += 1) {
+      for (let next = index + 1; next < themeIds.length; next += 1) {
+        addRelatedWeight(related, themeIds[index], themeIds[next], 0.35);
+      }
+    }
   });
 
-  return positions;
+  const topThemes = [...themes.values()].sort((a, b) => b.count - a.count || a.label.localeCompare(b.label)).slice(0, 12);
+  return { themes, recordsByTheme, related, topThemes };
+}
+
+function stringRecordsForTheme(themeId) {
+  return [...(state.stringGraph?.recordsByTheme.get(themeId) || [])].sort((a, b) => (b.tone_intensity || 0) - (a.tone_intensity || 0) || dateSort(a, b));
+}
+
+function relatedThemesFor(themeId) {
+  const related = state.stringGraph?.related.get(themeId) || new Map();
+  return [...related.entries()]
+    .map(([id, weight]) => ({ ...state.stringGraph.themes.get(id), weight }))
+    .filter((theme) => theme.id)
+    .sort((a, b) => b.weight - a.weight || b.count - a.count || a.label.localeCompare(b.label))
+    .slice(0, 10);
+}
+
+function sideArcPosition(index, total, side) {
+  const ratio = total <= 1 ? 0.5 : index / (total - 1);
+  const wave = Math.sin(ratio * Math.PI);
+  return {
+    x: side === 'left' ? 12 + wave * 2 : 88 - wave * 2,
+    y: 40 + ratio * 31,
+  };
+}
+
+function relatedPosition(index) {
+  const slots = [
+    { x: 20, y: 12 },
+    { x: 38, y: 9 },
+    { x: 62, y: 9 },
+    { x: 80, y: 12 },
+    { x: 28, y: 26 },
+    { x: 45, y: 22 },
+    { x: 55, y: 22 },
+    { x: 72, y: 26 },
+  ];
+  return slots[index % slots.length];
+}
+
+function stringRecordNode(record, index, total, side) {
+  const position = sideArcPosition(index, total, side);
+  const kindClass = record.kind === 'PAT' ? 'string-node--pat' : 'string-node--dart';
+  const kind = getKindNoun(record.kind);
+  return {
+    x: position.x,
+    y: position.y,
+    edge: side === 'left' ? 'dart' : 'pat',
+    html: `
+      <button class="string-node string-node--record ${kindClass}" style="left:${position.x}%;top:${position.y}%;--tilt:${((record.id * 13) % 9) - 4}deg" data-string-record-id="${record.id}" type="button" aria-label="Open ${escapeHtml(kind)} from ${escapeHtml(formatDate(record.date))}">
+        <span>${escapeHtml(kind)} · ${escapeHtml(formatDate(record.date))}</span>
+        <strong>${escapeHtml(shorten(record.text_full, 72))}</strong>
+      </button>
+    `,
+  };
+}
+
+function stringThemeNode(theme, index) {
+  const position = relatedPosition(index);
+  return {
+    x: position.x,
+    y: position.y,
+    edge: 'theme',
+    html: `
+      <button class="string-node string-node--theme" style="left:${position.x}%;top:${position.y}%;--tilt:${(hashLabel(theme.id) % 9) - 4}deg" data-string-theme="${escapeHtml(theme.id)}" type="button" aria-label="Center ${escapeHtml(theme.label)} in Follow the Strings">
+        <strong>${escapeHtml(theme.label)}</strong>
+        <span>${theme.count} records / ${theme.darts} Darts / ${theme.pats} Pats</span>
+      </button>
+    `,
+  };
 }
 
 function renderNetwork() {
-  const selectedNodes = networkSelection();
-  const selectedIds = new Set(selectedNodes.map((node) => node.id));
-  const positions = computeNetworkPositions(selectedNodes);
+  if (!state.stringGraph) return;
+  const selectedTheme = state.stringGraph.themes.get(state.selectedStringTheme) || state.stringGraph.topThemes[0];
+  if (!selectedTheme) return;
+  state.selectedStringTheme = selectedTheme.id;
 
-  els.networkNodes.innerHTML = selectedNodes.map((node) => {
-    const position = positions.get(node.id) || { x: 50, y: 50 };
-    const tilt = ((hashLabel(node.id) % 9) - 4) / 2;
-    return `
-      <button class="network-node network-node--${escapeHtml(node.type)}" style="left:${position.x}%;top:${position.y}%;--tilt:${tilt}deg" data-node-id="${escapeHtml(node.id)}" data-node-label="${escapeHtml(node.label)}" data-node-type="${escapeHtml(node.type)}" type="button" title="${escapeHtml(node.label)} · ${node.count} records">
-        ${escapeHtml(node.label)}
-      </button>
-    `;
+  const records = stringRecordsForTheme(selectedTheme.id);
+  const darts = records.filter((record) => record.kind === 'DART').slice(0, 6);
+  const pats = records.filter((record) => record.kind === 'PAT').slice(0, 6);
+  const relatedThemes = selectedTheme.id === state.stringGraph.topThemes[0]?.id
+    ? state.stringGraph.topThemes.filter((theme) => theme.id !== selectedTheme.id).slice(0, 8)
+    : relatedThemesFor(selectedTheme.id).slice(0, 8);
+  const nodes = [
+    ...darts.map((record, index) => stringRecordNode(record, index, darts.length, 'left')),
+    ...pats.map((record, index) => stringRecordNode(record, index, pats.length, 'right')),
+    ...relatedThemes.map((theme, index) => stringThemeNode(theme, index)),
+  ];
+
+  els.stringSummary.innerHTML = `
+    <div class="string-board__center-pin" aria-hidden="true"></div>
+    <button class="string-node string-node--center" data-string-theme="${escapeHtml(selectedTheme.id)}" type="button" aria-current="true">
+      <span>Centered theme</span>
+      <strong>${escapeHtml(selectedTheme.label)}</strong>
+      <small>${selectedTheme.count} records / ${selectedTheme.darts} Darts / ${selectedTheme.pats} Pats</small>
+    </button>
+  `;
+  els.networkNodes.innerHTML = nodes.map((node) => node.html).join('');
+  els.networkEdges.setAttribute('viewBox', '0 0 100 100');
+  els.networkEdges.innerHTML = nodes.map((node) => {
+    const color = node.edge === 'pat' ? '#cbb677' : node.edge === 'theme' ? '#2f6f7e' : '#450084';
+    const width = node.edge === 'theme' ? 0.34 : 0.52;
+    return `<line x1="50" y1="42" x2="${node.x}" y2="${node.y}" stroke="${color}" stroke-width="${width}" stroke-linecap="round" stroke-opacity="0.64" />`;
   }).join('');
 
-  const rect = els.networkBoard.getBoundingClientRect();
-  const width = rect.width || 1000;
-  const height = rect.height || 600;
-  els.networkEdges.setAttribute('viewBox', `0 0 ${width} ${height}`);
+  const years = [...records.reduce((map, record) => {
+    if (record.year) map.set(record.year, (map.get(record.year) || 0) + 1);
+    return map;
+  }, new Map()).entries()].sort((a, b) => a[0] - b[0]);
+  const topYears = years.length > 18 ? [...years].sort((a, b) => b[1] - a[1]).slice(0, 18).sort((a, b) => a[0] - b[0]) : years;
+  const maxYearCount = Math.max(...topYears.map(([, count]) => count), 1);
+  els.stringYears.innerHTML = topYears.map(([year, count]) => `<span style="--year-weight:${Math.max(0.18, count / maxYearCount).toFixed(2)}">${year}</span>`).join('');
 
-  const edges = state.summary.network.edges
-    .filter((edge) => selectedIds.has(edge.source) && selectedIds.has(edge.target))
-    .sort((a, b) => a.count - b.count);
-
-  els.networkEdges.innerHTML = edges.map((edge) => {
-    const source = positions.get(edge.source);
-    const target = positions.get(edge.target);
-    if (!source || !target) return '';
-    const x1 = (source.x / 100) * width;
-    const y1 = (source.y / 100) * height;
-    const x2 = (target.x / 100) * width;
-    const y2 = (target.y / 100) * height;
-    const strokeWidth = Math.min(8, 1 + Math.sqrt(edge.count) * 0.58);
-    const opacity = Math.min(0.62, 0.14 + edge.count / 140);
-    return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#450084" stroke-width="${strokeWidth}" stroke-opacity="${opacity}" />`;
-  }).join('');
+  if (els.useStringTheme) {
+    els.useStringTheme.textContent = `Use “${selectedTheme.label}” in Memory Corridor`;
+  }
 }
 
 function handleNetworkClick(event) {
-  const node = event.target.closest('.network-node');
-  if (!node) return;
-  const type = node.dataset.nodeType;
-  const label = node.dataset.nodeLabel;
-  const id = node.dataset.nodeId;
-
-  if (type === 'sentiment') {
-    applyState({ kind: label === 'DART' ? 'DART' : 'PAT' });
-    document.querySelector('#walk-years')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const recordNode = event.target.closest('[data-string-record-id]');
+  if (recordNode) {
+    const record = findRecord(recordNode.dataset.stringRecordId);
+    if (record) renderDrawer(record);
     return;
   }
 
-  if (type === 'topic') {
-    const topic = state.summary.topics.find((item) => `topic:${item.label}` === id || item.label === label);
-    if (topic) applyState({ topic: topic.topic });
-    document.querySelector('#trouble-spots')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    return;
-  }
-
-  if (type === 'entity') {
-    applyState({ search: label });
-    document.querySelector('#walk-years')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const themeNode = event.target.closest('[data-string-theme]');
+  if (!themeNode) return;
+  const themeId = themeNode.dataset.stringTheme;
+  if (themeId && state.stringGraph?.themes.has(themeId)) {
+    state.selectedStringTheme = themeId;
+    renderNetwork();
   }
 }
 
@@ -698,6 +914,19 @@ function jumpToMemoryYear() {
   setActiveChapter('walk-years');
   scrollToElement(document.querySelector('#walk-years'));
   focusYearTile(year);
+}
+
+function useSelectedStringThemeInCorridor() {
+  if (!state.selectedStringTheme) return;
+  applyState({ topic: state.selectedStringTheme });
+  setActiveChapter('walk-years');
+  scrollToElement(document.querySelector('#walk-years'));
+}
+
+function clearStringThemeFromCorridor() {
+  applyState({ topic: 'all' });
+  setActiveChapter('walk-years');
+  scrollToElement(document.querySelector('#walk-years'));
 }
 
 function startOver({ showOverlay = false } = {}) {
@@ -823,6 +1052,12 @@ function bindEvents() {
   els.memoryYearGo?.addEventListener('click', jumpToMemoryYear);
   els.memoryYearBack?.addEventListener('click', () => nudgeMemoryYear(-1));
   els.memoryYearForward?.addEventListener('click', () => nudgeMemoryYear(1));
+  els.returnCorridor?.addEventListener('click', () => {
+    setActiveChapter('walk-years');
+    scrollToElement(document.querySelector('#walk-years'));
+  });
+  els.useStringTheme?.addEventListener('click', useSelectedStringThemeInCorridor);
+  els.clearStringTheme?.addEventListener('click', clearStringThemeFromCorridor);
   els.walkButtons.forEach((button) => {
     button.addEventListener('click', () => walkCorridor(button.dataset.walk));
   });
@@ -833,6 +1068,20 @@ function bindEvents() {
   bindCorridorDrag();
 
   document.addEventListener('click', (event) => {
+    const breezeTerm = event.target.closest('[data-breeze-term]');
+    if (breezeTerm) {
+      state.wordBreezeTerm = breezeTerm.dataset.breezeTerm;
+      renderWordBreezeList(state.wordBreezeTerm);
+      return;
+    }
+
+    if (event.target.closest('[data-breeze-close]')) {
+      state.wordBreezeTerm = '';
+      els.wordBreezeList.hidden = true;
+      els.wordBreezeList.innerHTML = '';
+      return;
+    }
+
     const drawerPrevious = event.target.closest('[data-drawer-prev]');
     const drawerNext = event.target.closest('[data-drawer-next]');
     const drawerTarget = drawerPrevious?.dataset.drawerPrev || drawerNext?.dataset.drawerNext;
@@ -903,6 +1152,10 @@ async function init() {
       _search: recordSearchBlob(record),
     })).sort(dateSort);
     state.summary = await summaryResponse.json();
+    state.editorEligibleRecords = state.records.filter(isEditorEligible);
+    state.editorWithheldRecords = state.records.filter((record) => !isEditorEligible(record));
+    state.stringGraph = buildStringGraph();
+    state.selectedStringTheme = state.stringGraph.topThemes[0]?.id || '';
 
     populateControls();
     bindEvents();

@@ -144,6 +144,15 @@ import '../styles/corridor.css';
           <p id="corridor-subtitle">Use the floor timeline, topic doors, or filters to move through the archive.</p>
         </div>
 
+        <aside class="word-breeze" id="word-breeze" aria-labelledby="word-breeze-title">
+          <div>
+            <p class="kicker" id="word-breeze-title">Word Breeze</p>
+            <p>The archive is whispering about...</p>
+          </div>
+          <div class="word-breeze__cloud" id="word-breeze-cloud" aria-label="Words drifting through this view"></div>
+          <div class="word-breeze__list" id="word-breeze-list" hidden aria-live="polite"></div>
+        </aside>
+
         <div class="walk-controls" aria-label="Walk the corridor">
           <button class="walk-button" data-walk="left" type="button" aria-label="Walk left through the corridor">← Walk left</button>
           <p>Swipe the hallway or use the walk buttons.</p>
@@ -208,13 +217,20 @@ import '../styles/corridor.css';
 
       <section class="network-section" id="friction-map" data-chapter="friction-map" aria-labelledby="network-title">
         <div class="section-heading">
-          <p class="kicker">Bulletin-board network</p>
-          <h2 id="network-title">The Friction Map</h2>
-          <p>Topics, places, and Darts/Pats are pinned together as a civic memory board. Tap a pin to filter the corridor.</p>
+          <p class="kicker">Corkboard room</p>
+          <h2 id="network-title">Follow the Strings</h2>
+          <p>This room has its own logic: tap a theme to recenter the board, tap a Dart or Pat clipping to open the drawer, or explicitly send a theme back to the Memory Corridor.</p>
         </div>
-        <div class="network-board" id="network-board">
+        <div class="string-room-actions" aria-label="Follow the Strings actions">
+          <button class="button button--small button--ghost" id="return-corridor" type="button">Return to Memory Corridor</button>
+          <button class="button button--small" id="use-string-theme" type="button">Use this theme in Memory Corridor</button>
+          <button class="button button--small button--ghost" id="clear-string-theme" type="button">Clear corridor theme</button>
+        </div>
+        <div class="network-board string-board" id="network-board">
           <svg id="network-edges" aria-hidden="true"></svg>
+          <div class="string-board__summary" id="string-summary"></div>
           <div id="network-nodes"></div>
+          <div class="string-years" id="string-years" aria-label="Years represented in this string-board view"></div>
         </div>
       </section>
 
@@ -234,6 +250,7 @@ import '../styles/corridor.css';
           <p>Read a hidden card, guess whether it was a Dart or Pat, then reveal how it appeared and where it fits in the exhibit.</p>
         </div>
         <div class="game-card">
+          <p class="game-pool-note" id="game-pool-note">Some cards are held out because they name their own form.</p>
           <blockquote id="game-text">Loading a card…</blockquote>
           <div class="game-fieldset" aria-label="Editor guesses">
             <fieldset>

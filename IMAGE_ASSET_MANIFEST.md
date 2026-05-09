@@ -68,3 +68,82 @@ Shared Image 2 style direction for all Memory Rail assets:
 - Transparent background: Yes.
 - Image 2 prompt: Whimsical 2.5D archival exhibit object, warm off-white newsprint texture, JMU-inspired purple and gold, civic-history museum feel, playful but not childish, subtle shadows, transparent background, no logos, no readable text, suitable for a public touchscreen exhibit. A tactile archive year dial, part rotary phone and part library date stamp, purple outer ring, gold pointer, newsprint texture, no readable numbers.
 - Alt text recommendation: Tactile archive year dial for jumping to a visitor's years.
+
+## Phase 2 Interaction Assets
+
+### string-board-background.png
+- Use location: Follow the Strings room background.
+- Recommended dimensions: 2400 x 1400 px.
+- Transparent background: No.
+- Image 2 prompt: Whimsical 2.5D archival exhibit object, warm off-white newsprint texture, JMU-inspired purple and gold, civic-history museum feel, playful but not childish, subtle shadows, transparent background, no logos, no readable text, suitable for a public touchscreen exhibit. A corkboard and newsprint string-board background for a student-newspaper archive room, with subtle pin holes, torn paper edges, purple and gold shadows, no readable words.
+- Alt text recommendation: Corkboard-style archive string-board background.
+
+### string-board-pin-purple.png
+- Use location: Purple pushpin accents on Follow the Strings nodes.
+- Recommended dimensions: 384 x 384 px.
+- Transparent background: Yes.
+- Image 2 prompt: Whimsical 2.5D archival exhibit object, warm off-white newsprint texture, JMU-inspired purple and gold, civic-history museum feel, playful but not childish, subtle shadows, transparent background, no logos, no readable text, suitable for a public touchscreen exhibit. A single purple museum pushpin with paper texture and soft shadow, no readable text.
+- Alt text recommendation: Purple pushpin holding a string-board note.
+
+### string-board-pin-gold.png
+- Use location: Gold pushpin accents on Follow the Strings nodes.
+- Recommended dimensions: 384 x 384 px.
+- Transparent background: Yes.
+- Image 2 prompt: Whimsical 2.5D archival exhibit object, warm off-white newsprint texture, JMU-inspired purple and gold, civic-history museum feel, playful but not childish, subtle shadows, transparent background, no logos, no readable text, suitable for a public touchscreen exhibit. A single gold museum pushpin with paper texture and soft shadow, no readable text.
+- Alt text recommendation: Gold pushpin holding a string-board note.
+
+### string-board-theme-token.png
+- Use location: Follow the Strings theme nodes.
+- Recommended dimensions: 768 x 512 px.
+- Transparent background: Yes.
+- Image 2 prompt: Whimsical 2.5D archival exhibit object, warm off-white newsprint texture, JMU-inspired purple and gold, civic-history museum feel, playful but not childish, subtle shadows, transparent background, no logos, no readable text, suitable for a public touchscreen exhibit. A rounded clipped theme token pinned to corkboard, blank center for HTML labels, purple edge, gold tape, no readable text.
+- Alt text recommendation: Blank clipped theme token for a string-board topic.
+
+### string-board-dart-card.png
+- Use location: Follow the Strings Dart record nodes.
+- Recommended dimensions: 768 x 512 px.
+- Transparent background: Yes.
+- Image 2 prompt: Whimsical 2.5D archival exhibit object, warm off-white newsprint texture, JMU-inspired purple and gold, civic-history museum feel, playful but not childish, subtle shadows, transparent background, no logos, no readable text, suitable for a public touchscreen exhibit. A sharp-edged blank newspaper clipping card with purple side tab and tape, designed to hold an HTML Dart label, no readable text.
+- Alt text recommendation: Blank sharp newspaper clipping for a Dart node.
+
+### string-board-pat-card.png
+- Use location: Follow the Strings Pat record nodes.
+- Recommended dimensions: 768 x 512 px.
+- Transparent background: Yes.
+- Image 2 prompt: Whimsical 2.5D archival exhibit object, warm off-white newsprint texture, JMU-inspired purple and gold, civic-history museum feel, playful but not childish, subtle shadows, transparent background, no logos, no readable text, suitable for a public touchscreen exhibit. A warm blank newspaper clipping card with gold side tab and tape, designed to hold an HTML Pat label, no readable text.
+- Alt text recommendation: Blank warm newspaper clipping for a Pat node.
+
+### string-board-thread-purple.png
+- Use location: Purple connection threads in Follow the Strings.
+- Recommended dimensions: 1200 x 120 px.
+- Transparent background: Yes.
+- Image 2 prompt: Whimsical 2.5D archival exhibit object, warm off-white newsprint texture, JMU-inspired purple and gold, civic-history museum feel, playful but not childish, subtle shadows, transparent background, no logos, no readable text, suitable for a public touchscreen exhibit. A slightly uneven purple string or thread segment with soft shadow, transparent background, no readable text.
+- Alt text recommendation: Purple string connecting archive board notes.
+
+### string-board-thread-gold.png
+- Use location: Gold connection threads in Follow the Strings.
+- Recommended dimensions: 1200 x 120 px.
+- Transparent background: Yes.
+- Image 2 prompt: Whimsical 2.5D archival exhibit object, warm off-white newsprint texture, JMU-inspired purple and gold, civic-history museum feel, playful but not childish, subtle shadows, transparent background, no logos, no readable text, suitable for a public touchscreen exhibit. A slightly uneven gold string or thread segment with soft shadow, transparent background, no readable text.
+- Alt text recommendation: Gold string connecting archive board notes.
+
+### word-breeze-paper-strip.png
+- Use location: Word Breeze atmospheric strip above the Memory Corridor.
+- Recommended dimensions: 1800 x 420 px.
+- Transparent background: Yes.
+- Image 2 prompt: Whimsical 2.5D archival exhibit object, warm off-white newsprint texture, JMU-inspired purple and gold, civic-history museum feel, playful but not childish, subtle shadows, transparent background, no logos, no readable text, suitable for a public touchscreen exhibit. A long torn strip of blank newspaper paper drifting like a breeze, with subtle purple and gold shadows, no readable words.
+- Alt text recommendation: Torn blank newspaper strip for drifting archive words.
+
+### editor-table-hidden-card.png
+- Use location: Hidden challenge card in You Be the Breeze Editor.
+- Recommended dimensions: 1000 x 640 px.
+- Transparent background: Yes.
+- Image 2 prompt: Whimsical 2.5D archival exhibit object, warm off-white newsprint texture, JMU-inspired purple and gold, civic-history museum feel, playful but not childish, subtle shadows, transparent background, no logos, no readable text, suitable for a public touchscreen exhibit. A blank hidden editor challenge card, face-down newspaper clipping with purple edge, gold tape, pencil shadow, no readable text.
+- Alt text recommendation: Hidden blank newspaper card for the editor challenge.
+
+### editor-table-reveal-stamp.png
+- Use location: Reveal state accent in You Be the Breeze Editor.
+- Recommended dimensions: 640 x 640 px.
+- Transparent background: Yes.
+- Image 2 prompt: Whimsical 2.5D archival exhibit object, warm off-white newsprint texture, JMU-inspired purple and gold, civic-history museum feel, playful but not childish, subtle shadows, transparent background, no logos, no readable text, suitable for a public touchscreen exhibit. A blank rubber-stamp reveal mark with purple ink edge and gold paper flecks, no readable words.
+- Alt text recommendation: Blank reveal stamp accent for the editor table.
