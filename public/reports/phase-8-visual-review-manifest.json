@@ -1,0 +1,1912 @@
+[
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/landscape-1920x1080-breeze-parade-idle.png",
+    "viewport": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "The Breeze Parade idle",
+    "intended_user_action": "Touch the large entry button or the parade scene.",
+    "visual_metaphor": "Poster-like civic parade attractor",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Check whether the invitation reads clearly from standing distance and whether the parade feels present without overwhelming the title.",
+    "candidate_image_2_assets": [
+      "The Breeze Parade background / market scene",
+      "balloon set"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Start Threshold",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": false,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "Future art must not obscure the entry button or clipping text."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/landscape-1920x1080-breeze-parade-popped-clipping.png",
+    "viewport": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "The Breeze Parade popped clipping",
+    "intended_user_action": "Touch the clipping or entry button to enter the exhibit.",
+    "visual_metaphor": "Balloon-pop newspaper clipping",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Confirm the clipping does not overlap the title and that the excerpt feels like an invitation, not a dashboard card.",
+    "candidate_image_2_assets": [
+      "clipping card texture",
+      "balloon set"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Start Threshold",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": false,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "Future art must not obscure the entry button or clipping text."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/landscape-1920x1080-threshold.png",
+    "viewport": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "Threshold",
+    "intended_user_action": "Tap to enter the corridor or try the Editor Table.",
+    "visual_metaphor": "Large archival placard",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Confirm the large placard still feels like exhibit entry rather than a website hero.",
+    "candidate_image_2_assets": [
+      "memory-corridor-sign.png"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Start Threshold",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": false,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "No obvious concern from automated capture; human visual review still needed."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/landscape-1920x1080-class-tray-closed.png",
+    "viewport": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "Class-of tray closed",
+    "intended_user_action": "Tap the Class of rail tab.",
+    "visual_metaphor": "Rail tab / ticket drawer",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Review touch target size, readability, and metaphor clarity.",
+    "candidate_image_2_assets": [
+      "Class-of ticket"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Start Threshold",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": false,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "Range slider should remain large enough for public touchscreens."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/landscape-1920x1080-class-tray-open.png",
+    "viewport": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "Class-of tray open",
+    "intended_user_action": "Adjust graduation year and tap Show your years.",
+    "visual_metaphor": "Pull-out class ticket",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Confirm the graduation year, range preview, and action button are understandable without typing.",
+    "candidate_image_2_assets": [
+      "Class-of ticket"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Start Threshold",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": false,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "Range slider should remain large enough for public touchscreens."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/landscape-1920x1080-class-active-window.png",
+    "viewport": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "Class-of active window",
+    "intended_user_action": "Read the active class-year chip or tap it to change years.",
+    "visual_metaphor": "Memory-window ticket chip",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Confirm the active window chip is visible but not competing with corridor content.",
+    "candidate_image_2_assets": [
+      "Class-of ticket"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Hall Memory Corridor",
+      "publicTextInputs": 0,
+      "classChip": "Class of 2004: 2001–2004",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": false,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "Range slider should remain large enough for public touchscreens."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/landscape-1920x1080-memory-corridor-all-years.png",
+    "viewport": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "Memory Corridor all years",
+    "intended_user_action": "Swipe/drag the corridor, tap cards, years, or topic stations.",
+    "visual_metaphor": "2.5D archive hallway",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Confirm the corridor remains the dominant interaction and portrait mode does not collapse into a phone page.",
+    "candidate_image_2_assets": [
+      "Memory Rail tab set",
+      "topic station icons"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Hall Memory Corridor",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": false,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "No obvious concern from automated capture; human visual review still needed."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/landscape-1920x1080-memory-corridor-class-filtered.png",
+    "viewport": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "Memory Corridor class-year filtered",
+    "intended_user_action": "Explore the four-year memory window or clear it.",
+    "visual_metaphor": "Filtered vertical/horizontal memory hallway",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Confirm the corridor remains the dominant interaction and portrait mode does not collapse into a phone page.",
+    "candidate_image_2_assets": [
+      "Class-of ticket",
+      "Memory Rail tab set"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Hall Memory Corridor",
+      "publicTextInputs": 0,
+      "classChip": "Class of 2004: 2001–2004",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": false,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "No obvious concern from automated capture; human visual review still needed."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/landscape-1920x1080-word-breeze.png",
+    "viewport": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "Word Breeze",
+    "intended_user_action": "Tap drifting words for a small local list.",
+    "visual_metaphor": "Floating newspaper-word strip",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low.",
+    "storymap_dashboard_risk": "Low to medium: keep atmospheric/tactile, not chart-like.",
+    "notes_for_improvement": "Keep this strip quiet; confirm it supports orientation without becoming a filter dashboard.",
+    "candidate_image_2_assets": [
+      "word-breeze-paper-strip.png"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Hall Memory Corridor",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": false,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "Could become dashboard-like if too many terms appear."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/landscape-1920x1080-follow-strings-default.png",
+    "viewport": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "Follow the Strings default",
+    "intended_user_action": "Tap a theme, Dart, or Pat clipping.",
+    "visual_metaphor": "Corkboard and string-board room",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Medium: corkboard density should remain under review.",
+    "storymap_dashboard_risk": "Low to medium: keep atmospheric/tactile, not chart-like.",
+    "notes_for_improvement": "Review density carefully, especially in portrait; the board should feel tactile, not analytical.",
+    "candidate_image_2_assets": [
+      "corkboard/string board texture"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Strings Follow the Strings",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": false,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "Potential density in portrait and 4K views."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/landscape-1920x1080-follow-strings-selected-theme.png",
+    "viewport": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "Follow the Strings selected theme",
+    "intended_user_action": "Tap related themes to recenter the board.",
+    "visual_metaphor": "Selected theme pinned to corkboard center",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Medium: corkboard density should remain under review.",
+    "storymap_dashboard_risk": "Low to medium: keep atmospheric/tactile, not chart-like.",
+    "notes_for_improvement": "Review density carefully, especially in portrait; the board should feel tactile, not analytical.",
+    "candidate_image_2_assets": [
+      "corkboard/string board texture"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Strings Follow the Strings",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": false,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "Potential density in portrait and 4K views."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/landscape-1920x1080-open-drawer.png",
+    "viewport": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "Open Drawer",
+    "intended_user_action": "Tap any archival card.",
+    "visual_metaphor": "Archive drawer / card shelf",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low to medium: long records can still create scroll depth.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Confirm drawer cards are readable and large enough for touch, with no search-box expectation.",
+    "candidate_image_2_assets": [
+      "drawer handle / archive drawer accent"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Drawer Open the Drawer",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": false,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "Large card shelves can drift toward browse-grid behavior if overfilled."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/landscape-1920x1080-reading-drawer-compact-metadata.png",
+    "viewport": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "Reading drawer with compact metadata",
+    "intended_user_action": "Read the full card, close, or go previous/next.",
+    "visual_metaphor": "Open archival reading surface",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low to medium: long records can still create scroll depth.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Confirm compact metadata is legible and Related by Topic appears soon enough without PDF/page clutter.",
+    "candidate_image_2_assets": [
+      "drawer handle / archive drawer accent",
+      "clipping card texture"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Drawer Open the Drawer",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": true
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": false,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "Long full-text records may still require scrolling."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/landscape-1920x1080-reading-drawer-related-topic.png",
+    "viewport": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "Reading drawer with Related by Topic visible",
+    "intended_user_action": "Tap a related card.",
+    "visual_metaphor": "Linked archive cards in a drawer",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low to medium: long records can still create scroll depth.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Confirm compact metadata is legible and Related by Topic appears soon enough without PDF/page clutter.",
+    "candidate_image_2_assets": [
+      "drawer handle / archive drawer accent"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Drawer Open the Drawer",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": true
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": false,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "Long full-text records may still require scrolling."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/landscape-1920x1080-editor-hidden-card.png",
+    "viewport": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "Editor’s Table hidden card",
+    "intended_user_action": "Choose Dart or Pat, then reveal.",
+    "visual_metaphor": "Desk with hidden newspaper card",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Confirm there is no topic chooser and the card-choice-reveal sequence feels quick and tactile.",
+    "candidate_image_2_assets": [
+      "editor-hidden-card.png"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Desk Editor’s Table",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false,
+      "hasMaskedText": true,
+      "revealDisabled": true
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": false,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "No obvious concern from automated capture; human visual review still needed."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/landscape-1920x1080-editor-reveal-state.png",
+    "viewport": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "Editor’s Table reveal state",
+    "intended_user_action": "Compare reading with published form, then open related cards or draw a new card.",
+    "visual_metaphor": "Reveal stamp on archive card",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Confirm there is no topic chooser and the card-choice-reveal sequence feels quick and tactile.",
+    "candidate_image_2_assets": [
+      "editor-hidden-card.png",
+      "editor-table-reveal-stamp.png"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Desk Editor’s Table",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false,
+      "hasReveal": true,
+      "originalTextVisible": true,
+      "selectedChoice": "Pat"
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": false,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "No obvious concern from automated capture; human visual review still needed."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/landscape-1920x1080-reflection-wall.png",
+    "viewport": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "Reflection Wall/source note",
+    "intended_user_action": "Read the source note and decide whether to restart or keep exploring.",
+    "visual_metaphor": "Reflection wall / source plaque",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Confirm the source note is clear without feeling like a dense footer.",
+    "candidate_image_2_assets": [
+      "memory-corridor-sign.png"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Wall Reflection Wall",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": false,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "No obvious concern from automated capture; human visual review still needed."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/landscape-1920x1080-idle-reset-overlay.png",
+    "viewport": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "Idle reset overlay",
+    "intended_user_action": "Wait; system returns to The Breeze Parade.",
+    "visual_metaphor": "Kiosk reset placard",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Confirm the reset overlay is obvious but not alarming.",
+    "candidate_image_2_assets": [
+      "attractor-touch-button-frame.png"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Hall Memory Corridor",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": false,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "No obvious concern from automated capture; human visual review still needed."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/landscape-1920x1080-hidden-diagnostics-panel.png",
+    "viewport": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "Hidden diagnostics panel",
+    "intended_user_action": "Operator-only status check.",
+    "visual_metaphor": "Hidden kiosk status placard",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Confirm this remains hidden/operator-only and visually separate from public exhibit language.",
+    "candidate_image_2_assets": [],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Start Threshold",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": false,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "No obvious concern from automated capture; human visual review still needed."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/portrait-1080x1920-breeze-parade-idle.png",
+    "viewport": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "The Breeze Parade idle",
+    "intended_user_action": "Touch the large entry button or the parade scene.",
+    "visual_metaphor": "Poster-like civic parade attractor",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Check whether the invitation reads clearly from standing distance and whether the parade feels present without overwhelming the title.",
+    "candidate_image_2_assets": [
+      "The Breeze Parade background / market scene",
+      "balloon set"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Start Threshold",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": true,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "Future art must not obscure the entry button or clipping text."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/portrait-1080x1920-breeze-parade-popped-clipping.png",
+    "viewport": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "The Breeze Parade popped clipping",
+    "intended_user_action": "Touch the clipping or entry button to enter the exhibit.",
+    "visual_metaphor": "Balloon-pop newspaper clipping",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Confirm the clipping does not overlap the title and that the excerpt feels like an invitation, not a dashboard card.",
+    "candidate_image_2_assets": [
+      "clipping card texture",
+      "balloon set"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Start Threshold",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": true,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "Future art must not obscure the entry button or clipping text."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/portrait-1080x1920-threshold.png",
+    "viewport": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "Threshold",
+    "intended_user_action": "Tap to enter the corridor or try the Editor Table.",
+    "visual_metaphor": "Large archival placard",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Confirm the large placard still feels like exhibit entry rather than a website hero.",
+    "candidate_image_2_assets": [
+      "memory-corridor-sign.png"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Start Threshold",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": true,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "No obvious concern from automated capture; human visual review still needed."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/portrait-1080x1920-class-tray-closed.png",
+    "viewport": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "Class-of tray closed",
+    "intended_user_action": "Tap the Class of rail tab.",
+    "visual_metaphor": "Rail tab / ticket drawer",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Review touch target size, readability, and metaphor clarity.",
+    "candidate_image_2_assets": [
+      "Class-of ticket"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Start Threshold",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": true,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "Range slider should remain large enough for public touchscreens."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/portrait-1080x1920-class-tray-open.png",
+    "viewport": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "Class-of tray open",
+    "intended_user_action": "Adjust graduation year and tap Show your years.",
+    "visual_metaphor": "Pull-out class ticket",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Confirm the graduation year, range preview, and action button are understandable without typing.",
+    "candidate_image_2_assets": [
+      "Class-of ticket"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Start Threshold",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": true,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "Range slider should remain large enough for public touchscreens."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/portrait-1080x1920-class-active-window.png",
+    "viewport": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "Class-of active window",
+    "intended_user_action": "Read the active class-year chip or tap it to change years.",
+    "visual_metaphor": "Memory-window ticket chip",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Confirm the active window chip is visible but not competing with corridor content.",
+    "candidate_image_2_assets": [
+      "Class-of ticket"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Hall Memory Corridor",
+      "publicTextInputs": 0,
+      "classChip": "Class of 2004: 2001–2004",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": true,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "Range slider should remain large enough for public touchscreens."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/portrait-1080x1920-memory-corridor-all-years.png",
+    "viewport": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "Memory Corridor all years",
+    "intended_user_action": "Swipe/drag the corridor, tap cards, years, or topic stations.",
+    "visual_metaphor": "2.5D archive hallway",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Confirm the corridor remains the dominant interaction and portrait mode does not collapse into a phone page.",
+    "candidate_image_2_assets": [
+      "Memory Rail tab set",
+      "topic station icons"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Hall Memory Corridor",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": true,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "No obvious concern from automated capture; human visual review still needed."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/portrait-1080x1920-memory-corridor-class-filtered.png",
+    "viewport": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "Memory Corridor class-year filtered",
+    "intended_user_action": "Explore the four-year memory window or clear it.",
+    "visual_metaphor": "Filtered vertical/horizontal memory hallway",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Confirm the corridor remains the dominant interaction and portrait mode does not collapse into a phone page.",
+    "candidate_image_2_assets": [
+      "Class-of ticket",
+      "Memory Rail tab set"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Hall Memory Corridor",
+      "publicTextInputs": 0,
+      "classChip": "Class of 2004: 2001–2004",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": true,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "No obvious concern from automated capture; human visual review still needed."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/portrait-1080x1920-word-breeze.png",
+    "viewport": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "Word Breeze",
+    "intended_user_action": "Tap drifting words for a small local list.",
+    "visual_metaphor": "Floating newspaper-word strip",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low.",
+    "storymap_dashboard_risk": "Low to medium: keep atmospheric/tactile, not chart-like.",
+    "notes_for_improvement": "Keep this strip quiet; confirm it supports orientation without becoming a filter dashboard.",
+    "candidate_image_2_assets": [
+      "word-breeze-paper-strip.png"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Hall Memory Corridor",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": true,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "Could become dashboard-like if too many terms appear."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/portrait-1080x1920-follow-strings-default.png",
+    "viewport": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "Follow the Strings default",
+    "intended_user_action": "Tap a theme, Dart, or Pat clipping.",
+    "visual_metaphor": "Corkboard and string-board room",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Medium: corkboard density should remain under review.",
+    "storymap_dashboard_risk": "Low to medium: keep atmospheric/tactile, not chart-like.",
+    "notes_for_improvement": "Review density carefully, especially in portrait; the board should feel tactile, not analytical.",
+    "candidate_image_2_assets": [
+      "corkboard/string board texture"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Strings Follow the Strings",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": true,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "Potential density in portrait and 4K views."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/portrait-1080x1920-follow-strings-selected-theme.png",
+    "viewport": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "Follow the Strings selected theme",
+    "intended_user_action": "Tap related themes to recenter the board.",
+    "visual_metaphor": "Selected theme pinned to corkboard center",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Medium: corkboard density should remain under review.",
+    "storymap_dashboard_risk": "Low to medium: keep atmospheric/tactile, not chart-like.",
+    "notes_for_improvement": "Review density carefully, especially in portrait; the board should feel tactile, not analytical.",
+    "candidate_image_2_assets": [
+      "corkboard/string board texture"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Strings Follow the Strings",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": true,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "Potential density in portrait and 4K views."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/portrait-1080x1920-open-drawer.png",
+    "viewport": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "Open Drawer",
+    "intended_user_action": "Tap any archival card.",
+    "visual_metaphor": "Archive drawer / card shelf",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low to medium: long records can still create scroll depth.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Confirm drawer cards are readable and large enough for touch, with no search-box expectation.",
+    "candidate_image_2_assets": [
+      "drawer handle / archive drawer accent"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Drawer Open the Drawer",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": true,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "Large card shelves can drift toward browse-grid behavior if overfilled."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/portrait-1080x1920-reading-drawer-compact-metadata.png",
+    "viewport": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "Reading drawer with compact metadata",
+    "intended_user_action": "Read the full card, close, or go previous/next.",
+    "visual_metaphor": "Open archival reading surface",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low to medium: long records can still create scroll depth.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Confirm compact metadata is legible and Related by Topic appears soon enough without PDF/page clutter.",
+    "candidate_image_2_assets": [
+      "drawer handle / archive drawer accent",
+      "clipping card texture"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Drawer Open the Drawer",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": true
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": true,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "Long full-text records may still require scrolling."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/portrait-1080x1920-reading-drawer-related-topic.png",
+    "viewport": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "Reading drawer with Related by Topic visible",
+    "intended_user_action": "Tap a related card.",
+    "visual_metaphor": "Linked archive cards in a drawer",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low to medium: long records can still create scroll depth.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Confirm compact metadata is legible and Related by Topic appears soon enough without PDF/page clutter.",
+    "candidate_image_2_assets": [
+      "drawer handle / archive drawer accent"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Drawer Open the Drawer",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": true
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": true,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "Long full-text records may still require scrolling."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/portrait-1080x1920-editor-hidden-card.png",
+    "viewport": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "Editor’s Table hidden card",
+    "intended_user_action": "Choose Dart or Pat, then reveal.",
+    "visual_metaphor": "Desk with hidden newspaper card",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Confirm there is no topic chooser and the card-choice-reveal sequence feels quick and tactile.",
+    "candidate_image_2_assets": [
+      "editor-hidden-card.png"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Desk Editor’s Table",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false,
+      "hasMaskedText": true,
+      "revealDisabled": true
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": true,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "No obvious concern from automated capture; human visual review still needed."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/portrait-1080x1920-editor-reveal-state.png",
+    "viewport": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "Editor’s Table reveal state",
+    "intended_user_action": "Compare reading with published form, then open related cards or draw a new card.",
+    "visual_metaphor": "Reveal stamp on archive card",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Confirm there is no topic chooser and the card-choice-reveal sequence feels quick and tactile.",
+    "candidate_image_2_assets": [
+      "editor-hidden-card.png",
+      "editor-table-reveal-stamp.png"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Desk Editor’s Table",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false,
+      "hasReveal": true,
+      "originalTextVisible": true,
+      "selectedChoice": "Pat"
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": true,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "No obvious concern from automated capture; human visual review still needed."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/portrait-1080x1920-reflection-wall.png",
+    "viewport": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "Reflection Wall/source note",
+    "intended_user_action": "Read the source note and decide whether to restart or keep exploring.",
+    "visual_metaphor": "Reflection wall / source plaque",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Confirm the source note is clear without feeling like a dense footer.",
+    "candidate_image_2_assets": [
+      "memory-corridor-sign.png"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Wall Reflection Wall",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": true,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "No obvious concern from automated capture; human visual review still needed."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/portrait-1080x1920-idle-reset-overlay.png",
+    "viewport": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "Idle reset overlay",
+    "intended_user_action": "Wait; system returns to The Breeze Parade.",
+    "visual_metaphor": "Kiosk reset placard",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Confirm the reset overlay is obvious but not alarming.",
+    "candidate_image_2_assets": [
+      "attractor-touch-button-frame.png"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Hall Memory Corridor",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": true,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "No obvious concern from automated capture; human visual review still needed."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/portrait-1080x1920-hidden-diagnostics-panel.png",
+    "viewport": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "Hidden diagnostics panel",
+    "intended_user_action": "Operator-only status check.",
+    "visual_metaphor": "Hidden kiosk status placard",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Confirm this remains hidden/operator-only and visually separate from public exhibit language.",
+    "candidate_image_2_assets": [],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Start Threshold",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": true,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "No obvious concern from automated capture; human visual review still needed."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/landscape-3840x2160-breeze-parade-idle.png",
+    "viewport": "3840x2160",
+    "orientation": "landscape-4k",
+    "section_state": "The Breeze Parade idle",
+    "intended_user_action": "Touch the large entry button or the parade scene.",
+    "visual_metaphor": "Poster-like civic parade attractor",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Check whether the invitation reads clearly from standing distance and whether the parade feels present without overwhelming the title.",
+    "candidate_image_2_assets": [
+      "The Breeze Parade background / market scene",
+      "balloon set"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Start Threshold",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": false,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "Future art must not obscure the entry button or clipping text."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/landscape-3840x2160-memory-corridor-all-years.png",
+    "viewport": "3840x2160",
+    "orientation": "landscape-4k",
+    "section_state": "Memory Corridor all years",
+    "intended_user_action": "Swipe/drag the corridor, tap cards, years, or topic stations.",
+    "visual_metaphor": "2.5D archive hallway",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Confirm the corridor remains the dominant interaction and portrait mode does not collapse into a phone page.",
+    "candidate_image_2_assets": [
+      "Memory Rail tab set",
+      "topic station icons"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Hall Memory Corridor",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": false,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "No obvious concern from automated capture; human visual review still needed."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/landscape-3840x2160-reading-drawer-compact-metadata.png",
+    "viewport": "3840x2160",
+    "orientation": "landscape-4k",
+    "section_state": "Reading drawer with compact metadata",
+    "intended_user_action": "Read the full card, close, or go previous/next.",
+    "visual_metaphor": "Open archival reading surface",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low to medium: long records can still create scroll depth.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Confirm compact metadata is legible and Related by Topic appears soon enough without PDF/page clutter.",
+    "candidate_image_2_assets": [
+      "drawer handle / archive drawer accent",
+      "clipping card texture"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Hall Memory Corridor",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": true
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": false,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "Long full-text records may still require scrolling."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/landscape-3840x2160-follow-strings-default.png",
+    "viewport": "3840x2160",
+    "orientation": "landscape-4k",
+    "section_state": "Follow the Strings default",
+    "intended_user_action": "Tap a theme, Dart, or Pat clipping.",
+    "visual_metaphor": "Corkboard and string-board room",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Medium: corkboard density should remain under review.",
+    "storymap_dashboard_risk": "Low to medium: keep atmospheric/tactile, not chart-like.",
+    "notes_for_improvement": "Review density carefully, especially in portrait; the board should feel tactile, not analytical.",
+    "candidate_image_2_assets": [
+      "corkboard/string board texture"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Strings Follow the Strings",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": false,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "Potential density in portrait and 4K views."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/portrait-2160x3840-breeze-parade-idle.png",
+    "viewport": "2160x3840",
+    "orientation": "portrait-4k",
+    "section_state": "The Breeze Parade idle",
+    "intended_user_action": "Touch the large entry button or the parade scene.",
+    "visual_metaphor": "Poster-like civic parade attractor",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Check whether the invitation reads clearly from standing distance and whether the parade feels present without overwhelming the title.",
+    "candidate_image_2_assets": [
+      "The Breeze Parade background / market scene",
+      "balloon set"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Start Threshold",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": true,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "Future art must not obscure the entry button or clipping text."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/portrait-2160x3840-memory-corridor-all-years.png",
+    "viewport": "2160x3840",
+    "orientation": "portrait-4k",
+    "section_state": "Memory Corridor all years",
+    "intended_user_action": "Swipe/drag the corridor, tap cards, years, or topic stations.",
+    "visual_metaphor": "2.5D archive hallway",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Confirm the corridor remains the dominant interaction and portrait mode does not collapse into a phone page.",
+    "candidate_image_2_assets": [
+      "Memory Rail tab set",
+      "topic station icons"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Hall Memory Corridor",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": true,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "No obvious concern from automated capture; human visual review still needed."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/portrait-2160x3840-reading-drawer-compact-metadata.png",
+    "viewport": "2160x3840",
+    "orientation": "portrait-4k",
+    "section_state": "Reading drawer with compact metadata",
+    "intended_user_action": "Read the full card, close, or go previous/next.",
+    "visual_metaphor": "Open archival reading surface",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Low to medium: long records can still create scroll depth.",
+    "storymap_dashboard_risk": "Low.",
+    "notes_for_improvement": "Confirm compact metadata is legible and Related by Topic appears soon enough without PDF/page clutter.",
+    "candidate_image_2_assets": [
+      "drawer handle / archive drawer accent",
+      "clipping card texture"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Hall Memory Corridor",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": true
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": true,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "Long full-text records may still require scrolling."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "path": "public/reports/screenshots/phase-8-post-polish-screen-bible/portrait-2160x3840-follow-strings-default.png",
+    "viewport": "2160x3840",
+    "orientation": "portrait-4k",
+    "section_state": "Follow the Strings default",
+    "intended_user_action": "Tap a theme, Dart, or Pat clipping.",
+    "visual_metaphor": "Corkboard and string-board room",
+    "touch_readiness": "Primary actions are large tap targets; no hover-only interaction required in this state.",
+    "standing_distance_readability": "Good target for kiosk review; verify long text from actual standing distance.",
+    "visual_clutter_risk": "Medium: corkboard density should remain under review.",
+    "storymap_dashboard_risk": "Low to medium: keep atmospheric/tactile, not chart-like.",
+    "notes_for_improvement": "Review density carefully, especially in portrait; the board should feel tactile, not analytical.",
+    "candidate_image_2_assets": [
+      "corkboard/string board texture"
+    ],
+    "checks": {
+      "url": "http://127.0.0.1:4321/",
+      "title": "The Breeze Between Town and Gown",
+      "activeChapter": "Strings Follow the Strings",
+      "publicTextInputs": 0,
+      "classChip": "",
+      "editorHasTopicSelect": false,
+      "drawerOpen": false
+    },
+    "media": {
+      "coarse": true,
+      "hoverNone": true,
+      "portrait": true,
+      "reducedMotion": false
+    },
+    "known_design_concerns": [
+      "Potential density in portrait and 4K views."
+    ],
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Does this look too much like a website, dashboard, or StoryMap?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  }
+]
