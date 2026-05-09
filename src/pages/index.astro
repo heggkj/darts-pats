@@ -93,10 +93,15 @@ import '../styles/corridor.css';
           <p id="corridor-subtitle">Use the floor timeline, topic doors, or filters to move through the archive.</p>
         </div>
 
-        <div class="corridor-stage" aria-live="polite">
+        <div class="corridor-stage" aria-live="polite" data-corridor-stage>
           <div class="corridor-stage__ceiling" aria-hidden="true"></div>
+          <div class="corridor-stage__vanish" aria-hidden="true"></div>
           <aside class="wall wall--left" aria-label="Darts wall">
-            <div class="wall__label"><span>🎯</span> Darts</div>
+            <div class="wall__label">
+              <span aria-hidden="true">🎯</span>
+              <strong>Darts wall</strong>
+              <small>Sharp notes, civic static</small>
+            </div>
             <div class="card-rack" id="dart-rack"></div>
           </aside>
           <div class="corridor-center">
@@ -106,11 +111,31 @@ import '../styles/corridor.css';
               <p id="current-view-summary">Loading the archive…</p>
               <div class="view-meters" id="view-meters"></div>
             </div>
-            <div class="topic-doors" id="topic-doors" aria-label="Topic doors"></div>
-            <div class="floor-timeline" id="floor-timeline" aria-label="Timeline floor"></div>
+            <div class="corridor-walkway">
+              <div class="topic-doors" id="topic-doors" aria-label="Topic doors and stations"></div>
+              <div class="floor-run" aria-labelledby="floor-title">
+                <div class="floor-run__header">
+                  <div>
+                    <p class="kicker" id="floor-title">Timeline floor</p>
+                    <p>Step across yearly tiles. Darker means more Darts, warmer means more Pats, split tiles mean the town-gown mood could not pick a lane.</p>
+                  </div>
+                  <div class="floor-key" aria-label="Timeline mood key">
+                    <span><i class="key key--dart"></i> Dart-heavy</span>
+                    <span><i class="key key--mixed"></i> Mixed</span>
+                    <span><i class="key key--pat"></i> Pat-heavy</span>
+                  </div>
+                </div>
+                <div class="floor-timeline" id="floor-timeline" aria-label="Timeline floor from 1991 to 2026"></div>
+              </div>
+            </div>
+            <p class="corridor-hint">Open any card on either wall, or use a topic station to let the hallway rearrange itself.</p>
           </div>
           <aside class="wall wall--right" aria-label="Pats wall">
-            <div class="wall__label"><span>🤲</span> Pats</div>
+            <div class="wall__label">
+              <span aria-hidden="true">🤲</span>
+              <strong>Pats wall</strong>
+              <small>Warm notes, public thanks</small>
+            </div>
             <div class="card-rack" id="pat-rack"></div>
           </aside>
         </div>
@@ -145,12 +170,27 @@ import '../styles/corridor.css';
         </div>
         <div class="game-card">
           <blockquote id="game-text">Loading a card…</blockquote>
+          <div class="game-fieldset" aria-label="Editor guesses">
+            <fieldset>
+              <legend>Form</legend>
+              <div class="segmented">
+                <button class="button button--small button--ghost" data-guess="DART" type="button" aria-pressed="false">Dart</button>
+                <button class="button button--small button--ghost" data-guess="PAT" type="button" aria-pressed="false">Pat</button>
+              </div>
+            </fieldset>
+            <div class="control-group">
+              <label for="game-topic-guess">Topic</label>
+              <select id="game-topic-guess">
+                <option value="">Choose a topic</option>
+              </select>
+            </div>
+          </div>
           <div class="game-controls">
-            <button class="button button--small" data-guess="DART" type="button">I call it a Dart</button>
-            <button class="button button--small" data-guess="PAT" type="button">I call it a Pat</button>
+            <button class="button button--small" id="reveal-game-card" type="button" disabled>Reveal the archive card</button>
             <button class="button button--small button--ghost" id="new-game-card" type="button">New card</button>
           </div>
           <p class="game-result" id="game-result" aria-live="polite"></p>
+          <div class="game-related" id="game-related" aria-live="polite"></div>
         </div>
       </section>
 
