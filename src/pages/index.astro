@@ -11,10 +11,59 @@ import '../styles/corridor.css';
     <title>The Breeze Between Town and Gown</title>
   </head>
   <body>
-    <a class="skip-link" href="#corridor">Skip to the corridor</a>
+    <a class="skip-link" href="#walk-years">Skip to the corridor</a>
+
+    <nav class="memory-rail" aria-labelledby="memory-rail-title">
+      <div class="memory-rail__header">
+        <p class="kicker">Breeze morgue rail</p>
+        <h2 id="memory-rail-title">Memory Rail</h2>
+      </div>
+      <div class="memory-rail__tokens">
+        <button class="rail-token rail-token--threshold is-active" data-rail-target="threshold" type="button" aria-current="true">
+          <span class="rail-token__stamp">Front page</span>
+          <strong>Threshold</strong>
+        </button>
+        <button class="rail-token rail-token--years" data-rail-target="walk-years" type="button">
+          <span class="rail-token__stamp">Floor file</span>
+          <strong>Walk the Years</strong>
+        </button>
+        <button class="rail-token rail-token--friction" data-rail-target="friction-map" type="button">
+          <span class="rail-token__stamp">String board</span>
+          <strong>The Friction Map</strong>
+        </button>
+        <button class="rail-token rail-token--trouble" data-rail-target="trouble-spots" type="button">
+          <span class="rail-token__stamp">Trouble tab</span>
+          <strong>The Trouble Spots</strong>
+        </button>
+        <button class="rail-token rail-token--drawer" data-rail-target="open-drawer" type="button">
+          <span class="rail-token__stamp">Pull handle</span>
+          <strong>Open the Drawer</strong>
+        </button>
+        <button class="rail-token rail-token--editor" data-rail-target="editor-game" type="button">
+          <span class="rail-token__stamp">Ink desk</span>
+          <strong>Editor’s Table</strong>
+        </button>
+        <button class="rail-token rail-token--reflection" data-rail-target="reflection-wall" type="button">
+          <span class="rail-token__stamp">Last note</span>
+          <strong>Reflection Wall</strong>
+        </button>
+      </div>
+      <div class="memory-lane" aria-labelledby="memory-lane-title">
+        <p class="memory-lane__eyebrow" id="memory-lane-title">Take me to my years</p>
+        <div class="memory-lane__dial" aria-hidden="true"></div>
+        <label class="memory-lane__label" for="memory-year">Choose a year</label>
+        <input id="memory-year" type="range" min="1991" max="2026" value="2008" step="1" />
+        <output class="memory-lane__year" id="memory-year-output" for="memory-year">2008</output>
+        <div class="memory-lane__buttons">
+          <button class="memory-lane__step" id="memory-year-back" type="button" aria-label="Choose previous year">−</button>
+          <button class="memory-lane__go" id="memory-year-go" type="button">Pull year</button>
+          <button class="memory-lane__step" id="memory-year-forward" type="button" aria-label="Choose next year">+</button>
+        </div>
+      </div>
+    </nav>
 
     <main class="exhibit-shell" id="top">
-      <section class="threshold" aria-labelledby="threshold-title">
+      <section class="threshold" id="threshold" data-chapter="threshold" aria-labelledby="threshold-title">
         <div class="threshold__paper" aria-hidden="true"></div>
         <p class="kicker">The Breeze archive / Darts & Pats / 1991–2026</p>
         <h1 id="threshold-title">The Breeze Between Town and Gown</h1>
@@ -88,10 +137,10 @@ import '../styles/corridor.css';
         <button class="button button--small button--ghost" id="presentation-mode" type="button">Presentation Mode</button>
       </section>
 
-      <section class="corridor" id="corridor" aria-labelledby="corridor-title">
+      <section class="corridor" id="walk-years" data-chapter="walk-years" aria-labelledby="corridor-title">
         <div class="section-heading">
           <p class="kicker">2.5D corridor</p>
-          <h2 id="corridor-title">Walk the relationship</h2>
+          <h2 id="corridor-title">Walk the Years</h2>
           <p id="corridor-subtitle">Use the floor timeline, topic doors, or filters to move through the archive.</p>
         </div>
 
@@ -121,7 +170,9 @@ import '../styles/corridor.css';
                 <div class="view-meters" id="view-meters"></div>
               </div>
               <div class="corridor-walkway">
-                <div class="topic-doors" id="topic-doors" aria-label="Topic doors and stations"></div>
+                <div class="trouble-spots" id="trouble-spots" data-chapter="trouble-spots" aria-label="The Trouble Spots">
+                  <div class="topic-doors" id="topic-doors" aria-label="Topic doors and stations"></div>
+                </div>
                 <div class="floor-run" aria-labelledby="floor-title">
                   <div class="floor-run__header">
                     <div>
@@ -155,11 +206,11 @@ import '../styles/corridor.css';
         </div>
       </section>
 
-      <section class="network-section" aria-labelledby="network-title">
+      <section class="network-section" id="friction-map" data-chapter="friction-map" aria-labelledby="network-title">
         <div class="section-heading">
           <p class="kicker">Bulletin-board network</p>
-          <h2 id="network-title">Follow the strings</h2>
-          <p>Topics, places, and Darts/Pats are pinned together as a civic memory board. Click a pin to filter the corridor.</p>
+          <h2 id="network-title">The Friction Map</h2>
+          <p>Topics, places, and Darts/Pats are pinned together as a civic memory board. Tap a pin to filter the corridor.</p>
         </div>
         <div class="network-board" id="network-board">
           <svg id="network-edges" aria-hidden="true"></svg>
@@ -167,16 +218,16 @@ import '../styles/corridor.css';
         </div>
       </section>
 
-      <section class="reader-section" aria-labelledby="reader-title">
+      <section class="reader-section" id="open-drawer" data-chapter="open-drawer" aria-labelledby="reader-title">
         <div class="section-heading">
           <p class="kicker">Reading drawer</p>
-          <h2 id="reader-title">Open the notes</h2>
+          <h2 id="reader-title">Open the Drawer</h2>
           <p>Every card opens into the original text. The exhibit works best when the data visualization sends people back to the words.</p>
         </div>
         <div class="shelf" id="reading-shelf"></div>
       </section>
 
-      <section class="editor-game" id="editor-game" aria-labelledby="editor-game-title">
+      <section class="editor-game" id="editor-game" data-chapter="editor-game" aria-labelledby="editor-game-title">
         <div class="section-heading">
           <p class="kicker">No-score interpretive game</p>
           <h2 id="editor-game-title">You be the Breeze editor</h2>
@@ -208,8 +259,9 @@ import '../styles/corridor.css';
         </div>
       </section>
 
-      <section class="source-note" aria-labelledby="source-title">
-        <h2 id="source-title">Source note</h2>
+      <section class="source-note reflection-wall" id="reflection-wall" data-chapter="reflection-wall" aria-labelledby="source-title">
+        <p class="kicker">Reflection wall</p>
+        <h2 id="source-title">What the wall remembers</h2>
         <p>
           All entries are drawn from Darts & Pats published in <em>The Breeze</em>, James Madison University’s student newspaper. They are presented as historical evidence of perception, humor, grievance, gratitude, and civic memory—not as neutral measurements of the town-gown relationship.
         </p>

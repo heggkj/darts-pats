@@ -83,11 +83,19 @@ const els = {
   corridorPan: document.querySelector('#corridor-pan'),
   walkButtons: document.querySelectorAll('[data-walk]'),
   idleOverlay: document.querySelector('#idle-overlay'),
+  railButtons: document.querySelectorAll('[data-rail-target]'),
+  chapterSections: document.querySelectorAll('[data-chapter]'),
+  memoryYear: document.querySelector('#memory-year'),
+  memoryYearOutput: document.querySelector('#memory-year-output'),
+  memoryYearGo: document.querySelector('#memory-year-go'),
+  memoryYearBack: document.querySelector('#memory-year-back'),
+  memoryYearForward: document.querySelector('#memory-year-forward'),
 };
 
 let idleTimer = null;
 let idleResetTimer = null;
 let panDrag = null;
+let railObserver = null;
 
 function escapeHtml(value = '') {
   return String(value)
@@ -175,6 +183,7 @@ function updateControlsFromState() {
   els.topic.value = state.topic;
   els.kind.value = state.kind;
   els.search.value = state.search;
+  if (state.year !== 'all') syncMemoryYear(state.year);
 }
 
 function applyState(patch = {}) {
@@ -571,20 +580,20 @@ function handleNetworkClick(event) {
 
   if (type === 'sentiment') {
     applyState({ kind: label === 'DART' ? 'DART' : 'PAT' });
-    document.querySelector('#corridor')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.querySelector('#walk-years')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     return;
   }
 
   if (type === 'topic') {
     const topic = state.summary.topics.find((item) => `topic:${item.label}` === id || item.label === label);
     if (topic) applyState({ topic: topic.topic });
-    document.querySelector('#corridor')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.querySelector('#trouble-spots')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     return;
   }
 
   if (type === 'entity') {
     applyState({ search: label });
-    document.querySelector('#corridor')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.querySelector('#walk-years')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 }
 
@@ -599,6 +608,96 @@ function scrollToElement(element) {
 function resetCorridorPan() {
   if (!els.corridorPan) return;
   els.corridorPan.scrollTo({ left: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+}
+
+function getChapterElement(targetId) {
+  return document.querySelector(`[data-chapter="${targetId}"]`) || document.getElementById(targetId);
+}
+
+function setActiveChapter(targetId) {
+  els.railButtons.forEach((button) => {
+    const isActive = button.dataset.railTarget === targetId;
+    button.classList.toggle('is-active', isActive);
+    if (isActive) {
+      button.setAttribute('aria-current', 'true');
+    } else {
+      button.removeAttribute('aria-current');
+    }
+  });
+}
+
+function bindMemoryRail() {
+  if (!els.railButtons.length) return;
+
+  els.railButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const targetId = button.dataset.railTarget;
+      const target = getChapterElement(targetId);
+      if (!target) return;
+      setActiveChapter(targetId);
+      scrollToElement(target);
+      if (targetId === 'walk-years' || targetId === 'trouble-spots') {
+        window.requestAnimationFrame(() => els.corridorPan?.focus({ preventScroll: true }));
+      }
+    });
+  });
+
+  if ('IntersectionObserver' in window) {
+    railObserver = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+      if (visible[0]?.target?.dataset?.chapter) {
+        setActiveChapter(visible[0].target.dataset.chapter);
+      }
+    }, {
+      root: null,
+      threshold: [0.2, 0.45, 0.68],
+      rootMargin: '-22% 0px -48% 0px',
+    });
+
+    els.chapterSections.forEach((section) => railObserver.observe(section));
+  }
+}
+
+function syncMemoryYear(year = els.memoryYear?.value || '2008') {
+  if (!els.memoryYear || !els.memoryYearOutput) return;
+  const min = Number(els.memoryYear.min);
+  const max = Number(els.memoryYear.max);
+  const numericYear = Math.min(max, Math.max(min, Number(year) || min));
+  els.memoryYear.value = String(numericYear);
+  els.memoryYearOutput.value = String(numericYear);
+  els.memoryYearOutput.textContent = String(numericYear);
+}
+
+function nudgeMemoryYear(delta) {
+  if (!els.memoryYear) return;
+  syncMemoryYear(Number(els.memoryYear.value) + delta);
+}
+
+function focusYearTile(year) {
+  window.requestAnimationFrame(() => {
+    const tile = els.timeline?.querySelector(`[data-year="${year}"]`);
+    if (!tile) return;
+
+    if (els.corridorPan) {
+      const tileRect = tile.getBoundingClientRect();
+      const panRect = els.corridorPan.getBoundingClientRect();
+      const leftDelta = tileRect.left - panRect.left - ((panRect.width - tileRect.width) / 2);
+      els.corridorPan.scrollBy({ left: leftDelta, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+    }
+
+    tile.focus({ preventScroll: true });
+  });
+}
+
+function jumpToMemoryYear() {
+  if (!els.memoryYear) return;
+  const year = els.memoryYear.value;
+  applyState({ year });
+  setActiveChapter('walk-years');
+  scrollToElement(document.querySelector('#walk-years'));
+  focusYearTile(year);
 }
 
 function startOver({ showOverlay = false } = {}) {
@@ -624,7 +723,7 @@ function startOver({ showOverlay = false } = {}) {
 }
 
 function enterCorridor() {
-  scrollToElement(document.querySelector('#corridor'));
+  scrollToElement(document.querySelector('#walk-years'));
   resetCorridorPan();
 }
 
@@ -720,6 +819,10 @@ function bindEvents() {
   els.kioskEnter.addEventListener('click', enterCorridor);
   els.presentationMode.addEventListener('click', togglePresentationMode);
   document.addEventListener('fullscreenchange', updatePresentationButton);
+  els.memoryYear?.addEventListener('input', (event) => syncMemoryYear(event.target.value));
+  els.memoryYearGo?.addEventListener('click', jumpToMemoryYear);
+  els.memoryYearBack?.addEventListener('click', () => nudgeMemoryYear(-1));
+  els.memoryYearForward?.addEventListener('click', () => nudgeMemoryYear(1));
   els.walkButtons.forEach((button) => {
     button.addEventListener('click', () => walkCorridor(button.dataset.walk));
   });
@@ -786,6 +889,7 @@ function bindEvents() {
   });
 
   window.addEventListener('resize', () => window.requestAnimationFrame(renderNetwork));
+  bindMemoryRail();
   bindIdleReset();
 }
 
