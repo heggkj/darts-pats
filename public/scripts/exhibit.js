@@ -5,6 +5,7 @@ const IDLE_WARNING_MS = 2400;
 const EDITOR_FORM_WORD_RE = /\b(dart|darts|pat|pats)\b/gi;
 const ATTRACTOR_CARD_LENGTH = 180;
 const ATTRACTOR_HARSH_LANGUAGE_RE = /\b(fuck|shit|bitch|asshole|bastard|slut|whore|kill|killed|hate|hated|hateful|idiot|moron|stupid|dumb|loser|shut up|go away)\b/i;
+const APP_VERSION = 'phase-5-museum-touchscreen-hardening';
 
 const topicIcons = {
   housing_landlords_apartments: '/assets/generated/icon-housing.svg',
@@ -70,6 +71,8 @@ const state = {
   isAttractorActive: true,
   attractorPool: [],
   attractorIndex: 0,
+  currentChapter: 'threshold',
+  lastResetAt: '',
 };
 
 const els = {
@@ -138,6 +141,10 @@ const els = {
   classYearBack: document.querySelector('#class-year-back'),
   classYearForward: document.querySelector('#class-year-forward'),
   classYearClear: document.querySelector('#class-year-clear'),
+  diagnosticsHotspot: document.querySelector('#diagnostics-hotspot'),
+  diagnosticsPanel: document.querySelector('#operator-diagnostics'),
+  diagnosticsClose: document.querySelector('#diagnostics-close'),
+  diagnosticsReadout: document.querySelector('#diagnostics-readout'),
 };
 
 let idleTimer = null;
@@ -146,6 +153,9 @@ let idleReturnInProgress = false;
 let panDrag = null;
 let railObserver = null;
 let corridorEdgeFrame = null;
+let diagnosticsTapCount = 0;
+let diagnosticsTapTimer = null;
+let diagnosticsInterval = null;
 
 function escapeHtml(value = '') {
   return String(value)
@@ -864,6 +874,14 @@ function relatedThemesFor(themeId) {
 }
 
 function sideArcPosition(index, total, side) {
+  if (isPortraitLayout()) {
+    const ratio = total <= 1 ? 0.5 : index / (total - 1);
+    return {
+      x: 18 + ratio * 64,
+      y: side === 'left' ? 43 + (index % 2) * 5 : 62 + (index % 2) * 5,
+    };
+  }
+
   const ratio = total <= 1 ? 0.5 : index / (total - 1);
   const wave = Math.sin(ratio * Math.PI);
   return {
@@ -873,6 +891,20 @@ function sideArcPosition(index, total, side) {
 }
 
 function relatedPosition(index) {
+  if (isPortraitLayout()) {
+    const slots = [
+      { x: 17, y: 27 },
+      { x: 38, y: 25 },
+      { x: 62, y: 25 },
+      { x: 83, y: 27 },
+      { x: 26, y: 35 },
+      { x: 50, y: 34 },
+      { x: 74, y: 35 },
+      { x: 50, y: 75 },
+    ];
+    return slots[index % slots.length];
+  }
+
   const slots = [
     { x: 20, y: 12 },
     { x: 38, y: 9 },
@@ -923,13 +955,17 @@ function renderNetwork() {
   const selectedTheme = state.stringGraph.themes.get(state.selectedStringTheme) || state.stringGraph.topThemes[0];
   if (!selectedTheme) return;
   state.selectedStringTheme = selectedTheme.id;
+  const portrait = isPortraitLayout();
+  els.networkBoard?.classList.toggle('is-portrait-layout', portrait);
 
   const records = stringRecordsForTheme(selectedTheme.id);
-  const darts = records.filter((record) => record.kind === 'DART').slice(0, 6);
-  const pats = records.filter((record) => record.kind === 'PAT').slice(0, 6);
+  const recordLimit = portrait ? 4 : 6;
+  const relatedLimit = portrait ? 7 : 8;
+  const darts = records.filter((record) => record.kind === 'DART').slice(0, recordLimit);
+  const pats = records.filter((record) => record.kind === 'PAT').slice(0, recordLimit);
   const relatedThemes = selectedTheme.id === state.stringGraph.topThemes[0]?.id
-    ? state.stringGraph.topThemes.filter((theme) => theme.id !== selectedTheme.id).slice(0, 8)
-    : relatedThemesFor(selectedTheme.id).slice(0, 8);
+    ? state.stringGraph.topThemes.filter((theme) => theme.id !== selectedTheme.id).slice(0, relatedLimit)
+    : relatedThemesFor(selectedTheme.id).slice(0, relatedLimit);
   const nodes = [
     ...darts.map((record, index) => stringRecordNode(record, index, darts.length, 'left')),
     ...pats.map((record, index) => stringRecordNode(record, index, pats.length, 'right')),
@@ -949,7 +985,7 @@ function renderNetwork() {
   els.networkEdges.innerHTML = nodes.map((node) => {
     const color = node.edge === 'pat' ? '#cbb677' : node.edge === 'theme' ? '#2f6f7e' : '#450084';
     const width = node.edge === 'theme' ? 0.34 : 0.52;
-    return `<line x1="50" y1="42" x2="${node.x}" y2="${node.y}" stroke="${color}" stroke-width="${width}" stroke-linecap="round" stroke-opacity="0.64" />`;
+    return `<line x1="50" y1="${portrait ? 18 : 42}" x2="${node.x}" y2="${node.y}" stroke="${color}" stroke-width="${width}" stroke-linecap="round" stroke-opacity="${portrait ? 0.38 : 0.64}" />`;
   }).join('');
 
   const years = [...records.reduce((map, record) => {
@@ -1147,12 +1183,68 @@ function installLocalTestHooks() {
   window.__DARTS_PATS_TEST__ = {
     showAttractor: () => AttractorMode.activate(),
     exitAttractor: () => AttractorMode.deactivate(),
+    enterExhibit: () => AttractorMode.deactivate(),
     triggerIdleReset: () => startOver({ showOverlay: true }),
+    showIdleOverlay: () => {
+      els.idleOverlay.hidden = false;
+    },
+    hideIdleOverlay: () => {
+      els.idleOverlay.hidden = true;
+    },
     resetInteractiveState,
     attractorPoolStats,
     renderAttractorClipping: () => renderAttractorClipping(nextAttractorRecord() || state.attractorPool[0]),
     fadeAttractorClipping: () => AttractorMode.fadeCurrentClipping(() => {}),
     runAttractorCycle: () => AttractorMode.runCycle(),
+    applyState,
+    openClassTray: (year = 2004) => {
+      AttractorMode.deactivate();
+      syncClassYear(year);
+      setClassTrayOpen(true);
+    },
+    setClassYear: (year = 2004) => {
+      AttractorMode.deactivate();
+      applyState({ classYear: String(year) });
+      setClassTrayOpen(false);
+    },
+    clearClassYear,
+    scrollToSection: (targetId) => {
+      AttractorMode.deactivate();
+      const target = getChapterElement(targetId) || document.getElementById(targetId);
+      setActiveChapter(targetId);
+      target?.scrollIntoView({ behavior: 'auto', block: 'start' });
+      updateCorridorEdgeButtons();
+    },
+    selectStringTheme: (index = 1) => {
+      AttractorMode.deactivate();
+      const theme = state.stringGraph?.topThemes?.[index] || state.stringGraph?.topThemes?.[0];
+      if (theme) {
+        state.selectedStringTheme = theme.id;
+        renderNetwork();
+      }
+      return theme?.label || '';
+    },
+    openDrawer: (index = 0) => {
+      AttractorMode.deactivate();
+      const record = (state.filtered.length ? state.filtered : state.records)[index] || state.records[0];
+      if (record) renderDrawer(record);
+    },
+    closeDrawer: () => {
+      if (els.drawer?.open) els.drawer.close();
+    },
+    newEditorCard: () => {
+      AttractorMode.deactivate();
+      makeGameCard();
+    },
+    revealEditorCard: () => {
+      AttractorMode.deactivate();
+      if (!state.gameRecord) makeGameCard();
+      state.gameKindGuess = state.gameRecord?.kind || 'DART';
+      state.gameTopicGuess = state.gameRecord?.primary_topic || state.summary?.topics?.[0]?.topic || '';
+      revealGameGuess();
+    },
+    openDiagnostics: () => setDiagnosticsOpen(true),
+    closeDiagnostics: () => setDiagnosticsOpen(false),
   };
 }
 
@@ -1206,11 +1298,16 @@ function queueCorridorEdgeUpdate() {
   });
 }
 
+function isPortraitLayout() {
+  return window.matchMedia('(orientation: portrait)').matches;
+}
+
 function getChapterElement(targetId) {
   return document.querySelector(`[data-chapter="${targetId}"]`) || document.getElementById(targetId);
 }
 
 function setActiveChapter(targetId) {
+  state.currentChapter = targetId;
   els.railButtons.forEach((button) => {
     const isActive = button.dataset.railTarget === targetId;
     button.classList.toggle('is-active', isActive);
@@ -1363,6 +1460,7 @@ function resetInteractiveState() {
 }
 
 function startOver({ showOverlay = false } = {}) {
+  state.lastResetAt = new Date().toLocaleString();
   resetInteractiveState();
 
   if (showOverlay) {
@@ -1470,6 +1568,89 @@ function bindIdleReset() {
     window.addEventListener(eventName, resetIdleTimer, { passive: true });
   });
   resetIdleTimer();
+}
+
+function diagnosticsRows() {
+  const orientation = window.matchMedia('(orientation: portrait)').matches ? 'portrait' : 'landscape';
+  const pointer = window.matchMedia('(pointer: coarse)').matches ? 'coarse' : 'fine';
+  const hover = window.matchMedia('(hover: none)').matches ? 'none' : 'available';
+  const reducedMotion = prefersReducedMotion() ? 'reduce' : 'no preference';
+  const idleStatus = state.isAttractorActive
+    ? 'attractor active / idle loop paused'
+    : idleReturnInProgress
+      ? 'return overlay running'
+      : idleTimer
+        ? `${Math.round(IDLE_RESET_MS / 1000)}s timer armed`
+        : 'not armed';
+
+  return [
+    ['Version', APP_VERSION],
+    ['Build commit', document.documentElement.dataset.buildCommit || 'not embedded'],
+    ['Viewport', `${window.innerWidth} x ${window.innerHeight}`],
+    ['Orientation', orientation],
+    ['Pointer / hover', `${pointer} pointer / hover ${hover}`],
+    ['Reduced motion', reducedMotion],
+    ['Records loaded', state.records.length],
+    ['Attractor pool', state.attractorPool.length],
+    ['Current filters', `year ${state.year}; class ${state.classYear}; era ${state.era}; topic ${state.topic}; form ${state.kind}`],
+    ['Idle timer', idleStatus],
+    ['Current section', state.isAttractorActive ? 'The Breeze Parade' : state.currentChapter],
+    ['Last reset', state.lastResetAt || 'not yet in this session'],
+  ];
+}
+
+function updateDiagnostics() {
+  if (!els.diagnosticsReadout) return;
+  els.diagnosticsReadout.innerHTML = diagnosticsRows().map(([label, value]) => `
+    <div>
+      <dt>${escapeHtml(label)}</dt>
+      <dd>${escapeHtml(value)}</dd>
+    </div>
+  `).join('');
+}
+
+function setDiagnosticsOpen(open) {
+  if (!els.diagnosticsPanel) return;
+  els.diagnosticsPanel.hidden = !open;
+  if (open) {
+    updateDiagnostics();
+    diagnosticsInterval = window.setInterval(updateDiagnostics, 1000);
+    window.requestAnimationFrame(() => els.diagnosticsClose?.focus({ preventScroll: true }));
+  } else {
+    window.clearInterval(diagnosticsInterval);
+    diagnosticsInterval = null;
+  }
+}
+
+function registerDiagnosticsTap() {
+  diagnosticsTapCount += 1;
+  window.clearTimeout(diagnosticsTapTimer);
+  diagnosticsTapTimer = window.setTimeout(() => {
+    diagnosticsTapCount = 0;
+  }, 2200);
+
+  if (diagnosticsTapCount >= 7) {
+    diagnosticsTapCount = 0;
+    setDiagnosticsOpen(els.diagnosticsPanel?.hidden);
+  }
+}
+
+function bindDiagnostics() {
+  els.diagnosticsHotspot?.addEventListener('click', registerDiagnosticsTap);
+  els.diagnosticsClose?.addEventListener('click', () => setDiagnosticsOpen(false));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !els.diagnosticsPanel?.hidden) {
+      setDiagnosticsOpen(false);
+      return;
+    }
+    if (event.key.toLowerCase() === 'd' && event.altKey && event.shiftKey) {
+      event.preventDefault();
+      setDiagnosticsOpen(els.diagnosticsPanel?.hidden);
+    }
+  });
+  window.addEventListener('resize', () => {
+    if (!els.diagnosticsPanel?.hidden) updateDiagnostics();
+  });
 }
 
 function bindEvents() {
@@ -1595,6 +1776,7 @@ function bindEvents() {
   });
   bindMemoryRail();
   bindIdleReset();
+  bindDiagnostics();
 }
 
 async function init() {

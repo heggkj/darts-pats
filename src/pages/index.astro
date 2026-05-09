@@ -339,6 +339,18 @@ import '../styles/corridor.css';
       <article id="drawer-content"></article>
     </dialog>
 
+    <button class="diagnostics-hotspot" id="diagnostics-hotspot" type="button" tabindex="-1" aria-hidden="true"></button>
+    <aside class="operator-diagnostics" id="operator-diagnostics" hidden role="dialog" aria-labelledby="diagnostics-title" aria-modal="false">
+      <header>
+        <div>
+          <p class="kicker">Operator diagnostics</p>
+          <h2 id="diagnostics-title">Kiosk Status</h2>
+        </div>
+        <button class="button button--small button--ghost" id="diagnostics-close" type="button">Close</button>
+      </header>
+      <dl id="diagnostics-readout"></dl>
+    </aside>
+
     <script type="module" src="/scripts/exhibit.js"></script>
   </body>
 </html>

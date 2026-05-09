@@ -2285,6 +2285,82 @@ body.is-attractor-active {
   font-size: 2.4rem;
 }
 
+.diagnostics-hotspot {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  z-index: 260;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 0;
+  opacity: 0.01;
+  background: transparent;
+}
+
+.operator-diagnostics {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 270;
+  width: min(32rem, calc(100vw - 2rem));
+  max-height: min(44rem, calc(100vh - 2rem));
+  overflow: auto;
+  padding: 1rem;
+  border: 1px solid rgba(69, 0, 132, 0.24);
+  border-radius: 14px;
+  background:
+    linear-gradient(140deg, rgba(255, 255, 255, 0.97), rgba(244, 239, 225, 0.96)),
+    url('/assets/generated/newsprint-texture.svg');
+  box-shadow: 0 28px 80px rgba(36, 31, 43, 0.34);
+}
+
+.operator-diagnostics[hidden] {
+  display: none;
+}
+
+.operator-diagnostics header {
+  display: flex;
+  gap: 1rem;
+  align-items: start;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
+}
+
+.operator-diagnostics h2 {
+  color: var(--jmu-purple);
+  font-size: 1.7rem;
+}
+
+.operator-diagnostics dl {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+}
+
+.operator-diagnostics dl div {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: 0.7rem;
+  padding: 0.55rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.64);
+}
+
+.operator-diagnostics dt {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.operator-diagnostics dd {
+  margin: 0;
+  color: var(--ink);
+  font-weight: 750;
+  overflow-wrap: anywhere;
+}
+
 /* Phase 3: quieter, one-dominant-interaction exhibit pass. */
 .memory-rail {
   width: 6.7rem;
@@ -2994,8 +3070,12 @@ body.is-presentation-mode .exhibit-shell {
   }
 
   .button {
-    min-height: 3.5rem;
+    min-height: 4rem;
     padding-inline: 1.2rem;
+  }
+
+  .button--small {
+    min-height: 3.5rem;
   }
 
   .button--kiosk-enter {
@@ -3009,8 +3089,12 @@ body.is-presentation-mode .exhibit-shell {
 
   .control-group input,
   .control-group select {
-    min-height: 3.5rem;
+    min-height: 4rem;
     font-size: 1rem;
+  }
+
+  .word-breeze__word {
+    min-height: 2.75rem;
   }
 
   .corridor-edge-button {
@@ -3211,6 +3295,387 @@ body.is-presentation-mode .exhibit-shell {
 
   .drawer-card {
     padding-inline: 1rem;
+  }
+}
+
+@media (orientation: landscape) and (min-width: 1180px) {
+  .memory-rail {
+    max-width: 7.2rem;
+  }
+
+  .attractor-mode__scene {
+    height: clamp(14rem, 28vh, 23rem);
+  }
+
+  .record-drawer {
+    width: min(88rem, calc(100% - 2rem));
+  }
+
+  .shelf {
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  }
+}
+
+@media (orientation: landscape) and (min-width: 2200px) {
+  .exhibit-shell {
+    width: min(calc(100% - 10rem), var(--max-width));
+    margin-left: 8.4rem;
+    margin-right: 1.4rem;
+  }
+
+  .threshold {
+    min-height: 42rem;
+  }
+
+  .corridor-stage {
+    width: 100%;
+    min-height: 52rem;
+  }
+
+  .string-board {
+    min-height: 52rem;
+  }
+}
+
+@media (orientation: portrait) {
+  body {
+    padding-bottom: 10rem;
+  }
+
+  .exhibit-shell {
+    width: min(100% - clamp(1.25rem, 4vw, 4rem), 1280px);
+    margin-inline: auto;
+    padding-top: clamp(0.8rem, 2vw, 2rem);
+    padding-bottom: 12rem;
+  }
+
+  .memory-rail {
+    inset: auto clamp(0.75rem, 2vw, 1.5rem) clamp(0.75rem, 2vw, 1.5rem);
+    width: auto;
+    max-height: 9.5rem;
+    display: block;
+    padding: clamp(0.5rem, 1.4vw, 0.85rem);
+    border-radius: 20px 20px 12px 12px;
+    transform: none;
+  }
+
+  .memory-rail::before {
+    inset: 0.9rem 1.1rem auto;
+    width: auto;
+    height: 0.26rem;
+  }
+
+  .memory-rail__header {
+    display: none;
+  }
+
+  .memory-rail__tokens {
+    display: flex;
+    gap: clamp(0.55rem, 1vw, 0.9rem);
+    min-height: 5.8rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.4rem 0.5rem;
+    scroll-padding-inline: 1rem;
+  }
+
+  .rail-token {
+    min-width: clamp(8rem, 17vw, 13rem);
+    min-height: clamp(4.8rem, 7vw, 6.4rem);
+  }
+
+  .rail-token:active,
+  .rail-token:focus-visible,
+  .rail-token.is-active {
+    transform: translateY(-0.35rem) rotate(0.25deg);
+  }
+
+  .rail-token.is-active::after {
+    inset: auto 0.7rem -0.24rem;
+    width: auto;
+    height: 0.4rem;
+  }
+
+  .class-tray {
+    position: fixed;
+    inset: auto clamp(1rem, 3vw, 2rem) clamp(10rem, 12vh, 13rem);
+    width: auto;
+    max-width: none;
+  }
+
+  .attractor-mode {
+    grid-template-rows: auto 1fr auto;
+    padding: clamp(1.25rem, 4vw, 4rem);
+  }
+
+  .attractor-mode__sky {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .attractor-mode__sky h1 {
+    max-width: 8.5ch;
+    font-size: clamp(5.2rem, 15vw, 12rem);
+  }
+
+  .attractor-mode__sky p:not(.kicker) {
+    max-width: 40rem;
+    font-size: clamp(1.15rem, 2.2vw, 1.8rem);
+  }
+
+  .attractor-mode__enter {
+    min-height: clamp(5.5rem, 8vw, 7.5rem);
+    min-width: min(100%, 44rem);
+  }
+
+  .attractor-mode__card-layer {
+    inset: 43vh auto auto clamp(1.25rem, 4vw, 4rem);
+    width: min(calc(100% - clamp(2.5rem, 8vw, 8rem)), 44rem);
+  }
+
+  .attractor-clipping {
+    min-height: clamp(13rem, 18vw, 18rem);
+  }
+
+  .attractor-mode__scene {
+    height: clamp(28rem, 33vh, 40rem);
+  }
+
+  .attractor-storefronts {
+    right: 24vw;
+  }
+
+  .attractor-bus {
+    right: 4vw;
+    width: clamp(10rem, 20vw, 18rem);
+  }
+
+  .controls-panel {
+    position: static;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .control-group--search {
+    grid-column: 1 / -1;
+  }
+
+  .threshold {
+    min-height: clamp(44rem, 54vh, 58rem);
+    padding: clamp(2rem, 5vw, 5rem);
+  }
+
+  .stat-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .corridor {
+    padding: clamp(1rem, 2.8vw, 2rem);
+  }
+
+  .corridor-pan {
+    overflow-x: visible;
+    cursor: default;
+  }
+
+  .corridor-edge-button {
+    display: none;
+  }
+
+  .corridor-stage {
+    grid-template-columns: 1fr;
+    width: 100%;
+    min-height: 0;
+    overflow: visible;
+    perspective: none;
+  }
+
+  .corridor-stage__ceiling,
+  .corridor-stage__vanish,
+  .corridor-stage::before,
+  .corridor-walkway::before {
+    display: none;
+  }
+
+  .corridor-center {
+    order: 1;
+    padding: clamp(1rem, 2.6vw, 2rem);
+  }
+
+  .wall--left,
+  .wall--right {
+    order: 2;
+    transform: none;
+    border: 0;
+  }
+
+  .wall--right {
+    order: 3;
+  }
+
+  .wall__label {
+    position: static;
+    width: 100%;
+    max-width: none;
+  }
+
+  .card-rack {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    max-height: none;
+    overflow: visible;
+  }
+
+  .featured-cards {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  }
+
+  .record-card,
+  .featured-cards .record-card {
+    min-height: 11rem;
+  }
+
+  .corridor-walkway {
+    min-height: 0;
+  }
+
+  .topic-doors {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+    transform: none;
+  }
+
+  .topic-door {
+    min-height: 9.5rem;
+  }
+
+  .floor-run {
+    transform: none;
+  }
+
+  .floor-timeline {
+    grid-template-columns: repeat(auto-fit, minmax(4.4rem, 1fr));
+    min-height: 0;
+    transform: none;
+  }
+
+  .year-tile {
+    min-height: 5.2rem;
+  }
+
+  .year-tile span {
+    display: block;
+  }
+
+  .word-breeze {
+    grid-template-columns: 1fr;
+    border-radius: 16px;
+  }
+
+  .string-board {
+    min-height: clamp(64rem, 78vh, 88rem);
+  }
+
+  .string-board::before {
+    border-style: solid;
+    opacity: 0.42;
+  }
+
+  .string-board.is-portrait-layout .string-board__center-pin,
+  .string-board.is-portrait-layout .string-node--center {
+    top: 18%;
+  }
+
+  .string-board.is-portrait-layout .string-node--center {
+    width: min(34rem, 72%);
+    min-height: 9rem;
+  }
+
+  .string-board.is-portrait-layout .string-node--theme {
+    width: clamp(9rem, 22vw, 15rem);
+    min-height: 5.8rem;
+  }
+
+  .string-board.is-portrait-layout .string-node--record {
+    width: clamp(10.5rem, 25vw, 18rem);
+    min-height: 7rem;
+  }
+
+  .string-board.is-portrait-layout #network-edges {
+    opacity: 0.58;
+  }
+
+  .string-years {
+    overflow-x: auto;
+  }
+
+  .shelf {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 21rem), 1fr));
+  }
+
+  .game-fieldset,
+  .game-related__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .segmented {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .game-controls {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .record-drawer {
+    width: calc(100% - clamp(0.75rem, 2vw, 1.5rem));
+    max-height: 96vh;
+    border-radius: 14px;
+  }
+
+  .drawer-close {
+    width: clamp(4.5rem, 7vw, 6rem);
+  }
+
+  .drawer-card {
+    padding-inline: clamp(1rem, 3vw, 2rem);
+  }
+
+  .drawer-card__header,
+  .drawer-nav {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: stretch;
+  }
+
+  .drawer-nav {
+    grid-template-columns: 1fr auto 1fr;
+  }
+
+  .button--drawer {
+    min-height: clamp(4.5rem, 7vw, 6rem);
+  }
+
+  .drawer-card blockquote {
+    font-size: clamp(1.35rem, 2.3vw, 1.9rem);
+  }
+}
+
+@media (orientation: portrait) and (max-width: 900px) {
+  .controls-panel,
+  .stat-strip,
+  .view-meters {
+    grid-template-columns: 1fr;
+  }
+
+  .topic-doors,
+  .featured-cards,
+  .card-rack,
+  .shelf {
+    grid-template-columns: 1fr;
+  }
+
+  .attractor-mode__card-layer {
+    inset: auto 1rem 34vh;
+    width: calc(100% - 2rem);
   }
 }
 
