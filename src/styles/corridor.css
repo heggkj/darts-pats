@@ -2524,6 +2524,9 @@ body.is-attractor-active {
   font-weight: 800;
   box-shadow: var(--soft-shadow);
   touch-action: manipulation;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.16s ease, visibility 0.16s ease, background 0.16s ease, color 0.16s ease;
 }
 
 .corridor-edge-button--left {
@@ -2540,6 +2543,12 @@ body.is-attractor-active {
 .corridor-edge-button:focus-visible {
   background: var(--jmu-purple);
   color: white;
+}
+
+.corridor-edge-button.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .corridor-stage {

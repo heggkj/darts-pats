@@ -124,6 +124,8 @@ const els = {
   startOver: document.querySelector('#start-over'),
   presentationMode: document.querySelector('#presentation-mode'),
   corridorPan: document.querySelector('#corridor-pan'),
+  corridorLeftWall: document.querySelector('.wall--left'),
+  corridorRightWall: document.querySelector('.wall--right'),
   walkButtons: document.querySelectorAll('[data-walk]'),
   idleOverlay: document.querySelector('#idle-overlay'),
   railButtons: document.querySelectorAll('[data-rail-target]'),
@@ -143,6 +145,7 @@ let idleResetTimer = null;
 let idleReturnInProgress = false;
 let panDrag = null;
 let railObserver = null;
+let corridorEdgeFrame = null;
 
 function escapeHtml(value = '') {
   return String(value)
@@ -1141,6 +1144,47 @@ function scrollToElement(element) {
 function resetCorridorPan() {
   if (!els.corridorPan) return;
   els.corridorPan.scrollTo({ left: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+  window.requestAnimationFrame(updateCorridorEdgeButtons);
+}
+
+function corridorSideIsVisible(sideElement) {
+  if (!els.corridorPan || !sideElement) return true;
+  const panRect = els.corridorPan.getBoundingClientRect();
+  const sideRect = sideElement.getBoundingClientRect();
+  const visibleWidth = Math.max(0, Math.min(sideRect.right, panRect.right) - Math.max(sideRect.left, panRect.left));
+  return visibleWidth / Math.max(1, sideRect.width) >= 0.48;
+}
+
+function setCorridorButtonHidden(button, hidden) {
+  button.classList.toggle('is-hidden', hidden);
+  button.disabled = hidden;
+  button.setAttribute('aria-hidden', String(hidden));
+}
+
+function updateCorridorEdgeButtons() {
+  if (!els.corridorPan || !els.walkButtons.length) return;
+  const pan = els.corridorPan;
+  const gutter = 8;
+  const leftWallVisible = corridorSideIsVisible(els.corridorLeftWall);
+  const rightWallVisible = corridorSideIsVisible(els.corridorRightWall);
+
+  els.walkButtons.forEach((button) => {
+    const buttonWidth = button.offsetWidth || 68;
+    const left = button.dataset.walk === 'right'
+      ? pan.scrollLeft + pan.clientWidth - buttonWidth - gutter
+      : pan.scrollLeft + gutter;
+    button.style.left = `${Math.max(pan.scrollLeft + gutter, left)}px`;
+    button.style.right = 'auto';
+    setCorridorButtonHidden(button, button.dataset.walk === 'left' ? leftWallVisible : rightWallVisible);
+  });
+}
+
+function queueCorridorEdgeUpdate() {
+  if (corridorEdgeFrame) return;
+  corridorEdgeFrame = window.requestAnimationFrame(() => {
+    corridorEdgeFrame = null;
+    updateCorridorEdgeButtons();
+  });
 }
 
 function getChapterElement(targetId) {
@@ -1331,6 +1375,7 @@ function walkCorridor(direction) {
   const distance = Math.max(360, els.corridorPan.clientWidth * 0.62);
   els.corridorPan.scrollBy({ left: sign * distance, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
   els.corridorPan.focus({ preventScroll: true });
+  queueCorridorEdgeUpdate();
 }
 
 function isInteractiveTarget(target) {
@@ -1452,6 +1497,7 @@ function bindEvents() {
     if (event.key === 'ArrowLeft') walkCorridor('left');
     if (event.key === 'ArrowRight') walkCorridor('right');
   });
+  els.corridorPan.addEventListener('scroll', queueCorridorEdgeUpdate, { passive: true });
   bindCorridorDrag();
 
   document.addEventListener('click', (event) => {
@@ -1524,7 +1570,10 @@ function bindEvents() {
     if (target) renderDrawer(target);
   });
 
-  window.addEventListener('resize', () => window.requestAnimationFrame(renderNetwork));
+  window.addEventListener('resize', () => {
+    window.requestAnimationFrame(renderNetwork);
+    queueCorridorEdgeUpdate();
+  });
   bindMemoryRail();
   bindIdleReset();
 }
@@ -1551,6 +1600,7 @@ async function init() {
     renderAll();
     renderNetwork();
     makeGameCard();
+    updateCorridorEdgeButtons();
     AttractorMode.activate({ resetScroll: false, focusEntry: false });
     installLocalTestHooks();
   } catch (error) {
