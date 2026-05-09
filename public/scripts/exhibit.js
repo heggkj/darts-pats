@@ -5,7 +5,7 @@ const IDLE_WARNING_MS = 2400;
 const EDITOR_FORM_WORD_RE = /\b(dart|darts|pat|pats)\b/gi;
 const ATTRACTOR_CARD_LENGTH = 180;
 const ATTRACTOR_HARSH_LANGUAGE_RE = /\b(fuck|shit|bitch|asshole|bastard|slut|whore|kill|killed|hate|hated|hateful|idiot|moron|stupid|dumb|loser|shut up|go away)\b/i;
-const APP_VERSION = 'phase-6-portrait-kiosk-composition';
+const APP_VERSION = 'phase-7-touch-friction-polish';
 
 const topicIcons = {
   housing_landlords_apartments: '/assets/generated/icon-housing.svg',
@@ -61,7 +61,6 @@ const state = {
   gameRecord: null,
   gameChallengeText: '',
   gameKindGuess: '',
-  gameTopicGuess: '',
   activeRecordId: null,
   editorEligibleRecords: [],
   editorWithheldRecords: [],
@@ -85,11 +84,6 @@ const els = {
   attractorScene: document.querySelector('#attractor-scene'),
   attractorBalloon: document.querySelector('#attractor-balloon'),
   attractorCardLayer: document.querySelector('#attractor-card-layer'),
-  year: document.querySelector('#year-filter'),
-  era: document.querySelector('#era-filter'),
-  topic: document.querySelector('#topic-filter'),
-  kind: document.querySelector('#kind-filter'),
-  search: document.querySelector('#search-filter'),
   reset: document.querySelector('#reset-filters'),
   dartRack: document.querySelector('#dart-rack'),
   patRack: document.querySelector('#pat-rack'),
@@ -119,7 +113,6 @@ const els = {
   gamePoolNote: document.querySelector('#game-pool-note'),
   gameResult: document.querySelector('#game-result'),
   gameRelated: document.querySelector('#game-related'),
-  gameTopicGuess: document.querySelector('#game-topic-guess'),
   revealGameCard: document.querySelector('#reveal-game-card'),
   newGameCard: document.querySelector('#new-game-card'),
   threshold: document.querySelector('.threshold'),
@@ -156,6 +149,7 @@ let corridorEdgeFrame = null;
 let diagnosticsTapCount = 0;
 let diagnosticsTapTimer = null;
 let diagnosticsInterval = null;
+let classTrayOpenedAt = 0;
 
 function escapeHtml(value = '') {
   return String(value)
@@ -218,6 +212,13 @@ function classWindowLabel(classYear = state.classYear) {
   const end = years[years.length - 1];
   const range = years.length === 1 ? `${years[0]}` : `${years[0]}–${end}`;
   return `Class of ${end}: ${range}`;
+}
+
+function classWindowRangeLabel(classYear = state.classYear) {
+  const years = classWindowYears(classYear);
+  if (!years.length) return '';
+  const end = years[years.length - 1];
+  return years.length === 1 ? `${years[0]}` : `${years[0]}–${end}`;
 }
 
 function editorChallenge(record) {
@@ -363,11 +364,6 @@ function filterRecords() {
 }
 
 function updateControlsFromState() {
-  els.year.value = state.year;
-  els.era.value = state.era;
-  els.topic.value = state.topic;
-  els.kind.value = state.kind;
-  els.search.value = state.search;
   if (state.classYear !== 'all') syncClassYear(state.classYear);
   updateClassWindowChip();
 }
@@ -386,19 +382,6 @@ function applyState(patch = {}) {
   renderAll();
 }
 
-function populateControls() {
-  const years = [...new Set(state.records.map((record) => record.year).filter(Boolean))].sort((a, b) => a - b);
-  els.year.innerHTML = '<option value="all">All years</option>' + years.map((year) => `<option value="${year}">${year}</option>`).join('');
-
-  const eras = state.summary.eras || [];
-  els.era.innerHTML = '<option value="all">All eras</option>' + eras.map((era) => `<option value="${escapeHtml(era.era)}">${escapeHtml(era.era)} · ${era.count}</option>`).join('');
-
-  const topics = state.summary.topics || [];
-  const topicOptions = topics.map((topic) => `<option value="${escapeHtml(topic.topic)}">${escapeHtml(topic.label)} · ${topic.darts} D / ${topic.pats} P</option>`).join('');
-  els.topic.innerHTML = '<option value="all">All topics</option>' + topicOptions;
-  els.gameTopicGuess.innerHTML = '<option value="">Choose a topic</option>' + topicOptions.replaceAll(' · ', ' - ');
-}
-
 function renderStats() {
   const total = state.filtered.length;
   const darts = state.filtered.filter((record) => record.kind === 'DART').length;
@@ -415,7 +398,7 @@ function renderStats() {
   if (state.kind !== 'all') titleParts.push(getKindLabel(state.kind));
 
   els.currentTitle.textContent = titleParts.length ? titleParts.join(' / ') : 'All town-gown Darts & Pats';
-  els.currentSummary.textContent = `The hallway is ${mood}${state.search ? ` around “${state.search}”` : ''}: ${darts} sharp notes, ${pats} warm notes, ${total} openable cards.`;
+  els.currentSummary.textContent = `The hallway is ${mood}: ${darts} sharp notes, ${pats} warm notes, ${total} openable cards.`;
   els.viewMeters.innerHTML = `
     <div class="view-meter"><b>${total}</b><span>cards</span></div>
     <div class="view-meter view-meter--dart"><b>${dartShare}%</b><span>Darts</span></div>
@@ -593,7 +576,7 @@ function renderWordBreezeList(term) {
 
 function renderGamePoolNote() {
   if (!els.gamePoolNote) return;
-  els.gamePoolNote.textContent = 'Some cards are held out or masked because they give away their own form.';
+  els.gamePoolNote.textContent = 'Some cards are masked because they name their own form.';
 }
 
 function renderAll() {
@@ -609,14 +592,48 @@ function renderAll() {
 }
 
 function sourceLine(record) {
-  const source = record.source || {};
-  const pieces = [
-    source.newspaper || 'The Breeze',
-    source.pl2_pdf ? `PDF ${source.pl2_pdf}` : null,
-    source.page_in_breeze ? `Breeze p. ${source.page_in_breeze}` : null,
-    source.page_in_pdf ? `PDF p. ${source.page_in_pdf}` : null,
-  ].filter(Boolean);
-  return pieces.join(' · ');
+  return `The Breeze · Record #${record.id}`;
+}
+
+function usefulMetadataValue(value) {
+  const text = String(value || '').trim();
+  return text && !/^(not parsed|unknown|none tagged)$/i.test(text);
+}
+
+function archiveDetails(record) {
+  const details = [
+    ['Source', sourceLine(record)],
+    ['Era', record.era],
+    ['Sender', record.sender_short || record.sender_long],
+    ['Target', record.target_short || record.target_long],
+  ];
+  return details.filter(([, value]) => usefulMetadataValue(value));
+}
+
+function renderArchiveDetails(record) {
+  const details = archiveDetails(record);
+  if (!details.length) return '';
+  return `
+    <dl class="archive-details" aria-label="Archive details">
+      ${details.map(([label, value]) => `
+        <div>
+          <dt>${escapeHtml(label)}</dt>
+          <dd>${escapeHtml(value)}</dd>
+        </div>
+      `).join('')}
+    </dl>
+  `;
+}
+
+function renderPillRow(label, values) {
+  const cleanValues = [...new Set((values || []).filter(usefulMetadataValue))];
+  if (!cleanValues.length) return '';
+  return `
+    <div class="pills pills--labeled" aria-label="${escapeHtml(label)}">
+      <strong>${escapeHtml(label)}:</strong>
+      ${cleanValues.map((value) => `<span class="pill">${escapeHtml(value)}</span>`).join('')}
+    </div>
+  `;
 }
 
 function findRecord(id) {
@@ -712,21 +729,9 @@ function renderDrawer(record) {
       </header>
       <h2 id="drawer-title">${escapeHtml(record.primary_topic_label || 'Town-gown note')}</h2>
       <blockquote>${escapeHtml(record.text_full)}</blockquote>
-      <dl class="drawer-meta">
-        <div><dt>Date</dt><dd>${escapeHtml(formatDate(record.date))}</dd></div>
-        <div><dt>Type</dt><dd>${escapeHtml(getKindNoun(record.kind))}</dd></div>
-        <div><dt>Era</dt><dd>${escapeHtml(record.era || 'Unknown')}</dd></div>
-        <div><dt>Primary topic</dt><dd>${escapeHtml(record.primary_topic_label || 'Unknown')}</dd></div>
-        <div><dt>Topic tags</dt><dd>${escapeHtml((record.topic_tag_labels || []).join(', ') || 'None tagged')}</dd></div>
-        <div><dt>Entities</dt><dd>${escapeHtml((record.entities || []).join(', ') || 'None tagged')}</dd></div>
-        <div><dt>Target</dt><dd>${escapeHtml(record.target_short || record.target_long || 'Not parsed')}</dd></div>
-        <div><dt>Sender</dt><dd>${escapeHtml(record.sender_short || record.sender_long || 'Not parsed')}</dd></div>
-        <div><dt>Source</dt><dd>${escapeHtml(sourceLine(record))}</dd></div>
-        <div><dt>Record ID</dt><dd>${escapeHtml(record.id)}</dd></div>
-      </dl>
-      <div class="pills" aria-label="Topic tags">
-        ${(record.topic_tag_labels || []).map((label) => `<span class="pill">${escapeHtml(label)}</span>`).join('')}
-      </div>
+      ${renderArchiveDetails(record)}
+      ${renderPillRow('Tags', record.topic_tag_labels)}
+      ${renderPillRow('Entities', record.entities)}
       <div class="related-drawer">
         ${renderRelatedGroup('Related by topic', related.topic)}
         ${renderRelatedGroup(`Related from ${record.year}`, related.year)}
@@ -758,12 +763,10 @@ function makeGameCard() {
   const challenge = editorChallenge(state.gameRecord);
   state.gameChallengeText = challenge.text;
   state.gameKindGuess = '';
-  state.gameTopicGuess = '';
   els.gameText.textContent = state.gameChallengeText || 'No card available.';
   renderGamePoolNote();
-  els.gameResult.textContent = 'Choose a form and a topic. No points. Just interpretation with ink on its fingers.';
+  els.gameResult.textContent = 'No points. Just interpretation.';
   els.gameRelated.innerHTML = '';
-  els.gameTopicGuess.value = '';
   document.querySelectorAll('[data-guess]').forEach((button) => {
     button.setAttribute('aria-pressed', 'false');
     button.classList.add('button--ghost');
@@ -772,27 +775,34 @@ function makeGameCard() {
 }
 
 function updateGameRevealState() {
-  els.revealGameCard.disabled = !(state.gameKindGuess && state.gameTopicGuess && state.gameRecord);
+  els.revealGameCard.disabled = !(state.gameKindGuess && state.gameRecord);
 }
 
 function revealGameGuess() {
   const record = state.gameRecord;
   if (!record) return;
   const sameKind = state.gameKindGuess === record.kind;
-  const sameTopic = topicMatches(record, state.gameTopicGuess);
-  const kindVerdict = sameKind ? 'You matched the published form' : 'Your form reading differs from the published card';
-  const topicVerdict = sameTopic ? 'and your topic guess belongs in the same hallway station' : 'and your topic guess opens a neighboring civic door';
+  const kindVerdict = sameKind
+    ? 'You read it the way The Breeze printed it.'
+    : 'Your reading differs from the published form — useful evidence that these little notes can be slippery.';
   const related = relatedRecords(record);
+  const kindLabel = getKindNoun(record.kind);
 
   els.gameText.textContent = record.text_full || state.gameChallengeText;
   els.gameResult.innerHTML = `
-    ${escapeHtml(kindVerdict)}, ${escapeHtml(topicVerdict)}. It appeared as a <strong>${escapeHtml(record.kind)}</strong> on ${escapeHtml(formatDate(record.date))}, tagged as <strong>${escapeHtml(record.primary_topic_label)}</strong>.
-    <button class="button button--small button--ghost" data-record-id="${record.id}" type="button">Open this card</button>
+    <div class="game-reveal">
+      <span class="game-reveal__badge">${escapeHtml(record.kind)} · ${escapeHtml(formatDate(record.date))}</span>
+      <p>${escapeHtml(kindVerdict)}</p>
+      <p>The archive tagged this card as <strong>${escapeHtml(kindLabel)}</strong> on ${escapeHtml(formatDate(record.date))}. Its main theme is <strong>${escapeHtml(record.primary_topic_label || 'Town-gown note')}</strong>.</p>
+      ${renderPillRow('Tags', record.topic_tag_labels)}
+      <button class="button button--small button--ghost" data-record-id="${record.id}" type="button">Open this card</button>
+    </div>
   `;
   els.gameRelated.innerHTML = `
     <div class="game-related__grid">
-      ${renderRelatedGroup('After the reveal: same topic', related.topic.slice(0, 3))}
-      ${renderRelatedGroup('After the reveal: same year', related.year.slice(0, 3))}
+      ${renderRelatedGroup('Same topic', related.topic.slice(0, 3))}
+      ${renderRelatedGroup(`Same year: ${record.year}`, related.year.slice(0, 3))}
+      ${renderRelatedGroup('Same entity', related.entity.slice(0, 3))}
     </div>
   `;
 }
@@ -1242,7 +1252,6 @@ function installLocalTestHooks() {
       AttractorMode.deactivate();
       if (!state.gameRecord) makeGameCard();
       state.gameKindGuess = state.gameRecord?.kind || 'DART';
-      state.gameTopicGuess = state.gameRecord?.primary_topic || state.summary?.topics?.[0]?.topic || '';
       revealGameGuess();
     },
     openDiagnostics: () => setDiagnosticsOpen(true),
@@ -1365,8 +1374,11 @@ function syncClassYear(year = els.classYear?.value || '2004') {
   const max = Number(els.classYear.max);
   const numericYear = Math.min(max, Math.max(min, Number(year) || min));
   els.classYear.value = String(numericYear);
-  els.classYearOutput.value = classWindowLabel(numericYear);
-  els.classYearOutput.textContent = classWindowLabel(numericYear);
+  const label = classWindowLabel(numericYear);
+  const range = classWindowRangeLabel(numericYear);
+  els.classYearOutput.value = label;
+  els.classYearOutput.textContent = label;
+  if (els.classYearGo) els.classYearGo.textContent = `Show your years (${range})`;
 }
 
 function updateClassWindowChip() {
@@ -1388,7 +1400,20 @@ function setClassTrayOpen(open) {
   els.classTray.hidden = !open;
   els.classTrayToggle.setAttribute('aria-expanded', String(open));
   els.classTrayToggle.classList.toggle('is-open', open);
-  if (open) window.requestAnimationFrame(() => els.classYear?.focus({ preventScroll: true }));
+  if (open) classTrayOpenedAt = window.performance.now();
+}
+
+function eventIsInsideClassTray(event) {
+  return Boolean(
+    event.target.closest('#class-tray')
+    || event.target.closest('#class-tray-toggle')
+    || event.target.closest('#class-window-chip')
+  );
+}
+
+function closeClassTrayFromOutside(event) {
+  if (!els.classTray || els.classTray.hidden || eventIsInsideClassTray(event)) return;
+  setClassTrayOpen(false);
 }
 
 function nudgeClassYear(delta) {
@@ -1502,7 +1527,7 @@ function walkCorridor(direction) {
 }
 
 function isInteractiveTarget(target) {
-  return Boolean(target.closest('button, a, input, select, textarea, summary, [role="button"]'));
+  return Boolean(target.closest('button, a, input, summary, [role="button"]'));
 }
 
 function bindCorridorDrag() {
@@ -1667,11 +1692,6 @@ function bindEvents() {
     AttractorMode.deactivate();
     window.requestAnimationFrame(() => scrollToElement(document.querySelector('#walk-years')));
   });
-  els.year.addEventListener('change', (event) => applyState({ year: event.target.value }));
-  els.era.addEventListener('change', (event) => applyState({ era: event.target.value }));
-  els.topic.addEventListener('change', (event) => applyState({ topic: event.target.value }));
-  els.kind.addEventListener('change', (event) => applyState({ kind: event.target.value }));
-  els.search.addEventListener('input', (event) => applyState({ search: event.target.value }));
   els.reset.addEventListener('click', () => applyState({ year: 'all', classYear: 'all', era: 'all', topic: 'all', kind: 'all', search: '' }));
   els.startOver.addEventListener('click', () => startOver());
   els.kioskEnter.addEventListener('click', enterCorridor);
@@ -1684,6 +1704,10 @@ function bindEvents() {
   els.classYearBack?.addEventListener('click', () => nudgeClassYear(-1));
   els.classYearForward?.addEventListener('click', () => nudgeClassYear(1));
   els.classYearClear?.addEventListener('click', clearClassYear);
+  window.addEventListener('scroll', () => {
+    if (window.performance.now() - classTrayOpenedAt < 650) return;
+    if (!els.classTray?.hidden) setClassTrayOpen(false);
+  }, { passive: true });
   els.returnCorridor?.addEventListener('click', () => {
     setActiveChapter('walk-years');
     scrollToElement(document.querySelector('#walk-years'));
@@ -1707,6 +1731,8 @@ function bindEvents() {
   bindCorridorDrag();
 
   document.addEventListener('click', (event) => {
+    closeClassTrayFromOutside(event);
+
     const breezeTerm = event.target.closest('[data-breeze-term]');
     if (breezeTerm) {
       state.wordBreezeTerm = breezeTerm.dataset.breezeTerm;
@@ -1750,10 +1776,6 @@ function bindEvents() {
   els.networkNodes.addEventListener('click', handleNetworkClick);
   els.newGameCard.addEventListener('click', makeGameCard);
   els.revealGameCard.addEventListener('click', revealGameGuess);
-  els.gameTopicGuess.addEventListener('change', (event) => {
-    state.gameTopicGuess = event.target.value;
-    updateGameRevealState();
-  });
 
   document.querySelectorAll('[data-guess]').forEach((button) => {
     button.addEventListener('click', () => {
@@ -1804,7 +1826,6 @@ async function init() {
     state.stringGraph = buildStringGraph();
     state.selectedStringTheme = state.stringGraph.topThemes[0]?.id || '';
 
-    populateControls();
     bindEvents();
     filterRecords();
     renderAll();

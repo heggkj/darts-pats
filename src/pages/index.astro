@@ -92,12 +92,12 @@ import '../styles/corridor.css';
       </div>
       <div class="class-tray" id="class-tray" hidden aria-labelledby="class-tray-title">
         <p class="class-tray__title" id="class-tray-title">Class of…</p>
-        <label class="class-tray__label" for="class-year">Show my four JMU years</label>
+        <label class="class-tray__label" for="class-year">Pick your graduation year</label>
         <input id="class-year" type="range" min="1991" max="2026" value="2004" step="1" />
         <output class="class-tray__window" id="class-year-output" for="class-year">Class of 2004: 2001–2004</output>
         <div class="class-tray__buttons">
           <button class="class-tray__step" id="class-year-back" type="button" aria-label="Choose previous class year">−</button>
-          <button class="class-tray__go" id="class-year-go" type="button">Show my four JMU years</button>
+          <button class="class-tray__go" id="class-year-go" type="button">Show your years (2001–2004)</button>
           <button class="class-tray__step" id="class-year-forward" type="button" aria-label="Choose next class year">+</button>
         </div>
         <button class="class-tray__clear" id="class-year-clear" type="button">Show all years</button>
@@ -143,37 +143,8 @@ import '../styles/corridor.css';
         </p>
       </section>
 
-      <section class="controls-panel" aria-label="Filter the exhibit">
-        <div class="control-group">
-          <label for="year-filter">Year</label>
-          <select id="year-filter">
-            <option value="all">All years</option>
-          </select>
-        </div>
-        <div class="control-group">
-          <label for="era-filter">Era</label>
-          <select id="era-filter">
-            <option value="all">All eras</option>
-          </select>
-        </div>
-        <div class="control-group">
-          <label for="topic-filter">Topic</label>
-          <select id="topic-filter">
-            <option value="all">All topics</option>
-          </select>
-        </div>
-        <div class="control-group">
-          <label for="kind-filter">Form</label>
-          <select id="kind-filter">
-            <option value="all">Darts and Pats</option>
-            <option value="DART">Darts only</option>
-            <option value="PAT">Pats only</option>
-          </select>
-        </div>
-        <div class="control-group control-group--search">
-          <label for="search-filter">Search text, entities, source</label>
-          <input id="search-filter" type="search" placeholder="Try Main Street, bus, landlord, Mercy House…" />
-        </div>
+      <section class="controls-panel controls-panel--actions" aria-label="Exhibit controls">
+        <p>Touch objects in the corridor to filter the archive. Use these if you need to clear the room or restart the kiosk.</p>
         <button class="button button--small" id="reset-filters" type="button">Reset</button>
         <button class="button button--small button--ghost" id="start-over" type="button">Start over</button>
         <button class="button button--small button--ghost" id="presentation-mode" type="button">Presentation Mode</button>
@@ -287,28 +258,24 @@ import '../styles/corridor.css';
         <div class="section-heading">
           <p class="kicker">No-score interpretive game</p>
           <h2 id="editor-game-title">You be the Breeze editor</h2>
-          <p>Read a hidden card, guess whether it was a Dart or Pat, then reveal how it appeared and where it fits in the exhibit.</p>
+          <p>Read the card cold. Was it printed as a Dart or a Pat?</p>
         </div>
         <div class="game-card">
-          <p class="game-pool-note" id="game-pool-note">Some cards are held out or masked because they give away their own form.</p>
-          <blockquote id="game-text">Loading a card…</blockquote>
+          <div class="game-card__paper">
+            <p class="game-pool-note" id="game-pool-note">Some cards are masked because they name their own form.</p>
+            <blockquote id="game-text">Loading a card…</blockquote>
+          </div>
           <div class="game-fieldset" aria-label="Editor guesses">
             <fieldset>
-              <legend>Form</legend>
+              <legend>Was it printed as…</legend>
               <div class="segmented">
                 <button class="button button--small button--ghost" data-guess="DART" type="button" aria-pressed="false">Dart</button>
                 <button class="button button--small button--ghost" data-guess="PAT" type="button" aria-pressed="false">Pat</button>
               </div>
             </fieldset>
-            <div class="control-group">
-              <label for="game-topic-guess">Topic</label>
-              <select id="game-topic-guess">
-                <option value="">Choose a topic</option>
-              </select>
-            </div>
           </div>
           <div class="game-controls">
-            <button class="button button--small" id="reveal-game-card" type="button" disabled>Reveal the archive card</button>
+            <button class="button button--small" id="reveal-game-card" type="button" disabled>Reveal how The Breeze printed it</button>
             <button class="button button--small button--ghost" id="new-game-card" type="button">New card</button>
           </div>
           <p class="game-result" id="game-result" aria-live="polite"></p>

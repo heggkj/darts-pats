@@ -77,7 +77,7 @@ Use purple for structure and actions, gold for warmth and touchable artifacts. A
 - Memory Corridor may use side walls, central stage, and horizontal floor timeline.
 - Follow the Strings may use a wide radial/string board.
 - Open Drawer uses a multi-column shelf.
-- Editor's Table can use a two-column form/topic guessing layout.
+- Editor's Table can use a two-zone layout: hidden card first, then large Dart/Pat choice objects and a reveal button. No public topic dropdown.
 
 ## Portrait Layout Rules
 
