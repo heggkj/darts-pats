@@ -109,12 +109,11 @@
 }
 
 .controls-panel {
-  position: sticky;
-  top: 0.65rem;
+  position: relative;
   z-index: 20;
   display: grid;
-  grid-template-columns: repeat(4, minmax(8rem, 1fr)) minmax(16rem, 1.5fr) auto;
-  gap: 0.8rem;
+  grid-template-columns: repeat(4, minmax(9rem, 1fr));
+  gap: 0.95rem;
   align-items: end;
   backdrop-filter: blur(14px);
 }
@@ -122,6 +121,10 @@
 .control-group {
   display: grid;
   gap: 0.32rem;
+}
+
+.control-group--search {
+  grid-column: span 2;
 }
 
 .control-group label,
@@ -136,12 +139,13 @@
 .control-group input,
 .control-group select {
   width: 100%;
-  min-height: 2.55rem;
+  min-height: 3rem;
   border: 1px solid rgba(69, 0, 132, 0.23);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.94);
   color: var(--ink);
   padding: 0.55rem 0.8rem;
+  touch-action: manipulation;
 }
 
 .control-group input:focus-visible,
@@ -163,10 +167,74 @@ a:focus-visible {
   box-shadow: var(--shadow);
 }
 
+.walk-controls {
+  display: grid;
+  grid-template-columns: minmax(10rem, auto) 1fr minmax(10rem, auto);
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.walk-controls--bottom {
+  grid-template-columns: repeat(2, minmax(10rem, 1fr));
+  margin: 1rem 0 0;
+}
+
+.walk-controls p {
+  margin: 0;
+  color: var(--muted);
+  font-weight: 850;
+  text-align: center;
+}
+
+.walk-button {
+  min-width: 10rem;
+  min-height: 4rem;
+  padding: 0.8rem 1.1rem;
+  border: 2px solid rgba(69, 0, 132, 0.74);
+  border-radius: 12px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(244, 239, 225, 0.92)),
+    url('/assets/generated/newsprint-texture.svg');
+  color: var(--jmu-purple);
+  box-shadow: var(--soft-shadow);
+  font-weight: 950;
+  touch-action: manipulation;
+}
+
+.walk-button:hover,
+.walk-button:active,
+.walk-button:focus-visible {
+  background: var(--jmu-purple);
+  color: white;
+}
+
+.corridor-pan {
+  position: relative;
+  overflow-x: auto;
+  overflow-y: hidden;
+  border-radius: 18px;
+  overscroll-behavior-x: contain;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  touch-action: pan-x;
+  cursor: grab;
+}
+
+.corridor-pan::-webkit-scrollbar {
+  display: none;
+}
+
+.corridor-pan.is-dragging {
+  cursor: grabbing;
+  user-select: none;
+}
+
 .corridor-stage {
   position: relative;
   display: grid;
   grid-template-columns: minmax(13rem, 0.82fr) minmax(22rem, 1.65fr) minmax(13rem, 0.82fr);
+  width: max(100%, 105rem);
   min-height: 58rem;
   overflow: hidden;
   border-radius: 18px;
@@ -306,6 +374,7 @@ a:focus-visible {
 }
 
 .record-card:hover,
+.record-card:active,
 .record-card:focus-visible {
   box-shadow: 0 12px 24px rgba(36, 31, 43, 0.2);
   transform: translateY(-2px) rotate(0deg);
@@ -551,6 +620,7 @@ a:focus-visible {
 }
 
 .topic-door:hover,
+.topic-door:active,
 .topic-door:focus-visible,
 .topic-door.is-active {
   box-shadow: 0 15px 30px rgba(36, 31, 43, 0.2);
@@ -682,7 +752,7 @@ a:focus-visible {
 .floor-timeline {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(36, minmax(2.2rem, 1fr));
+  grid-template-columns: repeat(36, minmax(3rem, 1fr));
   gap: 0.17rem;
   min-height: 10rem;
   align-items: end;
@@ -707,6 +777,7 @@ a:focus-visible {
 .year-tile {
   position: relative;
   display: grid;
+  min-width: 3rem;
   min-height: calc(4.15rem * var(--count-scale, 1));
   align-content: end;
   padding: 0.35rem 0.2rem;
@@ -738,6 +809,7 @@ a:focus-visible {
 }
 
 .year-tile:hover,
+.year-tile:active,
 .year-tile:focus-visible,
 .year-tile.is-active {
   z-index: 2;
@@ -802,6 +874,7 @@ a:focus-visible {
   display: grid;
   max-width: 12rem;
   min-width: 4.2rem;
+  min-height: 3rem;
   place-items: center;
   padding: 0.5rem 0.62rem;
   border: 1px solid rgba(36, 31, 43, 0.16);
@@ -814,6 +887,13 @@ a:focus-visible {
   line-height: 1.1;
   text-align: center;
   transform: translate(-50%, -50%) rotate(var(--tilt, 0deg));
+}
+
+.network-node:hover,
+.network-node:active,
+.network-node:focus-visible {
+  outline: 3px solid var(--civic-blue);
+  outline-offset: 4px;
 }
 
 .network-node::before {
@@ -919,8 +999,8 @@ a:focus-visible {
 }
 
 .record-drawer {
-  width: min(58rem, calc(100% - 1rem));
-  max-height: min(86vh, 58rem);
+  width: min(76rem, calc(100% - 1.5rem));
+  max-height: min(90vh, 64rem);
   padding: 0;
   overflow: auto;
   border: 0;
@@ -946,14 +1026,21 @@ a:focus-visible {
 }
 
 .drawer-close {
-  width: 2.5rem;
+  width: 4rem;
   aspect-ratio: 1;
   border: 0;
   border-radius: 999px;
   background: var(--jmu-purple);
   color: white;
-  font-size: 1.4rem;
+  font-size: 2rem;
   line-height: 1;
+}
+
+.button--drawer {
+  min-width: 8.5rem;
+  min-height: 3.6rem;
+  padding: 0.78rem 1rem;
+  font-size: 1rem;
 }
 
 .drawer-card {
@@ -1002,7 +1089,7 @@ a:focus-visible {
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.8);
   color: var(--jmu-slate);
-  font-size: 1.16rem;
+  font-size: 1.26rem;
   line-height: 1.55;
 }
 
@@ -1065,8 +1152,56 @@ a:focus-visible {
   font-size: 1.18rem;
 }
 
-.shelf--related {
-  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+.related-chips {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 0.7rem;
+}
+
+.related-chip {
+  display: grid;
+  min-height: 5.5rem;
+  gap: 0.25rem;
+  padding: 0.72rem;
+  border: 1px solid rgba(69, 0, 132, 0.18);
+  border-left: 6px solid var(--dart);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.86);
+  color: var(--ink);
+  text-align: left;
+  box-shadow: 0 7px 14px rgba(36, 31, 43, 0.12);
+  touch-action: manipulation;
+}
+
+.related-chip--pat {
+  border-left-color: var(--jmu-gold);
+}
+
+.related-chip span {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.related-chip strong {
+  color: var(--jmu-purple);
+  line-height: 1.14;
+}
+
+.related-chip small {
+  color: var(--jmu-slate);
+  font-size: 0.84rem;
+  line-height: 1.25;
+}
+
+.related-chip:hover,
+.related-chip:active,
+.related-chip:focus-visible {
+  outline: 3px solid rgba(47, 111, 126, 0.58);
+  outline-offset: 3px;
+  transform: translateY(-2px);
 }
 
 .empty-note {
@@ -1077,6 +1212,52 @@ a:focus-visible {
   color: var(--muted);
   background: rgba(255, 255, 255, 0.52);
   font-weight: 750;
+}
+
+.idle-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+  background: rgba(36, 31, 43, 0.72);
+  color: white;
+  text-align: center;
+  backdrop-filter: blur(5px);
+}
+
+.idle-overlay[hidden] {
+  display: none;
+}
+
+.idle-overlay > div {
+  width: min(34rem, 100%);
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: 18px;
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.16), rgba(203, 182, 119, 0.18)),
+    rgba(36, 31, 43, 0.9);
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.4);
+}
+
+.idle-overlay .kicker {
+  color: var(--jmu-gold);
+}
+
+.idle-overlay strong {
+  display: block;
+  font-size: 2.4rem;
+}
+
+body.is-presentation-mode {
+  --max-width: min(1760px, calc(100vw - 2rem));
+  font-size: 18px;
+}
+
+body.is-presentation-mode .exhibit-shell {
+  padding-top: 1rem;
 }
 
 @media (max-width: 1100px) {
@@ -1091,6 +1272,8 @@ a:focus-visible {
 
   .corridor-stage {
     grid-template-columns: 1fr;
+    width: 100%;
+    min-width: 0;
     min-height: 0;
   }
 
@@ -1126,6 +1309,119 @@ a:focus-visible {
   .floor-timeline {
     grid-template-columns: repeat(auto-fit, minmax(3.6rem, 1fr));
     min-height: 0;
+  }
+}
+
+@media (pointer: coarse), (hover: none) {
+  body {
+    font-size: 18px;
+  }
+
+  .exhibit-shell {
+    width: min(100% - 1.25rem, var(--max-width));
+  }
+
+  .button,
+  .walk-button,
+  .record-card,
+  .topic-door,
+  .year-tile,
+  .network-node,
+  .related-chip,
+  .drawer-close {
+    touch-action: manipulation;
+  }
+
+  .button {
+    min-height: 3.5rem;
+    padding-inline: 1.2rem;
+  }
+
+  .button--kiosk-enter {
+    min-height: 5.25rem;
+    font-size: 1.45rem;
+  }
+
+  .controls-panel {
+    gap: 1rem;
+  }
+
+  .control-group input,
+  .control-group select {
+    min-height: 3.5rem;
+    font-size: 1rem;
+  }
+
+  .walk-button {
+    min-height: 4.7rem;
+    font-size: 1.08rem;
+  }
+
+  .corridor-pan {
+    touch-action: pan-x;
+  }
+
+  .card-rack {
+    gap: 1rem;
+    max-height: 56rem;
+    padding-right: 0.6rem;
+  }
+
+  .record-card {
+    min-height: 10.5rem;
+    padding: 1rem;
+  }
+
+  .record-card__text {
+    font-size: 1rem;
+  }
+
+  .topic-door {
+    min-height: 11.5rem;
+    padding: 1rem;
+  }
+
+  .topic-door strong {
+    font-size: 1.08rem;
+  }
+
+  .year-tile {
+    min-width: 3.5rem;
+    min-height: 4.9rem;
+  }
+
+  .network-node {
+    min-width: 5.2rem;
+    min-height: 3.5rem;
+    padding: 0.72rem 0.86rem;
+    font-size: 0.92rem;
+  }
+
+  .record-drawer {
+    width: min(82rem, calc(100% - 1rem));
+    max-height: 92vh;
+  }
+
+  .drawer-card {
+    padding: 0 1.5rem 1.8rem;
+  }
+
+  .drawer-card blockquote {
+    font-size: 1.42rem;
+  }
+
+  .drawer-meta dd {
+    font-size: 1.02rem;
+  }
+
+  .button--drawer {
+    min-width: 10rem;
+    min-height: 4.25rem;
+  }
+
+  .related-chip {
+    min-height: 6.2rem;
+    padding: 0.9rem;
   }
 }
 

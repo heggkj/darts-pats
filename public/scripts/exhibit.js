@@ -1,5 +1,7 @@
 const DATA_URL = '/data/town_gown_exhibit_records_enriched.json';
 const SUMMARY_URL = '/data/town_gown_exhibit_analysis_summary.json';
+const IDLE_RESET_MS = 105000;
+const IDLE_WARNING_MS = 2400;
 
 const topicIcons = {
   housing_landlords_apartments: '/assets/generated/icon-housing.svg',
@@ -74,7 +76,18 @@ const els = {
   gameTopicGuess: document.querySelector('#game-topic-guess'),
   revealGameCard: document.querySelector('#reveal-game-card'),
   newGameCard: document.querySelector('#new-game-card'),
+  threshold: document.querySelector('.threshold'),
+  kioskEnter: document.querySelector('#kiosk-enter'),
+  startOver: document.querySelector('#start-over'),
+  presentationMode: document.querySelector('#presentation-mode'),
+  corridorPan: document.querySelector('#corridor-pan'),
+  walkButtons: document.querySelectorAll('[data-walk]'),
+  idleOverlay: document.querySelector('#idle-overlay'),
 };
+
+let idleTimer = null;
+let idleResetTimer = null;
+let panDrag = null;
 
 function escapeHtml(value = '') {
   return String(value)
@@ -361,8 +374,20 @@ function renderRelatedGroup(title, records) {
   return `
     <section class="related-group" aria-label="${escapeHtml(title)}">
       <h3>${escapeHtml(title)}</h3>
-      <div class="shelf shelf--related">${records.map((item, index) => makeRecordCard(item, { compact: true, depth: index })).join('')}</div>
+      <div class="related-chips">${records.map((item) => makeRelatedChip(item)).join('')}</div>
     </section>
+  `;
+}
+
+function makeRelatedChip(record) {
+  const kindClass = record.kind === 'PAT' ? 'related-chip--pat' : 'related-chip--dart';
+  const kind = getKindNoun(record.kind);
+  return `
+    <button class="related-chip ${kindClass}" data-record-id="${record.id}" type="button" aria-label="Open related ${escapeHtml(kind)} from ${escapeHtml(formatDate(record.date))}">
+      <span>${escapeHtml(kind)} · ${escapeHtml(formatDate(record.date))}</span>
+      <strong>${escapeHtml(record.primary_topic_label || 'Town-gown note')}</strong>
+      <small>${escapeHtml(shorten(record.text_full, 96))}</small>
+    </button>
   `;
 }
 
@@ -378,9 +403,9 @@ function renderDrawer(record) {
       <header class="drawer-card__header">
         <span class="drawer-card__badge ${kindIsPat ? 'drawer-card__badge--pat' : ''}">${kindIsPat ? '🤲 PAT' : '🎯 DART'} · ${escapeHtml(formatDate(record.date))}</span>
         <div class="drawer-nav" aria-label="Move through open cards">
-          <button class="button button--small button--ghost" data-drawer-prev="${navigation.previous?.id || ''}" type="button" ${navigation.previous ? '' : 'disabled'}>Previous</button>
+          <button class="button button--drawer button--ghost" data-drawer-prev="${navigation.previous?.id || ''}" type="button" ${navigation.previous ? '' : 'disabled'}>Previous</button>
           <span>${escapeHtml(positionText)}</span>
-          <button class="button button--small button--ghost" data-drawer-next="${navigation.next?.id || ''}" type="button" ${navigation.next ? '' : 'disabled'}>Next</button>
+          <button class="button button--drawer button--ghost" data-drawer-next="${navigation.next?.id || ''}" type="button" ${navigation.next ? '' : 'disabled'}>Next</button>
         </div>
       </header>
       <h2 id="drawer-title">${escapeHtml(record.primary_topic_label || 'Town-gown note')}</h2>
@@ -563,6 +588,127 @@ function handleNetworkClick(event) {
   }
 }
 
+function prefersReducedMotion() {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+function scrollToElement(element) {
+  element?.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'start' });
+}
+
+function resetCorridorPan() {
+  if (!els.corridorPan) return;
+  els.corridorPan.scrollTo({ left: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+}
+
+function startOver({ showOverlay = false } = {}) {
+  if (els.drawer?.open) els.drawer.close();
+  applyState({ year: 'all', era: 'all', topic: 'all', kind: 'all', search: '' });
+  makeGameCard();
+  resetCorridorPan();
+  window.history.replaceState(null, '', `${window.location.origin}${window.location.pathname}${window.location.search}`);
+
+  if (showOverlay) {
+    els.idleOverlay.hidden = false;
+    window.clearTimeout(idleResetTimer);
+    idleResetTimer = window.setTimeout(() => {
+      els.idleOverlay.hidden = true;
+      window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+      resetIdleTimer();
+    }, IDLE_WARNING_MS);
+    return;
+  }
+
+  els.idleOverlay.hidden = true;
+  window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+}
+
+function enterCorridor() {
+  scrollToElement(document.querySelector('#corridor'));
+  resetCorridorPan();
+}
+
+function walkCorridor(direction) {
+  if (!els.corridorPan) return;
+  const sign = direction === 'left' ? -1 : 1;
+  const distance = Math.max(360, els.corridorPan.clientWidth * 0.62);
+  els.corridorPan.scrollBy({ left: sign * distance, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+  els.corridorPan.focus({ preventScroll: true });
+}
+
+function isInteractiveTarget(target) {
+  return Boolean(target.closest('button, a, input, select, textarea, summary, [role="button"]'));
+}
+
+function bindCorridorDrag() {
+  if (!els.corridorPan) return;
+
+  els.corridorPan.addEventListener('pointerdown', (event) => {
+    if (event.pointerType === 'touch' || isInteractiveTarget(event.target)) return;
+    panDrag = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      scrollLeft: els.corridorPan.scrollLeft,
+    };
+    els.corridorPan.classList.add('is-dragging');
+    els.corridorPan.setPointerCapture?.(event.pointerId);
+  });
+
+  els.corridorPan.addEventListener('pointermove', (event) => {
+    if (!panDrag || panDrag.pointerId !== event.pointerId) return;
+    event.preventDefault();
+    els.corridorPan.scrollLeft = panDrag.scrollLeft - (event.clientX - panDrag.startX);
+  });
+
+  const endDrag = (event) => {
+    if (!panDrag || panDrag.pointerId !== event.pointerId) return;
+    els.corridorPan.classList.remove('is-dragging');
+    els.corridorPan.releasePointerCapture?.(event.pointerId);
+    panDrag = null;
+  };
+
+  els.corridorPan.addEventListener('pointerup', endDrag);
+  els.corridorPan.addEventListener('pointercancel', endDrag);
+}
+
+async function togglePresentationMode() {
+  const canFullscreen = Boolean(document.documentElement.requestFullscreen);
+  try {
+    if (canFullscreen && !document.fullscreenElement) {
+      await document.documentElement.requestFullscreen();
+    } else if (document.fullscreenElement && document.exitFullscreen) {
+      await document.exitFullscreen();
+    } else {
+      document.body.classList.toggle('is-presentation-mode');
+      updatePresentationButton();
+    }
+  } catch (error) {
+    document.body.classList.toggle('is-presentation-mode');
+    updatePresentationButton();
+  }
+}
+
+function updatePresentationButton() {
+  const active = Boolean(document.fullscreenElement) || document.body.classList.contains('is-presentation-mode');
+  els.presentationMode.textContent = active ? 'Exit Presentation' : 'Presentation Mode';
+  els.presentationMode.setAttribute('aria-pressed', String(active));
+}
+
+function resetIdleTimer() {
+  if (!els.idleOverlay) return;
+  window.clearTimeout(idleTimer);
+  window.clearTimeout(idleResetTimer);
+  if (!els.idleOverlay.hidden) els.idleOverlay.hidden = true;
+  idleTimer = window.setTimeout(() => startOver({ showOverlay: true }), IDLE_RESET_MS);
+}
+
+function bindIdleReset() {
+  ['touchstart', 'pointerdown', 'keydown', 'scroll', 'mousemove'].forEach((eventName) => {
+    window.addEventListener(eventName, resetIdleTimer, { passive: true });
+  });
+  resetIdleTimer();
+}
+
 function bindEvents() {
   els.year.addEventListener('change', (event) => applyState({ year: event.target.value }));
   els.era.addEventListener('change', (event) => applyState({ era: event.target.value }));
@@ -570,6 +716,18 @@ function bindEvents() {
   els.kind.addEventListener('change', (event) => applyState({ kind: event.target.value }));
   els.search.addEventListener('input', (event) => applyState({ search: event.target.value }));
   els.reset.addEventListener('click', () => applyState({ year: 'all', era: 'all', topic: 'all', kind: 'all', search: '' }));
+  els.startOver.addEventListener('click', () => startOver());
+  els.kioskEnter.addEventListener('click', enterCorridor);
+  els.presentationMode.addEventListener('click', togglePresentationMode);
+  document.addEventListener('fullscreenchange', updatePresentationButton);
+  els.walkButtons.forEach((button) => {
+    button.addEventListener('click', () => walkCorridor(button.dataset.walk));
+  });
+  els.corridorPan.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowLeft') walkCorridor('left');
+    if (event.key === 'ArrowRight') walkCorridor('right');
+  });
+  bindCorridorDrag();
 
   document.addEventListener('click', (event) => {
     const drawerPrevious = event.target.closest('[data-drawer-prev]');
@@ -628,6 +786,7 @@ function bindEvents() {
   });
 
   window.addEventListener('resize', () => window.requestAnimationFrame(renderNetwork));
+  bindIdleReset();
 }
 
 async function init() {
