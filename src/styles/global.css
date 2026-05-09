@@ -21,6 +21,10 @@
   --radius-lg: 18px;
   --radius-md: 12px;
   --max-width: 1220px;
+  --kiosk-portrait-stage-width: min(1040px, calc(100vw - 48px));
+  --kiosk-portrait-gap: clamp(1.25rem, 2.6vw, 2.5rem);
+  --kiosk-portrait-card-min: clamp(20rem, 42vw, 31rem);
+  --kiosk-portrait-title-size: clamp(4.8rem, 11vw, 9.5rem);
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--ink);
   background: var(--paper);
@@ -227,6 +231,32 @@ p {
 
   body {
     font-size: 20px;
+  }
+}
+
+@media (orientation: portrait) and (min-width: 768px) and (min-height: 1200px) {
+  :root {
+    --kiosk-portrait-stage-width: min(1040px, calc(100vw - 48px));
+    --kiosk-portrait-gap: clamp(1.4rem, 2.8vw, 2.8rem);
+    --kiosk-portrait-card-min: clamp(22rem, 44vw, 32rem);
+    --kiosk-portrait-title-size: clamp(5.8rem, 11vw, 10.5rem);
+  }
+
+  body {
+    font-size: clamp(18px, 1.55vw, 22px);
+  }
+}
+
+@media (orientation: portrait) and (min-width: 1600px) and (min-height: 2400px) {
+  :root {
+    --kiosk-portrait-stage-width: min(1900px, calc(100vw - 120px));
+    --kiosk-portrait-gap: clamp(2.2rem, 2.2vw, 4.5rem);
+    --kiosk-portrait-card-min: clamp(34rem, 38vw, 48rem);
+    --kiosk-portrait-title-size: clamp(9rem, 8.8vw, 16rem);
+  }
+
+  body {
+    font-size: clamp(24px, 1.25vw, 30px);
   }
 }
 

@@ -1,6 +1,6 @@
 # Darts & Pats Exhibit Design System
 
-Phase 5 hardening target: public museum touchscreen use in landscape, portrait, desktop preview, and reduced-motion mode.
+Phase 6 hardening target: public museum touchscreen use in landscape, portrait kiosk, phone portrait, desktop preview, and reduced-motion mode.
 
 ## Core Tone
 
@@ -81,13 +81,15 @@ Use purple for structure and actions, gold for warmth and touchable artifacts. A
 
 ## Portrait Layout Rules
 
+- Treat phone portrait and museum/tablet portrait as different modes. Phone portrait is compact; portrait kiosk begins around `orientation: portrait`, `min-width: 768px`, and `min-height: 1200px`.
+- Portrait kiosk stages should use most of the available width, currently via `--kiosk-portrait-stage-width`, instead of centering a narrow mobile column.
 - Memory Rail becomes a bottom tray so the content is not squeezed by a tall side column.
-- Memory Corridor becomes a vertical hallway: current view first, then topic/timeline, then Darts and Pats walls as stacked shelves.
+- Memory Corridor becomes a vertical hallway: current view first, then Darts and Pats walls as stacked shelves, then topic stations and the wrapped floor strip.
 - Timeline becomes a wrapped floor strip instead of a perspective floor.
-- Follow the Strings uses a portrait board: center theme near top, related themes around/below it, Darts and Pats in stacked shelves.
+- Follow the Strings uses a portrait board: center theme near top, related themes in a tappable shelf, Darts and Pats as larger shelf cards, and lighter string lines.
 - Open Drawer uses one or two columns.
 - Editor's Table stacks controls and related cards.
-- The Breeze Parade keeps the large entry button; clipping cards sit below the title rather than floating off-screen.
+- The Breeze Parade uses a poster composition: top third title/invitation, middle third clipping, bottom third parade scene.
 
 ## Image Asset Rules
 

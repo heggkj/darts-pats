@@ -5,7 +5,7 @@ const IDLE_WARNING_MS = 2400;
 const EDITOR_FORM_WORD_RE = /\b(dart|darts|pat|pats)\b/gi;
 const ATTRACTOR_CARD_LENGTH = 180;
 const ATTRACTOR_HARSH_LANGUAGE_RE = /\b(fuck|shit|bitch|asshole|bastard|slut|whore|kill|killed|hate|hated|hateful|idiot|moron|stupid|dumb|loser|shut up|go away)\b/i;
-const APP_VERSION = 'phase-5-museum-touchscreen-hardening';
+const APP_VERSION = 'phase-6-portrait-kiosk-composition';
 
 const topicIcons = {
   housing_landlords_apartments: '/assets/generated/icon-housing.svg',
@@ -446,16 +446,18 @@ function renderWalls() {
   const darts = state.filtered.filter((record) => record.kind === 'DART');
   const pats = state.filtered.filter((record) => record.kind === 'PAT');
   const wallSort = (a, b) => (b.tone_intensity || 0) - (a.tone_intensity || 0) || dateSort(a, b);
+  const wallLimit = isKioskPortraitLayout() ? 3 : 4;
 
-  els.dartRack.innerHTML = darts.length ? [...darts].sort(wallSort).slice(0, 4).map((record, index) => makeRecordCard(record, { depth: index })).join('') : '<p class="empty-note">No Darts in this view.</p>';
-  els.patRack.innerHTML = pats.length ? [...pats].sort(wallSort).slice(0, 4).map((record, index) => makeRecordCard(record, { depth: index })).join('') : '<p class="empty-note">No Pats in this view.</p>';
+  els.dartRack.innerHTML = darts.length ? [...darts].sort(wallSort).slice(0, wallLimit).map((record, index) => makeRecordCard(record, { depth: index })).join('') : '<p class="empty-note">No Darts in this view.</p>';
+  els.patRack.innerHTML = pats.length ? [...pats].sort(wallSort).slice(0, wallLimit).map((record, index) => makeRecordCard(record, { depth: index })).join('') : '<p class="empty-note">No Pats in this view.</p>';
 }
 
 function renderFeaturedCards() {
   if (!els.featuredCards) return;
+  const featuredLimit = isKioskPortraitLayout() ? 3 : 4;
   const featured = [...state.filtered]
     .sort((a, b) => (b.tone_intensity || 0) - (a.tone_intensity || 0) || dateSort(a, b))
-    .slice(0, 4);
+    .slice(0, featuredLimit);
 
   els.featuredCards.innerHTML = featured.length ? featured.map((record, index) => makeRecordCard(record, { compact: true, depth: index })).join('') : '<p class="empty-note">No featured cards in this view.</p>';
 }
@@ -877,8 +879,8 @@ function sideArcPosition(index, total, side) {
   if (isPortraitLayout()) {
     const ratio = total <= 1 ? 0.5 : index / (total - 1);
     return {
-      x: 18 + ratio * 64,
-      y: side === 'left' ? 43 + (index % 2) * 5 : 62 + (index % 2) * 5,
+      x: 22 + ratio * 56,
+      y: side === 'left' ? 52 + (index % 2) * 5 : 70 + (index % 2) * 5,
     };
   }
 
@@ -893,14 +895,12 @@ function sideArcPosition(index, total, side) {
 function relatedPosition(index) {
   if (isPortraitLayout()) {
     const slots = [
-      { x: 17, y: 27 },
-      { x: 38, y: 25 },
-      { x: 62, y: 25 },
-      { x: 83, y: 27 },
-      { x: 26, y: 35 },
-      { x: 50, y: 34 },
-      { x: 74, y: 35 },
-      { x: 50, y: 75 },
+      { x: 20, y: 30 },
+      { x: 50, y: 29 },
+      { x: 80, y: 30 },
+      { x: 28, y: 39 },
+      { x: 50, y: 41 },
+      { x: 72, y: 39 },
     ];
     return slots[index % slots.length];
   }
@@ -956,11 +956,13 @@ function renderNetwork() {
   if (!selectedTheme) return;
   state.selectedStringTheme = selectedTheme.id;
   const portrait = isPortraitLayout();
+  const kioskPortrait = isKioskPortraitLayout();
   els.networkBoard?.classList.toggle('is-portrait-layout', portrait);
+  els.networkBoard?.classList.toggle('is-kiosk-portrait-layout', kioskPortrait);
 
   const records = stringRecordsForTheme(selectedTheme.id);
-  const recordLimit = portrait ? 4 : 6;
-  const relatedLimit = portrait ? 7 : 8;
+  const recordLimit = kioskPortrait ? 3 : portrait ? 4 : 6;
+  const relatedLimit = kioskPortrait ? 6 : portrait ? 7 : 8;
   const darts = records.filter((record) => record.kind === 'DART').slice(0, recordLimit);
   const pats = records.filter((record) => record.kind === 'PAT').slice(0, recordLimit);
   const relatedThemes = selectedTheme.id === state.stringGraph.topThemes[0]?.id
@@ -985,7 +987,7 @@ function renderNetwork() {
   els.networkEdges.innerHTML = nodes.map((node) => {
     const color = node.edge === 'pat' ? '#cbb677' : node.edge === 'theme' ? '#2f6f7e' : '#450084';
     const width = node.edge === 'theme' ? 0.34 : 0.52;
-    return `<line x1="50" y1="${portrait ? 18 : 42}" x2="${node.x}" y2="${node.y}" stroke="${color}" stroke-width="${width}" stroke-linecap="round" stroke-opacity="${portrait ? 0.38 : 0.64}" />`;
+    return `<line x1="50" y1="${portrait ? 18 : 42}" x2="${node.x}" y2="${node.y}" stroke="${color}" stroke-width="${width}" stroke-linecap="round" stroke-opacity="${kioskPortrait ? 0.18 : portrait ? 0.38 : 0.64}" />`;
   }).join('');
 
   const years = [...records.reduce((map, record) => {
@@ -1300,6 +1302,10 @@ function queueCorridorEdgeUpdate() {
 
 function isPortraitLayout() {
   return window.matchMedia('(orientation: portrait)').matches;
+}
+
+function isKioskPortraitLayout() {
+  return window.matchMedia('(orientation: portrait) and (min-width: 768px) and (min-height: 1200px)').matches;
 }
 
 function getChapterElement(targetId) {
@@ -1771,7 +1777,10 @@ function bindEvents() {
   });
 
   window.addEventListener('resize', () => {
-    window.requestAnimationFrame(renderNetwork);
+    window.requestAnimationFrame(() => {
+      renderAll();
+      renderNetwork();
+    });
     queueCorridorEdgeUpdate();
   });
   bindMemoryRail();
