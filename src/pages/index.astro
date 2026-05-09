@@ -10,8 +10,50 @@ import '../styles/corridor.css';
     <meta name="description" content="A 2.5D interactive exhibit exploring JMU, Harrisonburg, and Rockingham County through town-gown Darts & Pats from The Breeze." />
     <title>The Breeze Between Town and Gown</title>
   </head>
-  <body>
+  <body class="is-attractor-active">
     <a class="skip-link" href="#walk-years">Skip to the Memory Corridor</a>
+
+    <section class="attractor-mode" id="attractor-mode" aria-labelledby="attractor-title" aria-describedby="attractor-desc">
+      <div class="attractor-mode__sky">
+        <p class="kicker">The Breeze Parade</p>
+        <h1 id="attractor-title">The Breeze Parade</h1>
+        <p id="attractor-desc">
+          Balloons, clippings, town notes, campus echoes. A gentle parade is passing through the archive.
+        </p>
+        <button class="attractor-mode__enter" id="attractor-enter" type="button">Touch here to enter The Memory Corridor</button>
+      </div>
+
+      <div class="attractor-mode__card-layer" id="attractor-card-layer" aria-live="polite"></div>
+      <div class="attractor-balloon" id="attractor-balloon" aria-hidden="true">
+        <span></span>
+      </div>
+
+      <div class="attractor-mode__scene" id="attractor-scene" role="button" tabindex="0" aria-label="Enter the exhibit from The Breeze Parade">
+        <div class="attractor-mode__street" aria-hidden="true">
+          <div class="attractor-crosswalk"></div>
+          <div class="attractor-storefronts">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="attractor-bus"></div>
+          <div class="attractor-newsbox"></div>
+          <div class="attractor-crowd">
+            <span class="person person--one"><i></i><b></b><em></em></span>
+            <span class="person person--two"><i></i><b></b><em></em></span>
+            <span class="person person--three"><i></i><b></b><em></em></span>
+            <span class="person person--four"><i></i><b></b><em></em></span>
+          </div>
+          <div class="attractor-balloon-cluster attractor-balloon-cluster--one">
+            <i></i><i></i><i></i>
+          </div>
+          <div class="attractor-balloon-cluster attractor-balloon-cluster--two">
+            <i></i><i></i><i></i>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <nav class="memory-rail" aria-labelledby="memory-rail-title">
       <div class="memory-rail__header">
@@ -285,8 +327,8 @@ import '../styles/corridor.css';
 
     <div class="idle-overlay" id="idle-overlay" hidden role="status" aria-live="assertive">
       <div>
-        <p class="kicker">Kiosk reset</p>
-        <strong>Returning to start…</strong>
+        <p class="kicker" id="idle-overlay-title">Kiosk reset</p>
+        <strong id="idle-overlay-message">Returning to The Breeze Parade…</strong>
       </div>
     </div>
 

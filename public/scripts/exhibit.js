@@ -3,6 +3,8 @@ const SUMMARY_URL = '/data/town_gown_exhibit_analysis_summary.json';
 const IDLE_RESET_MS = 105000;
 const IDLE_WARNING_MS = 2400;
 const EDITOR_FORM_WORD_RE = /\b(dart|darts|pat|pats)\b/gi;
+const ATTRACTOR_CARD_LENGTH = 180;
+const ATTRACTOR_HARSH_LANGUAGE_RE = /\b(fuck|shit|bitch|asshole|bastard|slut|whore|kill|killed|hate|hated|hateful|idiot|moron|stupid|dumb|loser|shut up|go away)\b/i;
 
 const topicIcons = {
   housing_landlords_apartments: '/assets/generated/icon-housing.svg',
@@ -65,9 +67,21 @@ const state = {
   stringGraph: null,
   selectedStringTheme: '',
   wordBreezeTerm: '',
+  isAttractorActive: true,
+  attractorPool: [],
+  attractorIndex: 0,
 };
 
 const els = {
+  body: document.body,
+  main: document.querySelector('#top'),
+  memoryRail: document.querySelector('.memory-rail'),
+  skipLink: document.querySelector('.skip-link'),
+  attractor: document.querySelector('#attractor-mode'),
+  attractorEnter: document.querySelector('#attractor-enter'),
+  attractorScene: document.querySelector('#attractor-scene'),
+  attractorBalloon: document.querySelector('#attractor-balloon'),
+  attractorCardLayer: document.querySelector('#attractor-card-layer'),
   year: document.querySelector('#year-filter'),
   era: document.querySelector('#era-filter'),
   topic: document.querySelector('#topic-filter'),
@@ -126,6 +140,7 @@ const els = {
 
 let idleTimer = null;
 let idleResetTimer = null;
+let idleReturnInProgress = false;
 let panDrag = null;
 let railObserver = null;
 
@@ -216,6 +231,82 @@ function editorChallenge(record) {
 
 function isEditorEligible(record) {
   return editorChallenge(record).playable;
+}
+
+function attractorText(record) {
+  return String(record.text_full || record.text || record.summary || record.snippet || '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function decadeBucket(year) {
+  const numericYear = Number(year) || 0;
+  if (numericYear < 2000) return '1990s';
+  if (numericYear < 2010) return '2000s';
+  if (numericYear < 2020) return '2010s';
+  return '2020s';
+}
+
+function isAttractorCandidate(record) {
+  const text = attractorText(record);
+  if (!record.kind || !record.year || !record.primary_topic_label || text.length < 80 || text.length > 520) return false;
+  if (ATTRACTOR_HARSH_LANGUAGE_RE.test(text)) return false;
+  const words = text.match(/[a-zA-Z]{3,}/g) || [];
+  if (words.length < 12 || words.length > 95) return false;
+  const punctuation = (text.match(/[.!?]/g) || []).length;
+  return punctuation >= 1 || words.length <= 45;
+}
+
+function buildAttractorPool() {
+  const candidates = state.records
+    .filter(isAttractorCandidate)
+    .sort((a, b) => Math.abs(attractorText(a).length - 190) - Math.abs(attractorText(b).length - 190) || dateSort(a, b));
+  const grouped = candidates.reduce((map, record) => {
+    const key = `${decadeBucket(record.year)}:${record.kind}`;
+    if (!map.has(key)) map.set(key, []);
+    map.get(key).push(record);
+    return map;
+  }, new Map());
+
+  const balanced = [];
+  ['1990s', '2000s', '2010s', '2020s'].forEach((decade) => {
+    ['DART', 'PAT'].forEach((kind) => {
+      balanced.push(...(grouped.get(`${decade}:${kind}`) || []).slice(0, 8));
+    });
+  });
+
+  const seen = new Set();
+  const pool = balanced
+    .concat(candidates)
+    .filter((record) => {
+      if (seen.has(record.id)) return false;
+      seen.add(record.id);
+      return true;
+    })
+    .slice(0, 72)
+    .sort(dateSort);
+
+  return pool.length ? pool : state.records.slice(0, 24);
+}
+
+function attractorPoolStats() {
+  const pool = state.attractorPool || [];
+  const byKind = pool.reduce((counts, record) => {
+    counts[record.kind] = (counts[record.kind] || 0) + 1;
+    return counts;
+  }, { DART: 0, PAT: 0 });
+  const byDecade = pool.reduce((counts, record) => {
+    const decade = decadeBucket(record.year);
+    counts[decade] = (counts[decade] || 0) + 1;
+    return counts;
+  }, {});
+  return {
+    total: pool.length,
+    darts: byKind.DART || 0,
+    pats: byKind.PAT || 0,
+    decades: byDecade,
+    fullArchive: state.records.length,
+  };
 }
 
 function getEditorPool() {
@@ -892,6 +983,157 @@ function prefersReducedMotion() {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
+function nextAttractorRecord() {
+  if (!state.attractorPool.length) return null;
+  const record = state.attractorPool[state.attractorIndex % state.attractorPool.length];
+  state.attractorIndex += 1;
+  return record;
+}
+
+function renderAttractorClipping(record, { staticCard = false } = {}) {
+  if (!els.attractorCardLayer || !record) return;
+  const kind = getKindNoun(record.kind);
+  const topic = record.primary_topic_label || 'Town-gown note';
+  const excerpt = shorten(attractorText(record), ATTRACTOR_CARD_LENGTH);
+  const tilt = ((record.id * 19) % 9) - 4;
+  els.attractorCardLayer.innerHTML = `
+    <button class="attractor-clipping attractor-clipping--${record.kind === 'PAT' ? 'pat' : 'dart'} ${staticCard ? 'is-static' : ''}" style="--clip-tilt:${tilt / 2}deg" data-attractor-record-id="${record.id}" type="button" aria-label="Enter the exhibit from a ${escapeHtml(kind)} clipping from ${escapeHtml(record.year)}">
+      <span>${escapeHtml(kind)} · ${escapeHtml(record.year)}</span>
+      <strong>${escapeHtml(topic)}</strong>
+      <p>${escapeHtml(excerpt)}</p>
+      <small>Touch to explore the archive</small>
+    </button>
+  `;
+}
+
+function setInertWhileAttracting(active) {
+  [els.main, els.memoryRail].forEach((element) => {
+    if (!element) return;
+    if (active) {
+      element.setAttribute('inert', '');
+      element.setAttribute('aria-hidden', 'true');
+    } else {
+      element.removeAttribute('inert');
+      element.removeAttribute('aria-hidden');
+    }
+  });
+}
+
+const AttractorMode = {
+  timers: [],
+  isBound: false,
+
+  clearTimers() {
+    this.timers.forEach((timer) => window.clearTimeout(timer));
+    this.timers = [];
+    els.attractorBalloon?.classList.remove('is-rising');
+  },
+
+  queue(callback, delay) {
+    const timer = window.setTimeout(callback, delay);
+    this.timers.push(timer);
+    return timer;
+  },
+
+  init() {
+    if (this.isBound || !els.attractor) return;
+    this.isBound = true;
+    const exit = () => this.deactivate();
+
+    els.attractorEnter?.addEventListener('click', exit);
+    els.attractor?.addEventListener('click', (event) => {
+      if (event.target.closest('#attractor-enter, [data-attractor-record-id]')) return;
+      exit();
+    });
+    els.attractorScene?.addEventListener('click', exit);
+    els.attractorScene?.addEventListener('keydown', (event) => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      event.preventDefault();
+      exit();
+    });
+    els.attractorCardLayer?.addEventListener('click', (event) => {
+      if (!event.target.closest('[data-attractor-record-id]')) return;
+      exit();
+    });
+  },
+
+  activate({ resetScroll = true, focusEntry = true } = {}) {
+    if (!els.attractor) return;
+    this.clearTimers();
+    idleReturnInProgress = false;
+    state.isAttractorActive = true;
+    window.clearTimeout(idleTimer);
+    window.clearTimeout(idleResetTimer);
+    document.documentElement.classList.add('is-attractor-active');
+    els.body.classList.add('is-attractor-active');
+    els.attractor.hidden = false;
+    els.idleOverlay.hidden = true;
+    setInertWhileAttracting(true);
+    if (resetScroll) window.scrollTo({ top: 0, behavior: 'auto' });
+    if (focusEntry) window.requestAnimationFrame(() => els.attractorEnter?.focus({ preventScroll: true }));
+    this.startAnimation();
+  },
+
+  deactivate() {
+    if (!els.attractor || !state.isAttractorActive) return;
+    this.clearTimers();
+    idleReturnInProgress = false;
+    state.isAttractorActive = false;
+    document.documentElement.classList.remove('is-attractor-active');
+    els.body.classList.remove('is-attractor-active');
+    els.attractor.hidden = true;
+    setInertWhileAttracting(false);
+    window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+    window.requestAnimationFrame(() => els.kioskEnter?.focus({ preventScroll: true }));
+    resetIdleTimer();
+  },
+
+  startAnimation() {
+    const firstRecord = nextAttractorRecord();
+    if (!firstRecord) return;
+    if (prefersReducedMotion()) {
+      renderAttractorClipping(firstRecord, { staticCard: true });
+      return;
+    }
+    renderAttractorClipping(firstRecord, { staticCard: true });
+    this.queue(() => this.runCycle(), 900);
+  },
+
+  runCycle() {
+    if (!state.isAttractorActive || prefersReducedMotion()) return;
+    const record = nextAttractorRecord();
+    if (!record || !els.attractorBalloon) return;
+    const palette = record.kind === 'PAT'
+      ? { fill: '#cbb677', accent: '#fff6cf' }
+      : { fill: '#5b2a86', accent: '#dacce6' };
+    const horizontal = 18 + ((record.id * 17) % 61);
+    els.attractorBalloon.style.setProperty('--balloon-x', `${horizontal}vw`);
+    els.attractorBalloon.style.setProperty('--balloon-fill', palette.fill);
+    els.attractorBalloon.style.setProperty('--balloon-accent', palette.accent);
+    els.attractorBalloon.classList.remove('is-rising');
+    void els.attractorBalloon.offsetWidth;
+    els.attractorBalloon.classList.add('is-rising');
+    this.queue(() => {
+      renderAttractorClipping(record);
+      els.attractorBalloon?.classList.remove('is-rising');
+    }, 5300);
+    this.queue(() => this.runCycle(), 11200 + ((state.attractorIndex % 5) * 1500));
+  },
+};
+
+function installLocalTestHooks() {
+  if (!['localhost', '127.0.0.1'].includes(window.location.hostname)) return;
+  window.__DARTS_PATS_TEST__ = {
+    showAttractor: () => AttractorMode.activate(),
+    exitAttractor: () => AttractorMode.deactivate(),
+    triggerIdleReset: () => startOver({ showOverlay: true }),
+    resetInteractiveState,
+    attractorPoolStats,
+    renderAttractorClipping: () => renderAttractorClipping(nextAttractorRecord() || state.attractorPool[0]),
+    runAttractorCycle: () => AttractorMode.runCycle(),
+  };
+}
+
 function scrollToElement(element) {
   element?.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'start' });
 }
@@ -1034,27 +1276,48 @@ function clearStringThemeFromCorridor() {
   scrollToElement(document.querySelector('#walk-years'));
 }
 
-function startOver({ showOverlay = false } = {}) {
+function closeTransientPanels() {
   if (els.drawer?.open) els.drawer.close();
   setClassTrayOpen(false);
+  if (els.wordBreezeList) {
+    els.wordBreezeList.hidden = true;
+    els.wordBreezeList.innerHTML = '';
+  }
+  if (els.sendCorridor) els.sendCorridor.open = false;
+  state.wordBreezeTerm = '';
+  state.activeRecordId = null;
+}
+
+function resetInteractiveState() {
+  closeTransientPanels();
+  state.selectedStringTheme = state.stringGraph?.topThemes?.[0]?.id || '';
   applyState({ year: 'all', classYear: 'all', era: 'all', topic: 'all', kind: 'all', search: '' });
+  renderNetwork();
   makeGameCard();
   resetCorridorPan();
+  setActiveChapter('threshold');
   window.history.replaceState(null, '', `${window.location.origin}${window.location.pathname}${window.location.search}`);
+}
+
+function startOver({ showOverlay = false } = {}) {
+  resetInteractiveState();
 
   if (showOverlay) {
-    els.idleOverlay.hidden = false;
+    idleReturnInProgress = true;
+    window.clearTimeout(idleTimer);
     window.clearTimeout(idleResetTimer);
+    els.idleOverlay.hidden = false;
     idleResetTimer = window.setTimeout(() => {
+      idleReturnInProgress = false;
       els.idleOverlay.hidden = true;
-      window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
-      resetIdleTimer();
+      AttractorMode.activate();
     }, IDLE_WARNING_MS);
     return;
   }
 
+  idleReturnInProgress = false;
   els.idleOverlay.hidden = true;
-  window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+  AttractorMode.activate();
 }
 
 function enterCorridor() {
@@ -1130,9 +1393,11 @@ function updatePresentationButton() {
 
 function resetIdleTimer() {
   if (!els.idleOverlay) return;
+  if (idleReturnInProgress) return;
   window.clearTimeout(idleTimer);
   window.clearTimeout(idleResetTimer);
   if (!els.idleOverlay.hidden) els.idleOverlay.hidden = true;
+  if (state.isAttractorActive) return;
   idleTimer = window.setTimeout(() => startOver({ showOverlay: true }), IDLE_RESET_MS);
 }
 
@@ -1144,6 +1409,13 @@ function bindIdleReset() {
 }
 
 function bindEvents() {
+  AttractorMode.init();
+  els.skipLink?.addEventListener('click', (event) => {
+    if (!state.isAttractorActive) return;
+    event.preventDefault();
+    AttractorMode.deactivate();
+    window.requestAnimationFrame(() => scrollToElement(document.querySelector('#walk-years')));
+  });
   els.year.addEventListener('change', (event) => applyState({ year: event.target.value }));
   els.era.addEventListener('change', (event) => applyState({ era: event.target.value }));
   els.topic.addEventListener('change', (event) => applyState({ topic: event.target.value }));
@@ -1269,6 +1541,7 @@ async function init() {
     state.summary = await summaryResponse.json();
     state.editorEligibleRecords = state.records.filter(isEditorEligible);
     state.editorWithheldRecords = state.records.filter((record) => !isEditorEligible(record));
+    state.attractorPool = buildAttractorPool();
     state.stringGraph = buildStringGraph();
     state.selectedStringTheme = state.stringGraph.topThemes[0]?.id || '';
 
@@ -1278,6 +1551,8 @@ async function init() {
     renderAll();
     renderNetwork();
     makeGameCard();
+    AttractorMode.activate({ resetScroll: false, focusEntry: false });
+    installLocalTestHooks();
   } catch (error) {
     console.error(error);
     els.currentSummary.textContent = 'The exhibit data failed to load. Check that the JSON files are in /public/data/.';
