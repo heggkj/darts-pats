@@ -1,0 +1,650 @@
+[
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/landscape-1920x1080-01-breeze-parade-idle.png",
+    "viewport_size": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "The Breeze Parade idle",
+    "section": "The Breeze Parade",
+    "intended_user_action": "Visitor sees attractor and taps the large entry button.",
+    "known_design_concerns": "Confirm the clipping, title, and parade scene do not compete.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/landscape-1920x1080-02-breeze-parade-popped-clipping.png",
+    "viewport_size": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "The Breeze Parade popped clipping",
+    "section": "The Breeze Parade",
+    "intended_user_action": "Visitor taps a popped clipping or main scene to enter.",
+    "known_design_concerns": "Check the passive clipping is legible without becoming a dashboard card.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/landscape-1920x1080-03-threshold.png",
+    "viewport_size": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "Threshold",
+    "section": "Threshold",
+    "intended_user_action": "Visitor taps to enter the corridor or tries Editor Table.",
+    "known_design_concerns": "Primary action should be obvious and not buried under rail/tray.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/landscape-1920x1080-04-class-of-tray-closed.png",
+    "viewport_size": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "Class-of tray closed",
+    "section": "Memory Rail",
+    "intended_user_action": "Visitor notices Class of... as a rail object but does not see the picker yet.",
+    "known_design_concerns": "The rail should feel tactile rather than like a web sidebar/menu.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/landscape-1920x1080-05-class-of-tray-open.png",
+    "viewport_size": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "Class-of tray open",
+    "section": "Memory Rail",
+    "intended_user_action": "Visitor chooses a class year or clears back to all years.",
+    "known_design_concerns": "The four-year meaning should be readable and controls should be large enough.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/landscape-1920x1080-06-class-of-active-window.png",
+    "viewport_size": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "Class-of active window",
+    "section": "Memory Corridor",
+    "intended_user_action": "Visitor sees the active class window chip and can tap it to change years.",
+    "known_design_concerns": "The chip must orient without becoming another dashboard filter.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/landscape-1920x1080-07-memory-corridor-all-years.png",
+    "viewport_size": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "Memory Corridor all years",
+    "section": "Memory Corridor",
+    "intended_user_action": "Visitor walks, swipes, taps year tiles, topic doors, and cards.",
+    "known_design_concerns": "One dominant interaction should be visible; avoid crowded card stacks.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/landscape-1920x1080-08-memory-corridor-class-filtered.png",
+    "viewport_size": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "Memory Corridor class-year filtered",
+    "section": "Memory Corridor",
+    "intended_user_action": "Visitor reviews the four-year memory window.",
+    "known_design_concerns": "Filtered state should be clear without hiding the archive context.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/landscape-1920x1080-09-word-breeze.png",
+    "viewport_size": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "Word Breeze",
+    "section": "Memory Corridor",
+    "intended_user_action": "Visitor taps a floating term to see nearby cards.",
+    "known_design_concerns": "Word Breeze should stay atmospheric, not a dashboard chart.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/landscape-1920x1080-10-follow-strings-default.png",
+    "viewport_size": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "Follow the Strings default",
+    "section": "Follow the Strings",
+    "intended_user_action": "Visitor taps a theme node to recenter the board.",
+    "known_design_concerns": "The board should feel like corkboard/string, not network analytics.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/landscape-1920x1080-11-follow-strings-selected-theme.png",
+    "viewport_size": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "Follow the Strings selected theme",
+    "section": "Follow the Strings",
+    "intended_user_action": "Visitor taps related themes or record clippings.",
+    "known_design_concerns": "Selected state should be obvious; record nodes should remain tappable.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/landscape-1920x1080-12-open-drawer.png",
+    "viewport_size": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "Open Drawer",
+    "section": "Open the Drawer",
+    "intended_user_action": "Visitor chooses a card from the archive shelf.",
+    "known_design_concerns": "Card grid should be browseable from standing distance.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/landscape-1920x1080-13-reading-drawer.png",
+    "viewport_size": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "Reading drawer",
+    "section": "Open the Drawer",
+    "intended_user_action": "Visitor reads full text, moves previous/next, or closes drawer.",
+    "known_design_concerns": "Close and navigation controls must be large and obvious.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/landscape-1920x1080-14-editor-hidden-card.png",
+    "viewport_size": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "Editor's Table hidden card",
+    "section": "Editor's Table",
+    "intended_user_action": "Visitor guesses form and topic from a masked card.",
+    "known_design_concerns": "No classification metadata should leak before reveal.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/landscape-1920x1080-15-editor-reveal-state.png",
+    "viewport_size": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "Editor's Table reveal state",
+    "section": "Editor's Table",
+    "intended_user_action": "Visitor compares their reading with the original classification.",
+    "known_design_concerns": "Reveal should remain interpretive, not score-like.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/landscape-1920x1080-16-reflection-wall.png",
+    "viewport_size": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "Reflection Wall / source note",
+    "section": "Reflection Wall",
+    "intended_user_action": "Visitor reads the source/context note.",
+    "known_design_concerns": "Tone should stay archival and honest, not promotional.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/landscape-1920x1080-17-idle-reset-overlay.png",
+    "viewport_size": "1920x1080",
+    "orientation": "landscape",
+    "section_state": "Idle reset overlay",
+    "section": "Kiosk reset",
+    "intended_user_action": "Inactive kiosk returns to The Breeze Parade.",
+    "known_design_concerns": "Message should be calm and brief, with no state left behind.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/portrait-1080x1920-01-breeze-parade-idle.png",
+    "viewport_size": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "The Breeze Parade idle",
+    "section": "The Breeze Parade",
+    "intended_user_action": "Visitor sees attractor and taps the large entry button.",
+    "known_design_concerns": "Confirm the clipping, title, and parade scene do not compete.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/portrait-1080x1920-02-breeze-parade-popped-clipping.png",
+    "viewport_size": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "The Breeze Parade popped clipping",
+    "section": "The Breeze Parade",
+    "intended_user_action": "Visitor taps a popped clipping or main scene to enter.",
+    "known_design_concerns": "Check the passive clipping is legible without becoming a dashboard card.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/portrait-1080x1920-03-threshold.png",
+    "viewport_size": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "Threshold",
+    "section": "Threshold",
+    "intended_user_action": "Visitor taps to enter the corridor or tries Editor Table.",
+    "known_design_concerns": "Primary action should be obvious and not buried under rail/tray.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/portrait-1080x1920-04-class-of-tray-closed.png",
+    "viewport_size": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "Class-of tray closed",
+    "section": "Memory Rail",
+    "intended_user_action": "Visitor notices Class of... as a rail object but does not see the picker yet.",
+    "known_design_concerns": "The rail should feel tactile rather than like a web sidebar/menu.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/portrait-1080x1920-05-class-of-tray-open.png",
+    "viewport_size": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "Class-of tray open",
+    "section": "Memory Rail",
+    "intended_user_action": "Visitor chooses a class year or clears back to all years.",
+    "known_design_concerns": "The four-year meaning should be readable and controls should be large enough.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/portrait-1080x1920-06-class-of-active-window.png",
+    "viewport_size": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "Class-of active window",
+    "section": "Memory Corridor",
+    "intended_user_action": "Visitor sees the active class window chip and can tap it to change years.",
+    "known_design_concerns": "The chip must orient without becoming another dashboard filter.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/portrait-1080x1920-07-memory-corridor-all-years.png",
+    "viewport_size": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "Memory Corridor all years",
+    "section": "Memory Corridor",
+    "intended_user_action": "Visitor walks, swipes, taps year tiles, topic doors, and cards.",
+    "known_design_concerns": "One dominant interaction should be visible; avoid crowded card stacks.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/portrait-1080x1920-08-memory-corridor-class-filtered.png",
+    "viewport_size": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "Memory Corridor class-year filtered",
+    "section": "Memory Corridor",
+    "intended_user_action": "Visitor reviews the four-year memory window.",
+    "known_design_concerns": "Filtered state should be clear without hiding the archive context.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/portrait-1080x1920-09-word-breeze.png",
+    "viewport_size": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "Word Breeze",
+    "section": "Memory Corridor",
+    "intended_user_action": "Visitor taps a floating term to see nearby cards.",
+    "known_design_concerns": "Word Breeze should stay atmospheric, not a dashboard chart.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/portrait-1080x1920-10-follow-strings-default.png",
+    "viewport_size": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "Follow the Strings default",
+    "section": "Follow the Strings",
+    "intended_user_action": "Visitor taps a theme node to recenter the board.",
+    "known_design_concerns": "The board should feel like corkboard/string, not network analytics.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/portrait-1080x1920-11-follow-strings-selected-theme.png",
+    "viewport_size": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "Follow the Strings selected theme",
+    "section": "Follow the Strings",
+    "intended_user_action": "Visitor taps related themes or record clippings.",
+    "known_design_concerns": "Selected state should be obvious; record nodes should remain tappable.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/portrait-1080x1920-12-open-drawer.png",
+    "viewport_size": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "Open Drawer",
+    "section": "Open the Drawer",
+    "intended_user_action": "Visitor chooses a card from the archive shelf.",
+    "known_design_concerns": "Card grid should be browseable from standing distance.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/portrait-1080x1920-13-reading-drawer.png",
+    "viewport_size": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "Reading drawer",
+    "section": "Open the Drawer",
+    "intended_user_action": "Visitor reads full text, moves previous/next, or closes drawer.",
+    "known_design_concerns": "Close and navigation controls must be large and obvious.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/portrait-1080x1920-14-editor-hidden-card.png",
+    "viewport_size": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "Editor's Table hidden card",
+    "section": "Editor's Table",
+    "intended_user_action": "Visitor guesses form and topic from a masked card.",
+    "known_design_concerns": "No classification metadata should leak before reveal.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/portrait-1080x1920-15-editor-reveal-state.png",
+    "viewport_size": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "Editor's Table reveal state",
+    "section": "Editor's Table",
+    "intended_user_action": "Visitor compares their reading with the original classification.",
+    "known_design_concerns": "Reveal should remain interpretive, not score-like.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/portrait-1080x1920-16-reflection-wall.png",
+    "viewport_size": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "Reflection Wall / source note",
+    "section": "Reflection Wall",
+    "intended_user_action": "Visitor reads the source/context note.",
+    "known_design_concerns": "Tone should stay archival and honest, not promotional.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/portrait-1080x1920-17-idle-reset-overlay.png",
+    "viewport_size": "1080x1920",
+    "orientation": "portrait",
+    "section_state": "Idle reset overlay",
+    "section": "Kiosk reset",
+    "intended_user_action": "Inactive kiosk returns to The Breeze Parade.",
+    "known_design_concerns": "Message should be calm and brief, with no state left behind.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/4k-landscape-3840x2160-07-memory-corridor-all-years.png",
+    "viewport_size": "3840x2160",
+    "orientation": "landscape",
+    "section_state": "4K landscape Memory Corridor",
+    "section": "Memory Corridor",
+    "intended_user_action": "Reviewer checks scaling on a 4K landscape touchscreen.",
+    "known_design_concerns": "Look for excessive whitespace, tiny cards, or rail crowding.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  },
+  {
+    "screenshot_path": "public/reports/screenshots/phase-5-screen-bible/4k-portrait-2160x3840-01-breeze-parade-idle.png",
+    "viewport_size": "2160x3840",
+    "orientation": "portrait",
+    "section_state": "4K portrait The Breeze Parade",
+    "section": "The Breeze Parade",
+    "intended_user_action": "Reviewer checks portrait attractor scale on a 4K touchscreen.",
+    "known_design_concerns": "Title, clipping, and parade should feel intentionally composed.",
+    "questions_for_visual_reviewer": [
+      "Is the primary action obvious from standing distance?",
+      "Does this screen feel like the same exhibit as the others?",
+      "Is anything too small for a public touchscreen?",
+      "Is the visual metaphor clear?",
+      "Does this look too much like a website/dashboard/StoryMap?",
+      "Is the reading experience comfortable?",
+      "Does portrait mode feel intentional rather than broken?"
+    ]
+  }
+]

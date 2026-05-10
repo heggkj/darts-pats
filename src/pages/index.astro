@@ -10,19 +10,127 @@ import '../styles/corridor.css';
     <meta name="description" content="A 2.5D interactive exhibit exploring JMU, Harrisonburg, and Rockingham County through town-gown Darts & Pats from The Breeze." />
     <title>The Breeze Between Town and Gown</title>
   </head>
-  <body>
-    <a class="skip-link" href="#corridor">Skip to the corridor</a>
+  <body class="is-attractor-active">
+    <a class="skip-link" href="#walk-years">Skip to the Memory Corridor</a>
+
+    <section class="attractor-mode" id="attractor-mode" aria-labelledby="attractor-title" aria-describedby="attractor-desc">
+      <div class="attractor-mode__sky">
+        <p class="kicker">The Breeze Parade</p>
+        <h1 id="attractor-title">The Breeze Parade</h1>
+        <p id="attractor-desc">
+          A gentle parade of darts and pats published in The Breeze between 1991 and 2026.
+        </p>
+        <button class="attractor-mode__enter" id="attractor-enter" type="button">Touch here to enter The Memory Corridor</button>
+      </div>
+
+      <div class="attractor-mode__card-layer" id="attractor-card-layer" aria-live="polite"></div>
+      <div class="attractor-balloon" id="attractor-balloon" aria-hidden="true">
+        <span></span>
+      </div>
+      <div class="attractor-ambient-balloons" aria-hidden="true">
+        <span class="attractor-ambient-balloon attractor-ambient-balloon--purple"></span>
+        <span class="attractor-ambient-balloon attractor-ambient-balloon--gold"></span>
+        <span class="attractor-ambient-balloon attractor-ambient-balloon--cream"></span>
+        <span class="attractor-ambient-balloon attractor-ambient-balloon--violet"></span>
+        <span class="attractor-ambient-balloon attractor-ambient-balloon--teal"></span>
+        <span class="attractor-ambient-balloon attractor-ambient-balloon--small"></span>
+        <span class="attractor-ambient-balloon attractor-ambient-balloon--market-one"></span>
+        <span class="attractor-ambient-balloon attractor-ambient-balloon--market-two"></span>
+        <span class="attractor-ambient-balloon attractor-ambient-balloon--courthouse-one"></span>
+        <span class="attractor-ambient-balloon attractor-ambient-balloon--parade-one"></span>
+        <span class="attractor-ambient-balloon attractor-ambient-balloon--parade-two"></span>
+        <span class="attractor-ambient-balloon attractor-ambient-balloon--bus-stop"></span>
+      </div>
+      <div class="attractor-wire-life" aria-hidden="true">
+        <span class="attractor-wire-life__line"></span>
+        <span class="attractor-bird attractor-bird--one"></span>
+        <span class="attractor-bird attractor-bird--two"></span>
+        <span class="attractor-bird attractor-bird--three"></span>
+        <span class="attractor-bird attractor-bird--four"></span>
+        <span class="attractor-bird attractor-bird--five"></span>
+        <span class="attractor-bird attractor-bird--six"></span>
+        <span class="attractor-bird attractor-bird--visitor"></span>
+      </div>
+
+      <div class="attractor-mode__scene" id="attractor-scene" role="button" tabindex="0" aria-label="Enter the exhibit from The Breeze Parade">
+        <div class="attractor-mode__street" aria-hidden="true">
+          <div class="attractor-street-glaze"></div>
+          <div class="attractor-ground-ribbon attractor-ground-ribbon--one"></div>
+          <div class="attractor-ground-ribbon attractor-ground-ribbon--two"></div>
+          <div class="attractor-flag attractor-flag--one"></div>
+          <div class="attractor-flag attractor-flag--two"></div>
+          <div class="attractor-newsstand-moment">
+            <span class="attractor-newsstand-moment__door"></span>
+            <span class="attractor-newsstand-moment__paper"></span>
+            <span class="attractor-newsstand-moment__flutter"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <nav class="memory-rail" aria-labelledby="memory-rail-title">
+      <div class="memory-rail__header">
+        <p class="kicker">Breeze morgue rail</p>
+        <h2 id="memory-rail-title">Memory Rail</h2>
+      </div>
+      <div class="memory-rail__tokens">
+        <button class="rail-token rail-token--threshold is-active" data-rail-target="threshold" type="button" aria-current="true">
+          <span class="rail-token__stamp">Start</span>
+          <strong>Threshold</strong>
+        </button>
+        <button class="rail-token rail-token--years" data-rail-target="walk-years" type="button">
+          <span class="rail-token__stamp">Hall</span>
+          <strong>Memory Corridor</strong>
+        </button>
+        <button class="rail-token rail-token--friction" data-rail-target="friction-map" type="button">
+          <span class="rail-token__stamp">Strings</span>
+          <strong>Follow the Strings</strong>
+        </button>
+        <button class="rail-token rail-token--drawer" data-rail-target="open-drawer" type="button">
+          <span class="rail-token__stamp">Drawer</span>
+          <strong>Open the Drawer</strong>
+        </button>
+        <button class="rail-token rail-token--editor" data-rail-target="editor-game" type="button">
+          <span class="rail-token__stamp">Desk</span>
+          <strong>Editor’s Table</strong>
+        </button>
+        <button class="rail-token rail-token--reflection" data-rail-target="reflection-wall" type="button">
+          <span class="rail-token__stamp">Time</span>
+          <strong>Long Argument</strong>
+        </button>
+        <button class="rail-token rail-token--class" id="class-tray-toggle" type="button" aria-expanded="false" aria-controls="class-tray">
+          <span class="rail-token__stamp">Years</span>
+          <strong>Class of…</strong>
+        </button>
+        <button class="rail-token rail-token--credits" data-rail-target="credits" type="button">
+          <span class="rail-token__stamp">Thanks</span>
+          <strong>Credits</strong>
+        </button>
+      </div>
+      <div class="class-tray" id="class-tray" hidden aria-labelledby="class-tray-title">
+        <p class="class-tray__title" id="class-tray-title">Class of…</p>
+        <label class="class-tray__label" for="class-year">Pick your graduation year</label>
+        <input id="class-year" type="range" min="1991" max="2026" value="2000" step="1" />
+        <output class="class-tray__window" id="class-year-output" for="class-year">Class of 2000 (1997 - 2000)</output>
+        <div class="class-tray__buttons">
+          <button class="class-tray__step" id="class-year-back" type="button" aria-label="Choose previous class year">−</button>
+          <button class="class-tray__go" id="class-year-go" type="button">Show your years</button>
+          <button class="class-tray__step" id="class-year-forward" type="button" aria-label="Choose next class year">+</button>
+        </div>
+        <button class="class-tray__clear" id="class-year-clear" type="button">Show all years</button>
+      </div>
+    </nav>
 
     <main class="exhibit-shell" id="top">
-      <section class="threshold" aria-labelledby="threshold-title">
+      <section class="threshold" id="threshold" data-chapter="threshold" aria-labelledby="threshold-title">
         <div class="threshold__paper" aria-hidden="true"></div>
         <p class="kicker">The Breeze archive / Darts & Pats / 1991–2026</p>
         <h1 id="threshold-title">The Breeze Between Town and Gown</h1>
         <p class="threshold__lede">
-          A walk through the petty, pointed, generous, funny, and revealing notes JMU people published about living beside Harrisonburg and Rockingham County.
+          Walk through Darts & Pats from <em>The Breeze</em> to explore tensions and ties between JMU and Harrisonburg/Rockingham. Touch floor tiles, doors, drawers, bulletin pins, and paper cards to open the archive.
         </p>
         <div class="threshold__actions">
-          <a class="button button--primary" href="#corridor">Enter the corridor</a>
+          <button class="button button--primary button--kiosk-enter" id="kiosk-enter" type="button">Tap to enter the corridor</button>
           <a class="button button--ghost" href="#editor-game">Try the editor table</a>
         </div>
         <dl class="stat-strip" id="stat-strip" aria-live="polite">
@@ -52,115 +160,219 @@ import '../styles/corridor.css';
         </p>
       </section>
 
-      <section class="controls-panel" aria-label="Filter the exhibit">
-        <div class="control-group">
-          <label for="year-filter">Year</label>
-          <select id="year-filter">
-            <option value="all">All years</option>
-          </select>
-        </div>
-        <div class="control-group">
-          <label for="era-filter">Era</label>
-          <select id="era-filter">
-            <option value="all">All eras</option>
-          </select>
-        </div>
-        <div class="control-group">
-          <label for="topic-filter">Topic</label>
-          <select id="topic-filter">
-            <option value="all">All topics</option>
-          </select>
-        </div>
-        <div class="control-group">
-          <label for="kind-filter">Form</label>
-          <select id="kind-filter">
-            <option value="all">Darts and Pats</option>
-            <option value="DART">Darts only</option>
-            <option value="PAT">Pats only</option>
-          </select>
-        </div>
-        <div class="control-group control-group--search">
-          <label for="search-filter">Search text, entities, source</label>
-          <input id="search-filter" type="search" placeholder="Try Main Street, bus, landlord, Mercy House…" />
-        </div>
-        <button class="button button--small" id="reset-filters" type="button">Reset</button>
-      </section>
-
-      <section class="corridor" id="corridor" aria-labelledby="corridor-title">
+      <section class="corridor" id="walk-years" data-chapter="walk-years" aria-labelledby="corridor-title">
         <div class="section-heading">
           <p class="kicker">2.5D corridor</p>
-          <h2 id="corridor-title">Walk the relationship</h2>
-          <p id="corridor-subtitle">Use the floor timeline, topic doors, or filters to move through the archive.</p>
+          <h2 id="corridor-title">The Memory Corridor</h2>
+          <div class="active-filter-pills" id="active-filter-pills" hidden aria-label="Active Memory Corridor filters" aria-live="polite"></div>
         </div>
 
-        <div class="corridor-stage" aria-live="polite">
-          <div class="corridor-stage__ceiling" aria-hidden="true"></div>
-          <aside class="wall wall--left" aria-label="Darts wall">
-            <div class="wall__label"><span>🎯</span> Darts</div>
-            <div class="card-rack" id="dart-rack"></div>
-          </aside>
-          <div class="corridor-center">
-            <div class="back-wall">
-              <p class="kicker">Current view</p>
-              <h3 id="current-view-title">All town-gown Darts & Pats</h3>
-              <p id="current-view-summary">Loading the archive…</p>
-              <div class="view-meters" id="view-meters"></div>
-            </div>
-            <div class="topic-doors" id="topic-doors" aria-label="Topic doors"></div>
-            <div class="floor-timeline" id="floor-timeline" aria-label="Timeline floor"></div>
+        <aside class="word-breeze" id="word-breeze" aria-labelledby="word-breeze-title">
+          <div>
+            <p id="word-breeze-title">The archive is whispering about…</p>
           </div>
-          <aside class="wall wall--right" aria-label="Pats wall">
-            <div class="wall__label"><span>🤲</span> Pats</div>
-            <div class="card-rack" id="pat-rack"></div>
-          </aside>
+          <div class="word-breeze__cloud" id="word-breeze-cloud" aria-label="Words drifting through this view"></div>
+          <div class="word-breeze__list" id="word-breeze-list" hidden aria-live="polite"></div>
+        </aside>
+
+        <div class="corridor-pan" id="corridor-pan" tabindex="0" aria-label="Swipe or drag sideways to walk through the corridor">
+          <button class="corridor-edge-button corridor-edge-button--left" data-walk="left" type="button" aria-label="Walk left through the corridor">‹</button>
+          <button class="corridor-edge-button corridor-edge-button--right" data-walk="right" type="button" aria-label="Walk right through the corridor">›</button>
+          <div class="corridor-stage" aria-live="polite" data-corridor-stage>
+            <div class="corridor-stage__ceiling" aria-hidden="true"></div>
+            <div class="corridor-stage__vanish" aria-hidden="true"></div>
+            <aside class="wall wall--left" aria-label="Darts wall">
+              <div class="wall__label">
+                <span aria-hidden="true">🎯</span>
+                <strong>Darts wall</strong>
+                <small>Sharp notes, civic static</small>
+              </div>
+              <div class="card-rack" id="dart-rack"></div>
+            </aside>
+            <div class="corridor-center">
+              <div class="back-wall">
+                <p class="kicker">Current view</p>
+                <h3 id="current-view-title">All town-gown Darts & Pats</h3>
+                <p id="current-view-summary">Loading the archive…</p>
+                <div class="view-meters" id="view-meters"></div>
+                <div class="featured-cards" id="featured-cards" aria-label="Featured cards from this corridor view"></div>
+                <a class="button button--small button--ghost back-wall__drawer-link" href="#open-drawer">Open the full drawer</a>
+              </div>
+              <div class="corridor-walkway">
+                <div class="trouble-spots" id="trouble-spots" aria-label="Topic stations">
+                  <div class="topic-doors" id="topic-doors" aria-label="Topic doors and stations"></div>
+                </div>
+                <div class="floor-run" aria-labelledby="floor-title">
+                  <div class="floor-run__header">
+                    <div>
+                      <p class="kicker" id="floor-title">Timeline floor</p>
+                      <p>Step across yearly tiles. Darker means more Darts, warmer means more Pats, split tiles mean the town-gown mood could not pick a lane.</p>
+                    </div>
+                    <div class="floor-key" aria-label="Timeline mood key">
+                      <span><i class="key key--dart"></i> Dart-heavy</span>
+                      <span><i class="key key--mixed"></i> Mixed</span>
+                      <span><i class="key key--pat"></i> Pat-heavy</span>
+                    </div>
+                  </div>
+                  <div class="floor-timeline" id="floor-timeline" aria-label="Timeline floor from 1991 to 2026"></div>
+                </div>
+              </div>
+            </div>
+            <aside class="wall wall--right" aria-label="Pats wall">
+              <div class="wall__label">
+                <span aria-hidden="true">🤲</span>
+                <strong>Pats wall</strong>
+                <small>Warm notes, public thanks</small>
+              </div>
+              <div class="card-rack" id="pat-rack"></div>
+            </aside>
+          </div>
         </div>
       </section>
 
-      <section class="network-section" aria-labelledby="network-title">
+      <section class="network-section" id="friction-map" data-chapter="friction-map" aria-labelledby="network-title">
         <div class="section-heading">
-          <p class="kicker">Bulletin-board network</p>
-          <h2 id="network-title">Follow the strings</h2>
-          <p>Topics, places, and Darts/Pats are pinned together as a civic memory board. Click a pin to filter the corridor.</p>
+          <p class="kicker">Corkboard room</p>
+          <h2 id="network-title">Follow the Strings</h2>
+          <p>Tap a theme to recenter the board. Tap a Dart or Pat clipping to open the drawer.</p>
         </div>
-        <div class="network-board" id="network-board">
+        <div class="network-board string-board" id="network-board">
           <svg id="network-edges" aria-hidden="true"></svg>
+          <div class="string-board__summary" id="string-summary"></div>
           <div id="network-nodes"></div>
+          <div class="string-years" id="string-years" aria-label="Years represented in this string-board view"></div>
         </div>
       </section>
 
-      <section class="reader-section" aria-labelledby="reader-title">
+      <section class="reader-section" id="open-drawer" data-chapter="open-drawer" aria-labelledby="reader-title">
         <div class="section-heading">
           <p class="kicker">Reading drawer</p>
-          <h2 id="reader-title">Open the notes</h2>
+          <h2 id="reader-title">Open the Drawer</h2>
           <p>Every card opens into the original text. The exhibit works best when the data visualization sends people back to the words.</p>
         </div>
         <div class="shelf" id="reading-shelf"></div>
       </section>
 
-      <section class="editor-game" id="editor-game" aria-labelledby="editor-game-title">
+      <section class="editor-game" id="editor-game" data-chapter="editor-game" aria-labelledby="editor-game-title">
         <div class="section-heading">
-          <p class="kicker">No-score interpretive game</p>
+          <p class="kicker">Interpretive game</p>
           <h2 id="editor-game-title">You be the Breeze editor</h2>
-          <p>Read a hidden card, guess whether it was a Dart or Pat, then reveal how it appeared and where it fits in the exhibit.</p>
+          <p>Read the card cold. Was it printed as a Dart or a Pat?</p>
         </div>
         <div class="game-card">
-          <blockquote id="game-text">Loading a card…</blockquote>
+          <div class="game-card__paper">
+            <p class="game-pool-note" id="game-pool-note">Some cards are masked because they name their own form.</p>
+            <blockquote id="game-text">Loading a card…</blockquote>
+          </div>
+          <div class="game-fieldset" aria-label="Editor guesses">
+            <fieldset>
+              <legend id="game-choice-prompt">WAS IT PRINTED AS A (CLICK ONE)?</legend>
+              <div class="segmented">
+                <button class="button button--small button--ghost" data-guess="DART" type="button" aria-pressed="false">Dart</button>
+                <button class="button button--small button--ghost" data-guess="PAT" type="button" aria-pressed="false">Pat</button>
+              </div>
+            </fieldset>
+          </div>
           <div class="game-controls">
-            <button class="button button--small" data-guess="DART" type="button">I call it a Dart</button>
-            <button class="button button--small" data-guess="PAT" type="button">I call it a Pat</button>
+            <button class="button button--small" id="reveal-game-card" type="button" disabled>Reveal how The Breeze printed it</button>
             <button class="button button--small button--ghost" id="new-game-card" type="button">New card</button>
           </div>
-          <p class="game-result" id="game-result" aria-live="polite"></p>
+          <div class="game-related" id="game-related" aria-live="polite"></div>
         </div>
       </section>
 
-      <section class="source-note" aria-labelledby="source-title">
-        <h2 id="source-title">Source note</h2>
-        <p>
-          All entries are drawn from Darts & Pats published in <em>The Breeze</em>, James Madison University’s student newspaper. They are presented as historical evidence of perception, humor, grievance, gratitude, and civic memory—not as neutral measurements of the town-gown relationship.
-        </p>
+      <section class="long-argument" id="reflection-wall" data-chapter="reflection-wall" aria-labelledby="long-argument-title">
+        <div class="section-heading">
+          <p class="kicker">Time wall</p>
+          <h2 id="long-argument-title">The Long Argument</h2>
+          <p id="long-argument-copy">A touchable year-by-year look at how Darts and Pats tilt, soften, and flare across the archive.</p>
+        </div>
+        <div class="long-argument__body">
+          <div class="long-argument__controls" aria-label="Choose an era for The Long Argument" id="long-argument-eras"></div>
+          <div class="long-argument__window" id="long-argument-window" aria-live="polite"></div>
+          <div class="long-argument__timeline" id="long-argument-years" aria-label="Pats and Darts by year"></div>
+          <div class="long-argument__themes" id="long-argument-themes" aria-label="Themes in the selected time window"></div>
+          <div class="long-argument__cards" id="long-argument-cards" aria-label="Representative cards from the selected time window"></div>
+        </div>
+        <details class="long-argument__source">
+          <summary>About this exhibit</summary>
+          <p>
+            All entries are drawn from Darts & Pats published in <em>The Breeze</em>, James Madison University’s student newspaper. They are presented as historical evidence of perception, humor, grievance, gratitude, and civic memory, not as neutral measurements of the town-gown relationship.
+          </p>
+        </details>
+      </section>
+
+      <section class="credits-section" id="credits" data-chapter="credits" aria-labelledby="credits-title">
+        <div class="section-heading">
+          <p class="kicker">Made with</p>
+          <h2 id="credits-title">Credits</h2>
+          <p>
+            This digital exhibit was built as part of an experiment in archival interpretation, public history, data visualization, and AI-assisted web production.
+          </p>
+        </div>
+
+        <div class="credits-grid" aria-label="Credits and acknowledgments">
+          <article class="credit-card">
+            <p class="kicker">Digital scholarship</p>
+            <h3>James Madison University Libraries</h3>
+            <p class="credit-card__subtitle">Digital Scholarship and Distinctive Collections</p>
+            <p>
+              Built with support from JMU Libraries’ Digital Scholarship and Distinctive Collections, whose work brings together archives, digital projects, teaching, cultural heritage, and experimental forms of public scholarship.
+            </p>
+            <p class="credit-card__role">Role: Built the exhibit and configured hardware.</p>
+            <a class="credit-card__url" href="https://www.lib.jmu.edu/staff/departments/academic-engagement/dsdc/" target="_blank" rel="noopener noreferrer">
+              www.lib.jmu.edu/staff/departments/academic-engagement/dsdc/
+            </a>
+          </article>
+
+          <article class="credit-card credit-card--logo">
+            <div class="credit-card__logo-frame">
+              <img src="/assets/logos/pl2-logo.jpg" alt="Power, Language, and Leadership Lab logo." width="444" height="444" loading="lazy" />
+            </div>
+            <div>
+              <p class="kicker">Student research</p>
+              <h3>JMU Power, Language, and Leadership Lab</h3>
+              <p>
+                The Power, Language, and Leadership Lab is a JMU student research group led by Dr. John Scherpereel. Its work examines political language, leadership, EU transparency and values, and the evaluation of AI-generated content. The lab creates interactive, data-driven dashboards and public-facing research tools.
+              </p>
+              <p class="credit-card__role">
+                Role: Students collected thousand of Darts and Pats from The Breeze collection, cleaned the dataset, and performed data analysis.
+              </p>
+              <a class="credit-card__url" href="https://sites.lib.jmu.edu/pl2lab/" target="_blank" rel="noopener noreferrer">
+                sites.lib.jmu.edu/pl2lab/
+              </a>
+            </div>
+          </article>
+
+          <article class="credit-card">
+            <p class="kicker">Source archive</p>
+            <h3><em>The Breeze</em> / Darts &amp; Pats</h3>
+            <p>
+              All entries are drawn from Darts &amp; Pats published in <em>The Breeze</em>, James Madison University’s student newspaper. The entries are presented as historical evidence of perception, humor, grievance, gratitude, and civic memory, not as neutral measurements of town-gown relations.
+            </p>
+            <p class="credit-card__role">Role: Darts &amp; Pats published in <em>The Breeze</em>, JMU’s student newspaper</p>
+            <a class="credit-card__url" href="https://commons.lib.jmu.edu/homepage/9/" target="_blank" rel="noopener noreferrer">
+              commons.lib.jmu.edu/homepage/9/
+            </a>
+          </article>
+
+          <article class="credit-card credit-card--process">
+            <p class="kicker">How this was made</p>
+            <h3>AI-assisted production note</h3>
+            <p>
+              This exhibit was developed through an AI-assisted design and coding workflow. Human judgment shaped the archive, topic coding, exhibit argument, visual direction, and final editorial choices.
+            </p>
+          </article>
+        </div>
       </section>
     </main>
+
+    <div class="idle-overlay" id="idle-overlay" hidden role="status" aria-live="assertive">
+      <div>
+        <p class="kicker" id="idle-overlay-title">Kiosk reset</p>
+        <strong id="idle-overlay-message">Returning to The Breeze Parade…</strong>
+      </div>
+    </div>
 
     <dialog class="record-drawer" id="record-drawer" aria-labelledby="drawer-title">
       <form method="dialog" class="drawer-close-form">
@@ -168,6 +380,18 @@ import '../styles/corridor.css';
       </form>
       <article id="drawer-content"></article>
     </dialog>
+
+    <button class="diagnostics-hotspot" id="diagnostics-hotspot" type="button" tabindex="-1" aria-hidden="true"></button>
+    <aside class="operator-diagnostics" id="operator-diagnostics" hidden role="dialog" aria-labelledby="diagnostics-title" aria-modal="false">
+      <header>
+        <div>
+          <p class="kicker">Operator diagnostics</p>
+          <h2 id="diagnostics-title">Kiosk Status</h2>
+        </div>
+        <button class="button button--small button--ghost" id="diagnostics-close" type="button">Close</button>
+      </header>
+      <dl id="diagnostics-readout"></dl>
+    </aside>
 
     <script type="module" src="/scripts/exhibit.js"></script>
   </body>
