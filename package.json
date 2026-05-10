@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "package:static": "node scripts/package-static-site.mjs"
   },
   "dependencies": {
     "astro": "latest"
