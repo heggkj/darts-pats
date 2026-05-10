@@ -233,8 +233,8 @@ function classWindowLabel(classYear = state.classYear) {
   const years = classWindowYears(classYear);
   if (!years.length) return '';
   const end = years[years.length - 1];
-  const range = years.length === 1 ? `${years[0]}` : `${years[0]}–${end}`;
-  return `Class of ${end}: ${range}`;
+  const range = years.length === 1 ? `${years[0]}` : `${years[0]} - ${end}`;
+  return `Class of ${end} (${range})`;
 }
 
 function classWindowRangeLabel(classYear = state.classYear) {
