@@ -5,7 +5,11 @@ const IDLE_WARNING_MS = 2400;
 const EDITOR_FORM_WORD_RE = /\b(dart|darts|pat|pats)\b/gi;
 const ATTRACTOR_CARD_LENGTH = 180;
 const ATTRACTOR_HARSH_LANGUAGE_RE = /\b(fuck|shit|bitch|asshole|bastard|slut|whore|kill|killed|hate|hated|hateful|idiot|moron|stupid|dumb|loser|shut up|go away)\b/i;
-const APP_VERSION = 'phase-9b-whimsical-localization';
+const APP_VERSION = 'phase-9c-parade-art-integration';
+const ATTRACTOR_FIRST_RELEASE_MS = 12000;
+const ATTRACTOR_MIN_REST_MS = 10000;
+const ATTRACTOR_BALLOON_FLIGHT_MS = 6800;
+const ATTRACTOR_CLIPPING_FADE_MS = 900;
 
 const topicIcons = {
   housing_landlords_apartments: '/assets/generated/icon-housing.svg',
@@ -1148,7 +1152,7 @@ const AttractorMode = {
       return;
     }
     renderAttractorClipping(firstRecord, { staticCard: true });
-    this.scheduleNextCycle(8200);
+    this.scheduleNextCycle(ATTRACTOR_FIRST_RELEASE_MS);
   },
 
   fadeCurrentClipping(callback) {
@@ -1158,7 +1162,7 @@ const AttractorMode = {
       return;
     }
     clipping.classList.add('is-fading');
-    this.queue(callback, 850);
+    this.queue(callback, ATTRACTOR_CLIPPING_FADE_MS);
   },
 
   scheduleNextCycle(delay) {
@@ -1177,6 +1181,7 @@ const AttractorMode = {
       : { fill: '#5b2a86', accent: '#dacce6' };
     const horizontal = 18 + ((record.id * 17) % 61);
     els.attractorBalloon.style.setProperty('--balloon-x', `${horizontal}vw`);
+    els.attractorBalloon.style.setProperty('--balloon-drift', `${((record.id % 2) ? 1 : -1) * (3 + (record.id % 5))}vw`);
     els.attractorBalloon.style.setProperty('--balloon-fill', palette.fill);
     els.attractorBalloon.style.setProperty('--balloon-accent', palette.accent);
     els.attractorBalloon.classList.remove('is-rising');
@@ -1185,8 +1190,8 @@ const AttractorMode = {
     this.queue(() => {
       renderAttractorClipping(record);
       els.attractorBalloon?.classList.remove('is-rising');
-      this.scheduleNextCycle(7600 + ((state.attractorIndex % 5) * 1200));
-    }, 5300);
+      this.scheduleNextCycle(ATTRACTOR_MIN_REST_MS + ((state.attractorIndex % 6) * 1500));
+    }, ATTRACTOR_BALLOON_FLIGHT_MS);
   },
 };
 
