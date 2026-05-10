@@ -186,6 +186,11 @@ p {
   font-size: 1.25rem;
 }
 
+.button--kiosk-enter::after {
+  content: none;
+  margin-left: 0;
+}
+
 .section-heading {
   display: grid;
   gap: 0.55rem;
