@@ -610,12 +610,15 @@
 .credit-card--logo {
   grid-template-columns: auto minmax(0, 1fr);
   gap: 1rem;
+  align-items: start;
 }
 
 .credit-card__logo-frame {
   display: grid;
   place-items: center;
+  align-self: start;
   width: clamp(7.5rem, 12vw, 10rem);
+  aspect-ratio: 1;
   padding: 0.6rem;
   border: 1px solid rgba(69, 0, 132, 0.14);
   border-radius: 14px;
@@ -626,8 +629,9 @@
 .credit-card__logo-frame img {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
   aspect-ratio: 1;
+  object-fit: cover;
   border-radius: 8px;
 }
 
