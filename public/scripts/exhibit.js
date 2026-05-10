@@ -983,8 +983,7 @@ function revealGameGuess() {
   els.gameRelated.innerHTML = `
     <div class="game-reveal">
       <span class="game-reveal__badge ${sameKind ? 'game-reveal__badge--matched' : 'game-reveal__badge--different'}">${sameKind ? '✓ Matched' : '× Different reading'}</span>
-      <p>${escapeHtml(kindVerdict)}</p>
-      <p>The Breeze printed this as a <strong>${escapeHtml(kindLabel)}</strong> on ${escapeHtml(formatDate(record.date))}.</p>
+      <p class="game-reveal__summary">${escapeHtml(kindVerdict)} The Breeze printed this as a <strong>${escapeHtml(kindLabel)}</strong> on ${escapeHtml(formatDate(record.date))}.</p>
       <p>Main theme: <strong>${escapeHtml(record.primary_topic_label || 'Town-gown note')}</strong>.</p>
       ${renderPillRow('Tags', record.topic_tag_labels)}
       <button class="button button--small button--ghost" data-record-id="${record.id}" type="button">Open this card</button>
