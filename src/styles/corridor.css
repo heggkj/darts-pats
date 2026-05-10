@@ -2416,6 +2416,297 @@ body.is-attractor-active {
   }
 }
 
+/* Phase 10: keep the live attractor layer in the same illustrated world as the parade art. */
+.attractor-mode__street {
+  background:
+    linear-gradient(180deg, rgba(251, 248, 239, 0), rgba(251, 248, 239, 0.1) 30%, rgba(36, 31, 43, 0.12)),
+    linear-gradient(90deg, rgba(69, 0, 132, 0.05), rgba(203, 182, 119, 0.08), rgba(47, 111, 126, 0.04));
+  border-top-color: rgba(69, 0, 132, 0.12);
+}
+
+.attractor-street-glaze {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, transparent 0 42%, rgba(251, 248, 239, 0.08) 58%, rgba(69, 0, 132, 0.1)),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0 1px, transparent 1px 6.8rem);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.attractor-street-glaze::after {
+  position: absolute;
+  left: 3vw;
+  bottom: clamp(0.4rem, 1.4vh, 1.15rem);
+  width: min(37rem, 37vw);
+  height: clamp(4.5rem, 8vw, 7rem);
+  background:
+    repeating-linear-gradient(111deg, rgba(255, 255, 255, 0.58) 0 1.05rem, transparent 1.05rem 2.55rem),
+    linear-gradient(90deg, rgba(203, 182, 119, 0.1), transparent);
+  content: "";
+  opacity: 0.24;
+  transform: skewX(-18deg) rotate(-0.4deg);
+}
+
+.attractor-motion-bus,
+.attractor-motion-car,
+.attractor-flag {
+  position: absolute;
+  pointer-events: none;
+}
+
+.attractor-motion-bus,
+.attractor-motion-car {
+  left: -18rem;
+  bottom: clamp(2.35rem, 7vh, 4.5rem);
+  z-index: 2;
+  opacity: 0;
+  filter: drop-shadow(0 0.9rem 0.85rem rgba(36, 31, 43, 0.18));
+  transform: translate3d(-24vw, 0, 0);
+}
+
+.attractor-motion-bus {
+  width: clamp(10.5rem, 15vw, 17rem);
+  height: clamp(3.6rem, 5vw, 5.2rem);
+  border: 2px solid rgba(36, 31, 43, 0.16);
+  border-radius: 24px 28px 11px 13px;
+  background:
+    radial-gradient(circle at 17% 86%, #241f2b 0 0.62rem, transparent 0.66rem),
+    radial-gradient(circle at 84% 86%, #241f2b 0 0.62rem, transparent 0.66rem),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0 16%, transparent 17%),
+    linear-gradient(90deg, #59238c, #7741a7 52%, #4f2d78);
+  animation: attractor-bus-drive 38s cubic-bezier(0.38, 0, 0.22, 1) infinite;
+}
+
+.attractor-motion-bus span {
+  position: absolute;
+  left: 1.2rem;
+  right: 1.4rem;
+  top: 0.72rem;
+  height: 1.08rem;
+  border-radius: 999px;
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.72) 0 1.55rem, rgba(255, 255, 255, 0.18) 1.55rem 2.25rem),
+    rgba(244, 239, 225, 0.42);
+}
+
+.attractor-motion-bus i,
+.attractor-motion-bus b,
+.attractor-motion-car i,
+.attractor-motion-car b {
+  position: absolute;
+  bottom: -0.4rem;
+  width: 1.15rem;
+  aspect-ratio: 1;
+  border-radius: 999px;
+  background: #241f2b;
+  content: "";
+}
+
+.attractor-motion-bus i {
+  left: 1.4rem;
+}
+
+.attractor-motion-bus b {
+  right: 1.4rem;
+}
+
+.attractor-motion-car {
+  left: auto;
+  right: -10rem;
+  bottom: clamp(1.9rem, 5.6vh, 3.5rem);
+  width: clamp(6rem, 9vw, 9rem);
+  height: clamp(2.4rem, 3.6vw, 3.6rem);
+  border: 2px solid rgba(36, 31, 43, 0.14);
+  border-radius: 22px 24px 11px 12px;
+  background:
+    radial-gradient(circle at 22% 92%, #241f2b 0 0.42rem, transparent 0.46rem),
+    radial-gradient(circle at 80% 92%, #241f2b 0 0.42rem, transparent 0.46rem),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0 23%, transparent 24%),
+    linear-gradient(90deg, #d4bf77, #bda454 62%, #7a5b89);
+  animation: attractor-car-pass 31s cubic-bezier(0.34, 0, 0.2, 1) 8s infinite;
+}
+
+.attractor-motion-car span {
+  position: absolute;
+  left: 1.4rem;
+  top: 0.42rem;
+  width: 2.5rem;
+  height: 0.82rem;
+  border-radius: 999px 999px 0.35rem 0.35rem;
+  background: rgba(255, 255, 255, 0.56);
+}
+
+.attractor-motion-car i {
+  left: 0.85rem;
+  width: 0.82rem;
+}
+
+.attractor-motion-car b {
+  right: 0.8rem;
+  width: 0.82rem;
+}
+
+.attractor-flag {
+  bottom: clamp(7.6rem, 14vh, 11rem);
+  width: 2.4rem;
+  height: 2.05rem;
+  border-left: 2px solid rgba(36, 31, 43, 0.2);
+  background:
+    linear-gradient(90deg, rgba(69, 0, 132, 0.76), rgba(203, 182, 119, 0.76));
+  clip-path: polygon(0 0, 100% 9%, 86% 55%, 100% 100%, 0 84%);
+  opacity: 0.5;
+  transform-origin: left center;
+  animation: attractor-flag-wave 6.8s ease-in-out infinite;
+}
+
+.attractor-flag--one {
+  left: 20vw;
+}
+
+.attractor-flag--two {
+  right: 24vw;
+  animation-delay: -2.6s;
+}
+
+.attractor-mode.is-showing-bus .attractor-motion-bus,
+.attractor-mode.is-showing-car .attractor-motion-car {
+  animation: none;
+  opacity: 0.86;
+}
+
+.attractor-mode.is-showing-bus .attractor-motion-bus {
+  transform: translate3d(55vw, -0.08rem, 0) rotate(0.15deg);
+}
+
+.attractor-mode.is-showing-car .attractor-motion-car {
+  transform: translate3d(-58vw, 0, 0) rotate(-0.3deg);
+}
+
+.attractor-balloon {
+  bottom: 17vh;
+  width: clamp(4.8rem, 5.7vw, 6.6rem);
+  height: clamp(7rem, 8.4vw, 9.2rem);
+}
+
+.attractor-balloon span {
+  width: clamp(3.8rem, 4.6vw, 5.2rem);
+  aspect-ratio: 0.78;
+  border: 1px solid rgba(36, 31, 43, 0.14);
+  border-radius: 54% 47% 52% 49% / 63% 60% 42% 44%;
+  background:
+    radial-gradient(circle at 31% 25%, rgba(255, 255, 255, 0.72) 0 8%, transparent 9%),
+    radial-gradient(circle at 65% 78%, rgba(36, 31, 43, 0.18), transparent 40%),
+    linear-gradient(135deg, var(--balloon-accent, #d8c4ef) 0 16%, var(--balloon-fill, #6f4aa0) 45%, var(--balloon-edge, #3f2365) 100%);
+  box-shadow:
+    inset -0.42rem -0.62rem 0 rgba(36, 31, 43, 0.12),
+    inset 0.3rem 0.2rem 0 rgba(255, 255, 255, 0.18),
+    0 0.9rem 1.7rem var(--balloon-shadow, rgba(48, 30, 65, 0.24));
+}
+
+.attractor-balloon span::before {
+  position: absolute;
+  left: 46%;
+  top: 94%;
+  width: 0.58rem;
+  height: 0.46rem;
+  border-radius: 54% 48% 40% 44%;
+  background: var(--balloon-edge, #3f2365);
+  content: "";
+  transform: rotate(11deg);
+}
+
+.attractor-balloon span::after {
+  left: 50%;
+  top: 99%;
+  width: 1px;
+  height: 6.6rem;
+  background: linear-gradient(180deg, rgba(90, 74, 58, 0.45), rgba(90, 74, 58, 0.08));
+}
+
+@keyframes attractor-bus-drive {
+  0%,
+  12% {
+    opacity: 0;
+    transform: translate3d(-28vw, 0.18rem, 0) rotate(-0.2deg);
+  }
+
+  20%,
+  68% {
+    opacity: 0.82;
+  }
+
+  44% {
+    transform: translate3d(42vw, -0.06rem, 0) rotate(0.16deg);
+  }
+
+  82%,
+  100% {
+    opacity: 0;
+    transform: translate3d(118vw, 0.08rem, 0) rotate(0deg);
+  }
+}
+
+@keyframes attractor-car-pass {
+  0%,
+  18% {
+    opacity: 0;
+    transform: translate3d(28vw, 0.08rem, 0) rotate(0.35deg);
+  }
+
+  26%,
+  66% {
+    opacity: 0.78;
+  }
+
+  52% {
+    transform: translate3d(-40vw, -0.04rem, 0) rotate(-0.25deg);
+  }
+
+  78%,
+  100% {
+    opacity: 0;
+    transform: translate3d(-112vw, 0, 0) rotate(0deg);
+  }
+}
+
+@keyframes attractor-flag-wave {
+  0%,
+  100% {
+    transform: skewY(0deg) rotate(-0.5deg);
+  }
+
+  50% {
+    transform: skewY(-3deg) rotate(1deg);
+  }
+}
+
+@keyframes attractor-balloon-rise {
+  0% {
+    opacity: 0;
+    transform: translate3d(-0.6vw, 0, 0) scale(0.88) rotate(-2deg);
+  }
+
+  12% {
+    opacity: 1;
+  }
+
+  30% {
+    opacity: 1;
+    transform: translate3d(calc(var(--balloon-drift, 5vw) * 0.24), -21vh, 0) scale(0.98) rotate(1.4deg);
+  }
+
+  70% {
+    opacity: 1;
+    transform: translate3d(calc(var(--balloon-drift, 5vw) * 0.72), -48vh, 0) scale(1.04) rotate(-2.2deg);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--balloon-drift, 5vw), -65vh, 0) scale(0.18) rotate(8deg);
+  }
+}
+
 .idle-overlay {
   position: fixed;
   inset: 0;
@@ -2729,6 +3020,140 @@ body.is-attractor-active {
   font-weight: 900;
   box-shadow: var(--soft-shadow);
   touch-action: manipulation;
+}
+
+/* Phase 10: carry the local parade illustration language into the exhibit as quiet accents. */
+.memory-rail {
+  background:
+    linear-gradient(178deg, rgba(255, 255, 255, 0.88), rgba(244, 239, 225, 0.88)),
+    linear-gradient(90deg, rgba(47, 111, 126, 0.08), transparent 46%, rgba(203, 182, 119, 0.11)),
+    url('/assets/generated/newsprint-texture.svg');
+}
+
+.memory-rail::before {
+  box-shadow:
+    0 0 0 4px rgba(255, 255, 255, 0.54),
+    0 0.45rem 0 rgba(203, 182, 119, 0.28),
+    0 0.9rem 0 rgba(47, 111, 126, 0.18);
+}
+
+.rail-token {
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(244, 239, 225, 0.86)),
+    linear-gradient(90deg, transparent 0 76%, rgba(203, 182, 119, 0.16) 77% 100%),
+    url('/assets/generated/newsprint-texture.svg');
+}
+
+.rail-token::after {
+  position: absolute;
+  right: 0.44rem;
+  bottom: 0.4rem;
+  width: 0.72rem;
+  height: 0.34rem;
+  border-radius: 999px;
+  background: rgba(47, 111, 126, 0.22);
+  content: "";
+  opacity: 0.64;
+  transform: rotate(-8deg);
+}
+
+.threshold {
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.86), rgba(244, 239, 225, 0.78)),
+    radial-gradient(circle at 8% 88%, rgba(47, 111, 126, 0.1), transparent 14rem),
+    url('/assets/generated/newsprint-texture.svg');
+}
+
+.threshold::after {
+  background:
+    linear-gradient(180deg, transparent 0 36%, rgba(244, 239, 225, 0.58) 37% 100%),
+    repeating-linear-gradient(90deg, rgba(52, 42, 66, 0.13) 0 1px, transparent 1px 5.5rem),
+    linear-gradient(180deg, transparent, rgba(52, 42, 66, 0.1));
+}
+
+.class-tray {
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(244, 239, 225, 0.92)),
+    linear-gradient(90deg, rgba(203, 182, 119, 0.14) 0 1.1rem, transparent 1.1rem calc(100% - 1.1rem), rgba(47, 111, 126, 0.09) calc(100% - 1.1rem)),
+    url('/assets/generated/newsprint-texture.svg');
+  clip-path: polygon(0 0, calc(100% - 0.7rem) 0, 100% 0.7rem, 100% 100%, 0.7rem 100%, 0 92%);
+}
+
+.class-tray::after {
+  position: absolute;
+  left: 0.92rem;
+  bottom: 0.78rem;
+  width: 4.5rem;
+  height: 0.42rem;
+  border-radius: 999px;
+  background: repeating-linear-gradient(90deg, rgba(69, 0, 132, 0.16) 0 0.38rem, rgba(203, 182, 119, 0.18) 0.38rem 0.74rem);
+  content: "";
+  opacity: 0.58;
+  transform: rotate(-1.6deg);
+  pointer-events: none;
+}
+
+.corridor {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(69, 0, 132, 0.05), rgba(203, 182, 119, 0.08), rgba(159, 70, 54, 0.04)),
+    radial-gradient(circle at 88% 8%, rgba(47, 111, 126, 0.09), transparent 14rem),
+    rgba(255, 255, 255, 0.54);
+}
+
+.corridor::before {
+  position: absolute;
+  right: clamp(1rem, 4vw, 4rem);
+  bottom: clamp(0.8rem, 2vw, 2.2rem);
+  z-index: 0;
+  width: min(30rem, 32vw);
+  height: 7rem;
+  background:
+    linear-gradient(180deg, transparent 0 56%, rgba(47, 111, 126, 0.12) 57% 67%, transparent 68%),
+    linear-gradient(135deg, transparent 0 44%, rgba(159, 70, 54, 0.13) 45% 55%, transparent 56%),
+    repeating-linear-gradient(90deg, rgba(69, 0, 132, 0.08) 0 0.9rem, transparent 0.9rem 2.1rem);
+  clip-path: polygon(0 100%, 0 56%, 16% 56%, 16% 40%, 31% 40%, 31% 24%, 49% 24%, 49% 48%, 68% 48%, 68% 34%, 84% 34%, 84% 58%, 100% 58%, 100% 100%);
+  content: "";
+  opacity: 0.52;
+  pointer-events: none;
+}
+
+.corridor > * {
+  position: relative;
+  z-index: 1;
+}
+
+.corridor-stage {
+  background:
+    linear-gradient(90deg, rgba(52, 42, 66, 0.14), transparent 24%, transparent 76%, rgba(203, 182, 119, 0.15)),
+    radial-gradient(circle at 50% 8%, rgba(255, 255, 255, 0.74), transparent 18rem),
+    linear-gradient(180deg, rgba(252, 249, 239, 0.9), rgba(225, 211, 185, 0.87));
+}
+
+.string-board {
+  background:
+    radial-gradient(circle at 50% 42%, rgba(255, 255, 255, 0.88), transparent 22rem),
+    linear-gradient(180deg, rgba(69, 0, 132, 0.04), transparent 18%),
+    radial-gradient(circle at 8% 92%, rgba(159, 70, 54, 0.13), transparent 16rem),
+    radial-gradient(circle at 94% 12%, rgba(47, 111, 126, 0.1), transparent 13rem),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(244, 239, 225, 0.84)),
+    url('/assets/generated/corkboard.svg');
+}
+
+.string-board::after {
+  position: absolute;
+  right: 1.4rem;
+  bottom: 1.15rem;
+  width: min(22rem, 24vw);
+  height: 4.5rem;
+  background:
+    linear-gradient(180deg, transparent 0 58%, rgba(47, 111, 126, 0.12) 59% 70%, transparent 71%),
+    repeating-linear-gradient(90deg, rgba(69, 0, 132, 0.08) 0 0.85rem, transparent 0.85rem 2.2rem);
+  clip-path: polygon(0 100%, 0 54%, 15% 54%, 15% 38%, 32% 38%, 32% 58%, 50% 58%, 50% 28%, 67% 28%, 67% 48%, 86% 48%, 86% 62%, 100% 62%, 100% 100%);
+  content: "";
+  opacity: 0.42;
+  pointer-events: none;
 }
 
 .threshold {
@@ -4698,6 +5123,9 @@ body.is-presentation-mode .exhibit-shell {
   .attractor-clipping,
   .attractor-balloon,
   .attractor-balloon.is-rising,
+  .attractor-motion-bus,
+  .attractor-motion-car,
+  .attractor-flag,
   .attractor-market-stalls span,
   .person,
   .attractor-balloon-cluster i,
@@ -4707,6 +5135,11 @@ body.is-presentation-mode .exhibit-shell {
   }
 
   .attractor-balloon {
+    display: none;
+  }
+
+  .attractor-motion-bus,
+  .attractor-motion-car {
     display: none;
   }
 

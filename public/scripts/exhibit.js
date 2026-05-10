@@ -5,7 +5,7 @@ const IDLE_WARNING_MS = 2400;
 const EDITOR_FORM_WORD_RE = /\b(dart|darts|pat|pats)\b/gi;
 const ATTRACTOR_CARD_LENGTH = 180;
 const ATTRACTOR_HARSH_LANGUAGE_RE = /\b(fuck|shit|bitch|asshole|bastard|slut|whore|kill|killed|hate|hated|hateful|idiot|moron|stupid|dumb|loser|shut up|go away)\b/i;
-const APP_VERSION = 'phase-9c-parade-art-integration';
+const APP_VERSION = 'phase-10-style-integration-and-attractor-polish';
 const ATTRACTOR_FIRST_RELEASE_MS = 12000;
 const ATTRACTOR_MIN_REST_MS = 10000;
 const ATTRACTOR_BALLOON_FLIGHT_MS = 6800;
@@ -1177,13 +1177,15 @@ const AttractorMode = {
     const record = nextAttractorRecord();
     if (!record || !els.attractorBalloon) return;
     const palette = record.kind === 'PAT'
-      ? { fill: '#cbb677', accent: '#fff6cf' }
-      : { fill: '#5b2a86', accent: '#dacce6' };
+      ? { fill: '#c9b062', accent: '#fff2bd', edge: '#8e7634', shadow: 'rgba(105, 80, 30, 0.26)' }
+      : { fill: '#6d45a0', accent: '#d9c6ef', edge: '#3f2365', shadow: 'rgba(48, 30, 65, 0.28)' };
     const horizontal = 18 + ((record.id * 17) % 61);
     els.attractorBalloon.style.setProperty('--balloon-x', `${horizontal}vw`);
     els.attractorBalloon.style.setProperty('--balloon-drift', `${((record.id % 2) ? 1 : -1) * (3 + (record.id % 5))}vw`);
     els.attractorBalloon.style.setProperty('--balloon-fill', palette.fill);
     els.attractorBalloon.style.setProperty('--balloon-accent', palette.accent);
+    els.attractorBalloon.style.setProperty('--balloon-edge', palette.edge);
+    els.attractorBalloon.style.setProperty('--balloon-shadow', palette.shadow);
     els.attractorBalloon.classList.remove('is-rising');
     void els.attractorBalloon.offsetWidth;
     els.attractorBalloon.classList.add('is-rising');
@@ -1213,6 +1215,11 @@ function installLocalTestHooks() {
     renderAttractorClipping: () => renderAttractorClipping(nextAttractorRecord() || state.attractorPool[0]),
     fadeAttractorClipping: () => AttractorMode.fadeCurrentClipping(() => {}),
     runAttractorCycle: () => AttractorMode.runCycle(),
+    setAttractorMotionState: (stateName = '') => {
+      els.attractor?.classList.remove('is-showing-bus', 'is-showing-car');
+      if (stateName === 'bus') els.attractor?.classList.add('is-showing-bus');
+      if (stateName === 'car') els.attractor?.classList.add('is-showing-car');
+    },
     applyState,
     openClassTray: (year = 2004) => {
       AttractorMode.deactivate();
