@@ -5,10 +5,11 @@ const IDLE_WARNING_MS = 2400;
 const EDITOR_FORM_WORD_RE = /\b(dart|darts|pat|pats)\b/gi;
 const ATTRACTOR_CARD_LENGTH = 180;
 const ATTRACTOR_HARSH_LANGUAGE_RE = /\b(fuck|shit|bitch|asshole|bastard|slut|whore|kill|killed|hate|hated|hateful|idiot|moron|stupid|dumb|loser|shut up|go away)\b/i;
-const APP_VERSION = 'phase-10-style-integration-and-attractor-polish';
-const ATTRACTOR_FIRST_RELEASE_MS = 12000;
-const ATTRACTOR_MIN_REST_MS = 10000;
-const ATTRACTOR_BALLOON_FLIGHT_MS = 6800;
+const APP_VERSION = 'phase-10b-attractor-and-cleanup-polish';
+const FORM_HIDDEN_RE = new RegExp(String.raw`\s*\[` + 'form' + String.raw`\s+` + 'hidden' + String.raw`\]\s*`, 'gi');
+const ATTRACTOR_FIRST_RELEASE_MS = 9000;
+const ATTRACTOR_MIN_REST_MS = 8000;
+const ATTRACTOR_BALLOON_FLIGHT_MS = 6200;
 const ATTRACTOR_CLIPPING_FADE_MS = 900;
 
 const topicIcons = {
@@ -91,6 +92,7 @@ const els = {
   attractorScene: document.querySelector('#attractor-scene'),
   attractorBalloon: document.querySelector('#attractor-balloon'),
   attractorCardLayer: document.querySelector('#attractor-card-layer'),
+  ambientBalloons: document.querySelectorAll('.attractor-ambient-balloon'),
   reset: document.querySelector('#reset-filters'),
   dartRack: document.querySelector('#dart-rack'),
   patRack: document.querySelector('#pat-rack'),
@@ -139,6 +141,8 @@ const els = {
   chapterSections: document.querySelectorAll('[data-chapter]'),
   classTrayToggle: document.querySelector('#class-tray-toggle'),
   classTray: document.querySelector('#class-tray'),
+  classWindowEdit: document.querySelector('#class-window-edit'),
+  classWindowClear: document.querySelector('#class-window-clear'),
   classYear: document.querySelector('#class-year'),
   classYearOutput: document.querySelector('#class-year-output'),
   classYearGo: document.querySelector('#class-year-go'),
@@ -181,8 +185,16 @@ function pluralize(count, singular, plural = `${singular}s`) {
   return count === 1 ? singular : plural;
 }
 
+function cleanPublicText(text = '') {
+  return String(text || '')
+    .replace(FORM_HIDDEN_RE, ' ')
+    .replace(/\s+([,.;:!?])/g, '$1')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+}
+
 function shorten(text = '', length = 170) {
-  const clean = String(text).replace(/\s+/g, ' ').trim();
+  const clean = cleanPublicText(text).replace(/\s+/g, ' ').trim();
   return clean.length > length ? `${clean.slice(0, length - 1)}...` : clean;
 }
 
@@ -233,20 +245,21 @@ function classWindowRangeLabel(classYear = state.classYear) {
 }
 
 function editorChallenge(record) {
-  const original = String(record.text_full || '').replace(/\s+/g, ' ').trim();
+  const original = cleanPublicText(record.text_full || '').replace(/\s+/g, ' ').trim();
   let maskCount = 0;
-  const masked = original
-    .replace(EDITOR_FORM_WORD_RE, () => {
+  const masked = cleanPublicText(original
+    .replace(EDITOR_FORM_WORD_RE, (word) => {
       maskCount += 1;
-      return '[form hidden]';
+      return word.toLowerCase().endsWith('s') ? 'notes' : 'note';
     })
-    .replace(/^\s*(?:a|an|the)\s+\[form hidden\]\s+(to|for)\s+/i, (_, prep) => `${prep.charAt(0).toUpperCase()}${prep.slice(1)} `)
-    .replace(/^\s*\[form hidden\]\s+(to|for)\s+/i, (_, prep) => `${prep.charAt(0).toUpperCase()}${prep.slice(1)} `)
+    .replace(/\b(a)\s+note\b/gi, 'a note')
+    .replace(/\b(an)\s+note\b/gi, 'a note')
+    .replace(/\bnote\s+notes\b/gi, 'notes'))
     .replace(/\s+/g, ' ')
     .trim();
 
   const wordCount = (masked.match(/[a-zA-Z]{3,}/g) || []).length;
-  const hiddenShare = masked.length ? (maskCount * '[form hidden]'.length) / masked.length : 1;
+  const hiddenShare = masked.length ? (maskCount * 4) / masked.length : 1;
   return {
     text: masked,
     maskCount,
@@ -259,7 +272,7 @@ function isEditorEligible(record) {
 }
 
 function attractorText(record) {
-  return String(record.text_full || record.text || record.summary || record.snippet || '')
+  return cleanPublicText(record.text_full || record.text || record.summary || record.snippet || '')
     .replace(/\s+/g, ' ')
     .trim();
 }
@@ -863,7 +876,7 @@ function renderDrawer(record) {
         </div>
       </header>
       <h2 id="drawer-title">${escapeHtml(record.primary_topic_label || 'Town-gown note')}</h2>
-      <blockquote>${escapeHtml(record.text_full)}</blockquote>
+      <blockquote>${escapeHtml(cleanPublicText(record.text_full))}</blockquote>
       ${renderArchiveDetails(record)}
       ${renderPillRow('Tags', record.topic_tag_labels)}
       ${renderPillRow('Entities', record.entities)}
@@ -977,7 +990,7 @@ function revealGameGuess() {
   const kindLabel = getKindNoun(record.kind);
 
   state.gameRevealed = true;
-  els.gameText.textContent = record.text_full || state.gameChallengeText;
+  els.gameText.textContent = cleanPublicText(record.text_full) || state.gameChallengeText;
   updateGameChoiceReveal();
   updateGameRevealState();
   els.gameRelated.innerHTML = `
@@ -1377,7 +1390,7 @@ const AttractorMode = {
     this.queue(() => {
       renderAttractorClipping(record);
       els.attractorBalloon?.classList.remove('is-rising');
-      this.scheduleNextCycle(ATTRACTOR_MIN_REST_MS + ((state.attractorIndex % 6) * 1500));
+      this.scheduleNextCycle(ATTRACTOR_MIN_REST_MS + ((state.attractorIndex % 5) * 1500));
     }, ATTRACTOR_BALLOON_FLIGHT_MS);
   },
 };
@@ -1609,14 +1622,20 @@ function updateClassWindowChip() {
   if (!els.classWindowChip) return;
   if (state.classYear === 'all') {
     els.classWindowChip.hidden = true;
-    els.classWindowChip.textContent = '';
+    if (els.classWindowEdit) els.classWindowEdit.textContent = '';
+    if (els.classWindowClear) els.classWindowClear.removeAttribute('aria-label');
     return;
   }
 
   const label = classWindowLabel();
   els.classWindowChip.hidden = false;
-  els.classWindowChip.textContent = label;
-  els.classWindowChip.setAttribute('aria-label', `${label}. Tap to change class years.`);
+  if (els.classWindowEdit) {
+    els.classWindowEdit.textContent = label;
+    els.classWindowEdit.setAttribute('aria-label', `${label}. Tap to change class years.`);
+  }
+  if (els.classWindowClear) {
+    els.classWindowClear.setAttribute('aria-label', `Clear ${label} memory window`);
+  }
 }
 
 function setClassTrayOpen(open) {
@@ -1924,7 +1943,11 @@ function bindEvents() {
   els.presentationMode.addEventListener('click', togglePresentationMode);
   document.addEventListener('fullscreenchange', updatePresentationButton);
   els.classTrayToggle?.addEventListener('click', () => setClassTrayOpen(els.classTray?.hidden));
-  els.classWindowChip?.addEventListener('click', () => setClassTrayOpen(true));
+  els.classWindowEdit?.addEventListener('click', () => setClassTrayOpen(true));
+  els.classWindowClear?.addEventListener('click', (event) => {
+    event.stopPropagation();
+    clearClassYear();
+  });
   els.classYear?.addEventListener('input', (event) => syncClassYear(event.target.value));
   els.classYearGo?.addEventListener('click', jumpToClassYear);
   els.classYearBack?.addEventListener('click', () => nudgeClassYear(-1));

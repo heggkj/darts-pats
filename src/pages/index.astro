@@ -34,6 +34,12 @@ import '../styles/corridor.css';
         <span class="attractor-ambient-balloon attractor-ambient-balloon--violet"></span>
         <span class="attractor-ambient-balloon attractor-ambient-balloon--teal"></span>
         <span class="attractor-ambient-balloon attractor-ambient-balloon--small"></span>
+        <span class="attractor-ambient-balloon attractor-ambient-balloon--market-one"></span>
+        <span class="attractor-ambient-balloon attractor-ambient-balloon--market-two"></span>
+        <span class="attractor-ambient-balloon attractor-ambient-balloon--courthouse-one"></span>
+        <span class="attractor-ambient-balloon attractor-ambient-balloon--parade-one"></span>
+        <span class="attractor-ambient-balloon attractor-ambient-balloon--parade-two"></span>
+        <span class="attractor-ambient-balloon attractor-ambient-balloon--bus-stop"></span>
       </div>
       <div class="attractor-wire-life" aria-hidden="true">
         <span class="attractor-wire-life__line"></span>
@@ -159,7 +165,12 @@ import '../styles/corridor.css';
           <p class="kicker">2.5D corridor</p>
           <h2 id="corridor-title">The Memory Corridor</h2>
           <p id="corridor-subtitle">A quieter hallway of floor years, wall cards, and civic friction.</p>
-          <button class="active-memory-chip" id="class-window-chip" type="button" hidden></button>
+          <span class="active-memory-chip" id="class-window-chip" hidden>
+            <button class="active-memory-chip__label" id="class-window-edit" type="button"></button>
+            <button class="active-memory-chip__clear" id="class-window-clear" type="button">
+              <span aria-hidden="true">×</span>
+            </button>
+          </span>
         </div>
 
         <aside class="word-breeze" id="word-breeze" aria-labelledby="word-breeze-title">
