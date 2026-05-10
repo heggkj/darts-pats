@@ -232,7 +232,8 @@
 .network-section,
 .reader-section,
 .editor-game,
-.long-argument {
+.long-argument,
+.credits-section {
   margin-top: 1.25rem;
   padding: 1.7rem;
   border: 1px solid rgba(69, 0, 132, 0.14);
@@ -507,6 +508,150 @@
 .long-argument__source p {
   max-width: 82ch;
   color: var(--jmu-slate);
+}
+
+.credits-section {
+  position: relative;
+  overflow: hidden;
+  min-height: clamp(44rem, 78vh, 58rem);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.84), rgba(244, 239, 225, 0.78)),
+    url('/assets/generated/newsprint-texture.svg');
+}
+
+.credits-section::after {
+  position: absolute;
+  right: clamp(1rem, 3vw, 2rem);
+  bottom: clamp(1rem, 3vw, 2rem);
+  width: clamp(7rem, 12vw, 13rem);
+  aspect-ratio: 1;
+  border: 3px solid rgba(69, 0, 132, 0.16);
+  border-radius: 12px 4px 16px 5px;
+  content: "";
+  opacity: 0.28;
+  transform: rotate(-5deg);
+  pointer-events: none;
+}
+
+.credits-section .section-heading {
+  position: relative;
+  z-index: 1;
+  max-width: 72rem;
+}
+
+.credits-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.2rem;
+}
+
+.credit-card {
+  display: grid;
+  gap: 0.7rem;
+  align-content: start;
+  min-height: 100%;
+  padding: clamp(1rem, 2vw, 1.35rem);
+  border: 1px solid rgba(69, 0, 132, 0.13);
+  border-left: 5px solid rgba(69, 0, 132, 0.48);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.76);
+  box-shadow: 0 12px 22px rgba(36, 31, 43, 0.08);
+}
+
+.credit-card h3 {
+  margin: 0;
+  color: var(--jmu-purple);
+  font-family: var(--display);
+  font-size: clamp(1.45rem, 2vw, 2.1rem);
+  line-height: 1;
+}
+
+.credit-card p {
+  margin: 0;
+}
+
+.credit-card__subtitle,
+.credit-card__role {
+  color: var(--jmu-slate);
+  font-weight: 850;
+}
+
+.credit-card__role {
+  padding-top: 0.3rem;
+  border-top: 1px solid rgba(69, 0, 132, 0.11);
+  font-size: 0.92rem;
+}
+
+.credit-card__url {
+  display: inline-flex;
+  align-items: center;
+  min-height: 3rem;
+  width: fit-content;
+  max-width: 100%;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid rgba(69, 0, 132, 0.18);
+  border-radius: 999px;
+  color: var(--civic-blue);
+  font-weight: 900;
+  overflow-wrap: anywhere;
+  text-decoration: none;
+  touch-action: manipulation;
+}
+
+.credit-card__url:focus-visible,
+.credit-card__url:active {
+  outline: 3px solid rgba(47, 111, 126, 0.35);
+  outline-offset: 2px;
+}
+
+.credit-card--logo {
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.credit-card__logo-frame {
+  display: grid;
+  place-items: center;
+  width: clamp(7.5rem, 12vw, 10rem);
+  padding: 0.6rem;
+  border: 1px solid rgba(69, 0, 132, 0.14);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: inset 0 0 0 4px rgba(244, 239, 225, 0.72);
+}
+
+.credit-card__logo-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  border-radius: 8px;
+}
+
+.credit-card--process {
+  border-left-color: rgba(203, 182, 119, 0.86);
+  background: rgba(255, 251, 237, 0.76);
+}
+
+@media (max-width: 900px), (orientation: portrait) {
+  .credits-grid,
+  .credit-card--logo {
+    grid-template-columns: 1fr;
+  }
+
+  .credit-card__logo-frame {
+    width: clamp(7rem, 26vw, 11rem);
+  }
+}
+
+@media (pointer: coarse), (hover: none) {
+  .credit-card__url {
+    min-height: max(3.5rem, 56px);
+    padding-inline: 1rem;
+  }
 }
 
 .game-fieldset legend {
@@ -4223,6 +4368,7 @@ body.is-attractor-active {
 .network-section,
 .reader-section,
 .editor-game,
+.credits-section,
 .curator-note,
 .source-note {
   border-color: rgba(69, 0, 132, 0.09);
@@ -4591,6 +4737,7 @@ body.is-presentation-mode .exhibit-shell {
   .network-section,
   .reader-section,
   .editor-game,
+  .credits-section,
   .corridor {
     padding: 1rem;
   }
@@ -5322,6 +5469,7 @@ body.is-presentation-mode .exhibit-shell {
   .network-section,
   .reader-section,
   .editor-game,
+  .credits-section,
   .corridor {
     margin-top: var(--kiosk-portrait-gap);
     padding: var(--kiosk-portrait-gap);

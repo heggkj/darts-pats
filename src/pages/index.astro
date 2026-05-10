@@ -102,6 +102,10 @@ import '../styles/corridor.css';
           <span class="rail-token__stamp">Years</span>
           <strong>Class of…</strong>
         </button>
+        <button class="rail-token rail-token--credits" data-rail-target="credits" type="button">
+          <span class="rail-token__stamp">Thanks</span>
+          <strong>Credits</strong>
+        </button>
       </div>
       <div class="class-tray" id="class-tray" hidden aria-labelledby="class-tray-title">
         <p class="class-tray__title" id="class-tray-title">Class of…</p>
@@ -296,6 +300,65 @@ import '../styles/corridor.css';
             All entries are drawn from Darts & Pats published in <em>The Breeze</em>, James Madison University’s student newspaper. They are presented as historical evidence of perception, humor, grievance, gratitude, and civic memory, not as neutral measurements of the town-gown relationship.
           </p>
         </details>
+      </section>
+
+      <section class="credits-section" id="credits" data-chapter="credits" aria-labelledby="credits-title">
+        <div class="section-heading">
+          <p class="kicker">Made with</p>
+          <h2 id="credits-title">Credits</h2>
+          <p>
+            This digital exhibit was built as part of an experiment in archival interpretation, public history, data visualization, and AI-assisted web production.
+          </p>
+        </div>
+
+        <div class="credits-grid" aria-label="Credits and acknowledgments">
+          <article class="credit-card">
+            <p class="kicker">Digital scholarship</p>
+            <h3>James Madison University Libraries</h3>
+            <p class="credit-card__subtitle">Digital Scholarship and Distinctive Collections</p>
+            <p>
+              Built with support from JMU Libraries’ Digital Scholarship and Distinctive Collections, whose work brings together archives, digital projects, teaching, cultural heritage, and experimental forms of public scholarship.
+            </p>
+            <p class="credit-card__role">Role: Exhibit build, digital scholarship, archives, public-history support</p>
+            <a class="credit-card__url" href="https://www.lib.jmu.edu/staff/departments/academic-engagement/dsdc/" target="_blank" rel="noopener noreferrer">
+              www.lib.jmu.edu/staff/departments/academic-engagement/dsdc/
+            </a>
+          </article>
+
+          <article class="credit-card credit-card--logo">
+            <div class="credit-card__logo-frame">
+              <img src="/assets/logos/pl2-lab-logo.png" alt="Power, Language, and Leadership Lab logo." width="180" height="180" loading="lazy" />
+            </div>
+            <div>
+              <p class="kicker">Student research</p>
+              <h3>JMU Power, Language, and Leadership Lab</h3>
+              <p>
+                The Power, Language, and Leadership Lab is a JMU student research group led by Dr. John Scherpereel. Its work examines political language, leadership, EU transparency and values, and the evaluation of AI-generated content. The lab creates interactive, data-driven dashboards and public-facing research tools.
+              </p>
+              <p class="credit-card__role">Role: Student research, political language, leadership, dashboards, AI review</p>
+              <a class="credit-card__url" href="https://sites.lib.jmu.edu/pl2lab/" target="_blank" rel="noopener noreferrer">
+                sites.lib.jmu.edu/pl2lab/
+              </a>
+            </div>
+          </article>
+
+          <article class="credit-card">
+            <p class="kicker">Source archive</p>
+            <h3><em>The Breeze</em> / Darts &amp; Pats</h3>
+            <p>
+              All entries are drawn from Darts &amp; Pats published in <em>The Breeze</em>, James Madison University’s student newspaper. The entries are presented as historical evidence of perception, humor, grievance, gratitude, and civic memory, not as neutral measurements of town-gown relations.
+            </p>
+            <p class="credit-card__role">Role: Darts &amp; Pats published in <em>The Breeze</em>, JMU’s student newspaper</p>
+          </article>
+
+          <article class="credit-card credit-card--process">
+            <p class="kicker">How this was made</p>
+            <h3>AI-assisted production note</h3>
+            <p>
+              This exhibit was developed through an AI-assisted design and coding workflow. Human judgment shaped the archive, topic coding, exhibit argument, visual direction, and final editorial choices.
+            </p>
+          </article>
+        </div>
       </section>
     </main>
 
