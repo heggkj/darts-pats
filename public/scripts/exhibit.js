@@ -5,7 +5,7 @@ const IDLE_WARNING_MS = 2400;
 const EDITOR_FORM_WORD_RE = /\b(dart|darts|pat|pats)\b/gi;
 const ATTRACTOR_CARD_LENGTH = 180;
 const ATTRACTOR_HARSH_LANGUAGE_RE = /\b(fuck|shit|bitch|asshole|bastard|slut|whore|kill|killed|hate|hated|hateful|idiot|moron|stupid|dumb|loser|shut up|go away)\b/i;
-const APP_VERSION = 'phase-7-touch-friction-polish';
+const APP_VERSION = 'phase-9b-whimsical-localization';
 
 const topicIcons = {
   housing_landlords_apartments: '/assets/generated/icon-housing.svg',

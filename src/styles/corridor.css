@@ -1140,6 +1140,8 @@ a:focus-visible {
   min-height: 46rem;
   background:
     radial-gradient(circle at 50% 42%, rgba(255, 255, 255, 0.88), transparent 22rem),
+    radial-gradient(circle at 8% 92%, rgba(159, 70, 54, 0.16), transparent 16rem),
+    radial-gradient(circle at 94% 12%, rgba(47, 111, 126, 0.12), transparent 13rem),
     linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(244, 239, 225, 0.84)),
     url('/assets/generated/corkboard.svg');
 }
@@ -1763,9 +1765,10 @@ body.is-attractor-active {
   overflow: hidden;
   padding: clamp(1.2rem, 3vw, 3.2rem);
   background:
-    radial-gradient(circle at 24% 22%, rgba(203, 182, 119, 0.28), transparent 30%),
-    radial-gradient(circle at 76% 30%, rgba(69, 0, 132, 0.14), transparent 30%),
-    linear-gradient(180deg, rgba(251, 248, 239, 0.98), rgba(239, 229, 207, 0.94) 64%, rgba(36, 31, 43, 0.12)),
+    radial-gradient(circle at 20% 20%, rgba(203, 182, 119, 0.26), transparent 31%),
+    radial-gradient(circle at 72% 30%, rgba(69, 0, 132, 0.12), transparent 30%),
+    radial-gradient(circle at 92% 86%, rgba(159, 70, 54, 0.1), transparent 26%),
+    linear-gradient(180deg, rgba(251, 248, 239, 0.99), rgba(239, 229, 207, 0.94) 62%, rgba(36, 31, 43, 0.13)),
     url('/assets/generated/newsprint-texture.svg');
   color: var(--ink);
 }
@@ -1918,29 +1921,83 @@ body.is-attractor-active {
   inset: 0;
   overflow: hidden;
   background:
-    linear-gradient(180deg, rgba(36, 31, 43, 0.02), rgba(36, 31, 43, 0.16) 54%, rgba(36, 31, 43, 0.24)),
-    linear-gradient(90deg, rgba(69, 0, 132, 0.16), rgba(203, 182, 119, 0.22), rgba(47, 111, 126, 0.14));
+    linear-gradient(180deg, rgba(251, 248, 239, 0.08), rgba(36, 31, 43, 0.13) 54%, rgba(36, 31, 43, 0.24)),
+    linear-gradient(90deg, rgba(69, 0, 132, 0.17), rgba(203, 182, 119, 0.24), rgba(47, 111, 126, 0.16));
   border-top: 2px solid rgba(69, 0, 132, 0.18);
+}
+
+.attractor-ridge {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0.5rem;
+  height: 4.2rem;
+  background:
+    linear-gradient(160deg, transparent 0 16%, rgba(47, 111, 126, 0.16) 17% 28%, transparent 29% 100%),
+    linear-gradient(205deg, transparent 0 18%, rgba(69, 0, 132, 0.12) 19% 29%, transparent 30% 100%),
+    linear-gradient(180deg, rgba(88, 120, 90, 0.12), rgba(88, 120, 90, 0.02));
+  clip-path: polygon(0 70%, 8% 55%, 18% 68%, 28% 43%, 41% 62%, 52% 38%, 63% 60%, 75% 34%, 88% 61%, 100% 45%, 100% 100%, 0 100%);
+  opacity: 0.78;
+}
+
+.attractor-civic-cupola {
+  position: absolute;
+  left: 47.5vw;
+  bottom: 6.05rem;
+  width: clamp(5.4rem, 8vw, 8.6rem);
+  height: clamp(8.2rem, 12vw, 12.6rem);
+  border-radius: 0.35rem 0.35rem 0 0;
+  background:
+    radial-gradient(circle at 50% 0.9rem, rgba(47, 111, 126, 0.66) 0 0.82rem, transparent 0.86rem),
+    linear-gradient(180deg, transparent 0 1.6rem, rgba(159, 70, 54, 0.42) 1.62rem 2.25rem, transparent 2.28rem),
+    linear-gradient(90deg, transparent 0 16%, rgba(69, 0, 132, 0.16) 16% 22%, transparent 22% 43%, rgba(69, 0, 132, 0.16) 43% 49%, transparent 49% 58%, rgba(69, 0, 132, 0.16) 58% 64%, transparent 64% 82%, rgba(69, 0, 132, 0.16) 82% 88%, transparent 88%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(239, 229, 207, 0.72));
+  clip-path: polygon(11% 100%, 11% 51%, 26% 51%, 26% 32%, 42% 32%, 43% 18%, 50% 0, 57% 18%, 58% 32%, 74% 32%, 74% 51%, 89% 51%, 89% 100%);
+  box-shadow: 0 1.2rem 1.4rem rgba(36, 31, 43, 0.11);
+  opacity: 0.82;
+}
+
+.attractor-civic-cupola::before,
+.attractor-civic-cupola::after {
+  position: absolute;
+  bottom: 0;
+  width: 2.4rem;
+  height: 3.6rem;
+  border-radius: 0.28rem 0.28rem 0 0;
+  background: rgba(159, 70, 54, 0.32);
+  content: "";
+}
+
+.attractor-civic-cupola::before {
+  left: -2.15rem;
+  transform: skewY(-3deg);
+}
+
+.attractor-civic-cupola::after {
+  right: -2.15rem;
+  transform: skewY(3deg);
 }
 
 .attractor-crosswalk {
   position: absolute;
-  left: 4vw;
+  left: 3vw;
   bottom: 0.8rem;
-  width: 34vw;
-  height: 7rem;
-  background: repeating-linear-gradient(110deg, rgba(255, 255, 255, 0.78) 0 1.15rem, transparent 1.15rem 2.55rem);
-  opacity: 0.58;
-  transform: skewX(-18deg);
+  width: 38vw;
+  height: 8rem;
+  background:
+    repeating-linear-gradient(111deg, rgba(255, 255, 255, 0.82) 0 1.1rem, transparent 1.1rem 2.35rem),
+    linear-gradient(90deg, transparent, rgba(69, 0, 132, 0.07), transparent);
+  opacity: 0.62;
+  transform: skewX(-18deg) rotate(-0.4deg);
 }
 
 .attractor-storefronts {
   position: absolute;
-  left: 5vw;
-  right: 18vw;
+  left: 4.2vw;
+  right: 16.5vw;
   bottom: 5.2rem;
   display: grid;
-  grid-template-columns: 1.2fr 0.9fr 1.35fr 0.8fr;
+  grid-template-columns: 1.25fr 0.86fr 1.2fr 0.9fr;
   align-items: end;
   gap: 0.65rem;
 }
@@ -1951,9 +2008,21 @@ body.is-attractor-active {
   border: 1px solid rgba(36, 31, 43, 0.16);
   border-radius: 10px 10px 0 0;
   background:
+    linear-gradient(135deg, transparent 0 18%, rgba(159, 70, 54, 0.2) 18% 24%, transparent 24%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(239, 229, 207, 0.72)),
-    repeating-linear-gradient(90deg, rgba(69, 0, 132, 0.09) 0 0.5rem, rgba(203, 182, 119, 0.1) 0.5rem 1rem);
-  box-shadow: 0 -0.8rem 0 rgba(69, 0, 132, 0.08) inset;
+    repeating-linear-gradient(90deg, rgba(69, 0, 132, 0.09) 0 0.48rem, rgba(203, 182, 119, 0.1) 0.48rem 0.96rem);
+  box-shadow: 0 -0.8rem 0 rgba(69, 0, 132, 0.08) inset, 0 -1.2rem 0 rgba(159, 70, 54, 0.13) inset;
+}
+
+.attractor-storefronts span::before {
+  display: block;
+  width: 82%;
+  height: 0.72rem;
+  margin: 0.8rem auto 0;
+  border-radius: 999px;
+  background: rgba(47, 111, 126, 0.18);
+  content: "";
+  box-shadow: 0 1.8rem 0 rgba(69, 0, 132, 0.1), 0 3.6rem 0 rgba(203, 182, 119, 0.18);
 }
 
 .attractor-storefronts span:nth-child(2) {
@@ -1966,6 +2035,39 @@ body.is-attractor-active {
 
 .attractor-storefronts span:nth-child(4) {
   --store-height: 6.6rem;
+}
+
+.attractor-market-stalls {
+  position: absolute;
+  left: 7vw;
+  right: 10vw;
+  bottom: 6.8rem;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.attractor-market-stalls span {
+  width: clamp(3.8rem, 8vw, 7.4rem);
+  height: clamp(2.6rem, 4vw, 3.9rem);
+  border-radius: 0.4rem 0.4rem 0 0;
+  background:
+    linear-gradient(140deg, transparent 0 44%, rgba(69, 0, 132, 0.18) 45% 55%, transparent 56%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.76) 0 0.75rem, rgba(203, 182, 119, 0.58) 0.75rem 1.5rem);
+  box-shadow: 0 0.7rem 0 rgba(36, 31, 43, 0.08);
+  clip-path: polygon(0 38%, 50% 0, 100% 38%, 92% 100%, 8% 100%);
+  opacity: 0.82;
+}
+
+.attractor-market-stalls span:nth-child(2) {
+  transform: translateY(0.7rem) rotate(-1.2deg);
+  background:
+    linear-gradient(140deg, transparent 0 44%, rgba(203, 182, 119, 0.32) 45% 55%, transparent 56%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.72) 0 0.75rem, rgba(69, 0, 132, 0.42) 0.75rem 1.5rem);
+}
+
+.attractor-market-stalls span:nth-child(3) {
+  transform: translateY(0.2rem) rotate(1.5deg);
 }
 
 .attractor-bus {
@@ -2003,7 +2105,7 @@ body.is-attractor-active {
 
 .attractor-newsbox {
   position: absolute;
-  left: 44vw;
+  left: 43.5vw;
   bottom: 4.4rem;
   width: 3.4rem;
   height: 4.5rem;
@@ -2013,6 +2115,18 @@ body.is-attractor-active {
     linear-gradient(180deg, rgba(203, 182, 119, 0.82), rgba(203, 182, 119, 0.52)),
     repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.25) 0 0.45rem, transparent 0.45rem 0.92rem);
   box-shadow: 0 0.85rem 0 -0.55rem rgba(36, 31, 43, 0.32);
+}
+
+.attractor-newsbox::before {
+  position: absolute;
+  left: 0.45rem;
+  right: 0.45rem;
+  top: 0.8rem;
+  height: 0.45rem;
+  border-radius: 999px;
+  background: rgba(69, 0, 132, 0.32);
+  content: "";
+  box-shadow: 0 0.82rem 0 rgba(255, 255, 255, 0.32), 0 1.64rem 0 rgba(69, 0, 132, 0.18);
 }
 
 .attractor-crowd {
@@ -2337,6 +2451,25 @@ body.is-attractor-active {
   opacity: 0.72;
 }
 
+.memory-rail::after {
+  position: absolute;
+  right: 0.34rem;
+  bottom: 0.46rem;
+  z-index: 0;
+  width: 2.3rem;
+  height: 2.6rem;
+  border-radius: 0.28rem 0.28rem 0 0;
+  background:
+    radial-gradient(circle at 50% 0.28rem, rgba(47, 111, 126, 0.42) 0 0.34rem, transparent 0.36rem),
+    linear-gradient(180deg, rgba(203, 182, 119, 0.46) 0 0.35rem, transparent 0.36rem),
+    linear-gradient(90deg, transparent 0 0.5rem, rgba(69, 0, 132, 0.18) 0.5rem 0.72rem, transparent 0.72rem 1.55rem, rgba(69, 0, 132, 0.18) 1.55rem 1.76rem, transparent 1.76rem),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.52), rgba(239, 229, 207, 0.58));
+  clip-path: polygon(24% 100%, 24% 38%, 36% 38%, 38% 20%, 50% 3%, 62% 20%, 64% 38%, 76% 38%, 76% 100%);
+  content: "";
+  opacity: 0.42;
+  pointer-events: none;
+}
+
 .memory-rail__header {
   padding: 0.12rem 0.2rem 0.05rem 0.72rem;
 }
@@ -2411,6 +2544,22 @@ body.is-attractor-active {
     linear-gradient(140deg, rgba(255, 255, 255, 0.96), rgba(244, 239, 225, 0.92)),
     url('/assets/generated/newsprint-texture.svg');
   box-shadow: 0 16px 32px rgba(36, 31, 43, 0.18);
+}
+
+.class-tray::before {
+  position: absolute;
+  right: 0.9rem;
+  top: 0.75rem;
+  width: 4.5rem;
+  height: 2rem;
+  border-radius: 999px 999px 0 0;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(203, 182, 119, 0.52) 0 0.35rem, transparent 0.37rem),
+    radial-gradient(circle at 54% 78%, rgba(69, 0, 132, 0.26) 0 0.42rem, transparent 0.44rem),
+    radial-gradient(circle at 82% 82%, rgba(47, 111, 126, 0.34) 0 0.32rem, transparent 0.34rem);
+  content: "";
+  opacity: 0.76;
+  pointer-events: none;
 }
 
 .class-tray[hidden] {
@@ -2492,6 +2641,31 @@ body.is-attractor-active {
   min-height: 36rem;
   padding: 3.2rem;
   box-shadow: var(--soft-shadow);
+}
+
+.threshold::before {
+  position: absolute;
+  right: clamp(1.5rem, 5vw, 5rem);
+  top: clamp(1.2rem, 4vw, 4rem);
+  z-index: 0;
+  width: clamp(12rem, 24vw, 22rem);
+  height: clamp(7rem, 14vw, 12rem);
+  background:
+    linear-gradient(180deg, transparent 0 42%, rgba(47, 111, 126, 0.2) 43% 51%, transparent 52%),
+    radial-gradient(circle at 51% 31%, rgba(47, 111, 126, 0.34) 0 0.68rem, transparent 0.72rem),
+    linear-gradient(136deg, transparent 0 46%, rgba(159, 70, 54, 0.22) 47% 55%, transparent 56%),
+    linear-gradient(224deg, transparent 0 46%, rgba(159, 70, 54, 0.22) 47% 55%, transparent 56%),
+    linear-gradient(90deg, transparent 0 11%, rgba(69, 0, 132, 0.12) 11% 15%, transparent 15% 41%, rgba(69, 0, 132, 0.12) 41% 45%, transparent 45% 55%, rgba(69, 0, 132, 0.12) 55% 59%, transparent 59% 85%, rgba(69, 0, 132, 0.12) 85% 89%, transparent 89%),
+    linear-gradient(180deg, transparent 0 45%, rgba(255, 255, 255, 0.4) 46% 100%);
+  clip-path: polygon(1% 100%, 1% 60%, 20% 60%, 20% 44%, 42% 44%, 42% 31%, 50% 7%, 58% 31%, 58% 44%, 80% 44%, 80% 60%, 99% 60%, 99% 100%);
+  content: "";
+  opacity: 0.46;
+  pointer-events: none;
+}
+
+.threshold > :not(.threshold__paper) {
+  position: relative;
+  z-index: 1;
 }
 
 .threshold__paper {
@@ -3160,8 +3334,24 @@ body.is-presentation-mode .exhibit-shell {
     width: 9rem;
   }
 
+  .attractor-ridge {
+    height: 3.4rem;
+  }
+
+  .attractor-civic-cupola {
+    left: 40vw;
+    bottom: 5.7rem;
+    width: 5.2rem;
+    height: 7.8rem;
+    opacity: 0.55;
+  }
+
   .attractor-storefronts {
     right: 28vw;
+  }
+
+  .attractor-market-stalls span {
+    width: 3.4rem;
   }
 
   .memory-rail {
@@ -3395,8 +3585,28 @@ body.is-presentation-mode .exhibit-shell {
     height: clamp(28rem, 33vh, 40rem);
   }
 
+  .attractor-ridge {
+    top: 1.2rem;
+    height: 6rem;
+  }
+
+  .attractor-civic-cupola {
+    left: 42vw;
+    bottom: 8.4rem;
+    width: clamp(6.4rem, 15vw, 11rem);
+    height: clamp(9rem, 21vw, 15rem);
+    opacity: 0.72;
+  }
+
   .attractor-storefronts {
-    right: 24vw;
+    left: 2vw;
+    right: 21vw;
+  }
+
+  .attractor-market-stalls {
+    left: 4vw;
+    right: 4vw;
+    bottom: 8.6rem;
   }
 
   .attractor-bus {
