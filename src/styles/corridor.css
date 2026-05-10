@@ -229,7 +229,6 @@
 
 .curator-note,
 .source-note,
-.controls-panel,
 .network-section,
 .reader-section,
 .editor-game,
@@ -508,26 +507,6 @@
 .long-argument__source p {
   max-width: 82ch;
   color: var(--jmu-slate);
-}
-
-.controls-panel {
-  position: relative;
-  z-index: 20;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  align-items: center;
-  justify-content: flex-start;
-  backdrop-filter: blur(14px);
-}
-
-.controls-panel--actions p {
-  flex: 1 1 24rem;
-  max-width: 58ch;
-  margin: 0;
-  color: var(--muted);
-  font-weight: 750;
-  line-height: 1.35;
 }
 
 .game-fieldset legend {
@@ -1370,13 +1349,6 @@ a:focus-visible {
   font-size: 0.9rem;
   font-weight: 750;
   text-align: center;
-}
-
-.string-room-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.7rem;
-  margin: -0.25rem 0 1rem;
 }
 
 .network-board {
@@ -2232,15 +2204,15 @@ body.is-attractor-active {
   width: var(--bird-width, 1.14rem);
   height: var(--bird-height, 0.62rem);
   border-radius: 54% 46% 44% 50%;
-  background: rgba(39, 33, 45, 0.88);
+  background: rgba(34, 29, 40, 0.92);
   box-shadow:
     0 0.18rem 0 rgba(90, 74, 58, 0.16),
     0 0 0 1px rgba(251, 248, 239, 0.08);
   transform: scale(var(--bird-scale, 1)) rotate(var(--bird-tilt, -2deg));
   transform-origin: 50% 80%;
   animation:
-    attractor-bird-head-turn var(--bird-look-speed, 15s) steps(2, end) infinite,
-    attractor-bird-body-shift var(--bird-shift-speed, 12s) ease-in-out infinite;
+    attractor-bird-head-turn var(--bird-look-speed, 11s) steps(2, end) infinite,
+    attractor-bird-body-shift var(--bird-shift-speed, 9s) ease-in-out infinite;
 }
 
 .attractor-bird::before {
@@ -2250,10 +2222,10 @@ body.is-attractor-active {
   width: 0.36rem;
   height: 0.36rem;
   border-radius: 50%;
-  background: rgba(39, 33, 45, 0.88);
+  background: rgba(34, 29, 40, 0.92);
   content: "";
   transform-origin: left center;
-  animation: attractor-bird-look var(--bird-glance-speed, 21s) steps(2, end) infinite;
+  animation: attractor-bird-look var(--bird-glance-speed, 15s) steps(2, end) infinite;
 }
 
 .attractor-bird::after {
@@ -2263,56 +2235,56 @@ body.is-attractor-active {
   width: 0.45rem;
   height: 0.24rem;
   border-radius: 50% 0 0 50%;
-  background: rgba(39, 33, 45, 0.78);
+  background: rgba(34, 29, 40, 0.82);
   content: "";
   transform: rotate(-18deg);
   transform-origin: right center;
-  animation: attractor-bird-wing-twitch var(--bird-wing-speed, 19s) steps(2, end) infinite;
+  animation: attractor-bird-wing-twitch var(--bird-wing-speed, 14s) steps(2, end) infinite;
 }
 
 .attractor-bird--one {
-  --bird-x: 27%;
+  --bird-x: 4%;
   --bird-scale: 0.88;
   --bird-tilt: -3deg;
   animation-delay: -7s, -2s;
 }
 
 .attractor-bird--two {
-  --bird-x: 42%;
+  --bird-x: 17%;
   --bird-scale: 1.04;
   --bird-tilt: 1deg;
   animation-delay: -12s, -8s;
 }
 
 .attractor-bird--three {
-  --bird-x: 49%;
+  --bird-x: 24%;
   --bird-scale: 0.94;
   --bird-tilt: -1deg;
   animation-delay: -3s, -10s;
 }
 
 .attractor-bird--four {
-  --bird-x: 54%;
+  --bird-x: 30%;
   --bird-scale: 1.08;
   --bird-tilt: 2deg;
-  --bird-look-speed: 14s;
+  --bird-look-speed: 10s;
   animation-delay: -9s, -5s;
 }
 
 .attractor-bird--five {
-  --bird-x: 61%;
+  --bird-x: 37%;
   --bird-scale: 0.82;
   --bird-tilt: -4deg;
-  --bird-shift-speed: 10s;
+  --bird-shift-speed: 8s;
   animation:
-    attractor-bird-head-turn var(--bird-look-speed, 15s) steps(2, end) infinite,
-    attractor-bird-body-shift var(--bird-shift-speed, 12s) ease-in-out infinite,
-    attractor-bird-wire-hop 24s cubic-bezier(0.35, 0, 0.2, 1) infinite;
-  animation-delay: -1s, -7s, -13s;
+    attractor-bird-head-turn var(--bird-look-speed, 11s) steps(2, end) infinite,
+    attractor-bird-body-shift var(--bird-shift-speed, 9s) ease-in-out infinite,
+    attractor-bird-wire-hop 18s cubic-bezier(0.35, 0, 0.2, 1) infinite;
+  animation-delay: -1s, -7s, -10s;
 }
 
 .attractor-bird--six {
-  --bird-x: 75%;
+  --bird-x: 56%;
   --bird-scale: 0.76;
   --bird-tilt: 3deg;
   --bird-width: 1rem;
@@ -2321,9 +2293,9 @@ body.is-attractor-active {
 }
 
 .attractor-bird--visitor {
-  --bird-x: 67%;
+  --bird-x: 45%;
   top: 2.06rem;
-  animation: attractor-bird-visit 28s cubic-bezier(0.4, 0, 0.2, 1) 9s infinite;
+  animation: attractor-bird-visit 22s cubic-bezier(0.4, 0, 0.2, 1) 7s infinite;
 }
 
 .attractor-mode.is-showing-bird-takeoff .attractor-bird--visitor {
@@ -3957,13 +3929,6 @@ body.is-attractor-active {
   box-shadow: none;
 }
 
-.controls-panel {
-  padding: 1rem;
-  border-color: rgba(69, 0, 132, 0.1);
-  background: rgba(255, 255, 255, 0.52);
-  box-shadow: none;
-}
-
 .corridor {
   padding: 1.1rem;
   border-color: rgba(69, 0, 132, 0.1);
@@ -4255,48 +4220,6 @@ body.is-attractor-active {
   display: none;
 }
 
-.string-room-actions {
-  align-items: center;
-}
-
-.send-corridor {
-  position: relative;
-}
-
-.send-corridor summary {
-  display: inline-flex;
-  min-height: 3rem;
-  align-items: center;
-  padding: 0.6rem 0.9rem;
-  border: 1px solid rgba(69, 0, 132, 0.34);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.72);
-  color: var(--jmu-purple);
-  font-weight: 850;
-  list-style: none;
-  cursor: pointer;
-  touch-action: manipulation;
-}
-
-.send-corridor summary::-webkit-details-marker {
-  display: none;
-}
-
-.send-corridor__actions {
-  position: absolute;
-  left: 0;
-  top: calc(100% + 0.4rem);
-  z-index: 12;
-  display: grid;
-  min-width: 20rem;
-  gap: 0.5rem;
-  padding: 0.7rem;
-  border: 1px solid rgba(69, 0, 132, 0.12);
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.96);
-  box-shadow: var(--soft-shadow);
-}
-
 .network-section,
 .reader-section,
 .editor-game,
@@ -4384,11 +4307,6 @@ body.is-presentation-mode .exhibit-shell {
     position: fixed;
     inset: auto 0.75rem 8.6rem;
     width: auto;
-  }
-
-  .controls-panel {
-    position: static;
-    justify-content: stretch;
   }
 
   .corridor-stage {
@@ -4487,10 +4405,6 @@ body.is-presentation-mode .exhibit-shell {
   .button--kiosk-enter {
     min-height: 5.25rem;
     font-size: 1.45rem;
-  }
-
-  .controls-panel {
-    gap: 1rem;
   }
 
   .word-breeze__word {
@@ -4666,7 +4580,6 @@ body.is-presentation-mode .exhibit-shell {
 
   .stat-strip,
   .view-meters,
-  .controls-panel,
   .game-fieldset,
   .game-related__grid,
   .featured-cards {
@@ -4675,7 +4588,6 @@ body.is-presentation-mode .exhibit-shell {
 
   .curator-note,
   .source-note,
-  .controls-panel,
   .network-section,
   .reader-section,
   .editor-game,
@@ -4903,11 +4815,6 @@ body.is-presentation-mode .exhibit-shell {
     height: clamp(5.8rem, 9vw, 8.8rem);
   }
 
-  .controls-panel {
-    position: static;
-    justify-content: stretch;
-  }
-
   .threshold {
     min-height: clamp(44rem, 54vh, 58rem);
     padding: clamp(2rem, 5vw, 5rem);
@@ -5113,7 +5020,6 @@ body.is-presentation-mode .exhibit-shell {
 }
 
 @media (orientation: portrait) and (max-width: 900px) {
-  .controls-panel,
   .stat-strip,
   .view-meters {
     grid-template-columns: 1fr;
@@ -5413,7 +5319,6 @@ body.is-presentation-mode .exhibit-shell {
 
   .curator-note,
   .source-note,
-  .controls-panel,
   .network-section,
   .reader-section,
   .editor-game,
@@ -5421,10 +5326,6 @@ body.is-presentation-mode .exhibit-shell {
     margin-top: var(--kiosk-portrait-gap);
     padding: var(--kiosk-portrait-gap);
     border-radius: 24px;
-  }
-
-  .controls-panel {
-    gap: clamp(1rem, 2vw, 1.8rem);
   }
 
   .corridor {
@@ -5651,16 +5552,6 @@ body.is-presentation-mode .exhibit-shell {
 
   .year-tile span {
     font-size: clamp(0.68rem, 0.9vw, 0.82rem);
-  }
-
-  .string-room-actions {
-    gap: clamp(0.8rem, 1.5vw, 1.4rem);
-  }
-
-  .send-corridor summary {
-    min-height: clamp(4rem, 5.4vw, 5.6rem);
-    padding-inline: clamp(1rem, 1.6vw, 1.5rem);
-    font-size: clamp(0.96rem, 1.35vw, 1.15rem);
   }
 
   .network-board.string-board {

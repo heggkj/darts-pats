@@ -3,9 +3,10 @@ const SUMMARY_URL = '/data/town_gown_exhibit_analysis_summary.json';
 const IDLE_RESET_MS = 105000;
 const IDLE_WARNING_MS = 2400;
 const EDITOR_FORM_WORD_RE = /\b(dart|darts|pat|pats)\b/gi;
+const EDITOR_REDACTION_TOKEN = '__EDITOR_FORM_REDACTION__';
 const ATTRACTOR_CARD_LENGTH = 180;
 const ATTRACTOR_HARSH_LANGUAGE_RE = /\b(fuck|shit|bitch|asshole|bastard|slut|whore|kill|killed|hate|hated|hateful|idiot|moron|stupid|dumb|loser|shut up|go away)\b/i;
-const APP_VERSION = 'phase-10d-filter-state-polish';
+const APP_VERSION = 'phase-10e-final-ui-polish';
 const DISPLAY_ARTIFACT_RE = new RegExp(String.raw`\s*\[` + ['form', 'hidden'].join(String.raw`\s+`) + String.raw`\]\s*`, 'gi');
 const ATTRACTOR_FIRST_RELEASE_MS = 8000;
 const ATTRACTOR_MIN_REST_MS = 3500;
@@ -92,7 +93,6 @@ const els = {
   attractorScene: document.querySelector('#attractor-scene'),
   attractorBalloon: document.querySelector('#attractor-balloon'),
   attractorCardLayer: document.querySelector('#attractor-card-layer'),
-  reset: document.querySelector('#reset-filters'),
   dartRack: document.querySelector('#dart-rack'),
   patRack: document.querySelector('#pat-rack'),
   timeline: document.querySelector('#floor-timeline'),
@@ -113,11 +113,9 @@ const els = {
   networkNodes: document.querySelector('#network-nodes'),
   stringSummary: document.querySelector('#string-summary'),
   stringYears: document.querySelector('#string-years'),
-  returnCorridor: document.querySelector('#return-corridor'),
-  useStringTheme: document.querySelector('#use-string-theme'),
-  clearStringTheme: document.querySelector('#clear-string-theme'),
-  sendCorridor: document.querySelector('#send-corridor'),
   gameText: document.querySelector('#game-text'),
+  gameFieldset: document.querySelector('.game-fieldset'),
+  gameChoicePrompt: document.querySelector('#game-choice-prompt'),
   gamePoolNote: document.querySelector('#game-pool-note'),
   gameRelated: document.querySelector('#game-related'),
   longArgumentEras: document.querySelector('#long-argument-eras'),
@@ -129,7 +127,6 @@ const els = {
   newGameCard: document.querySelector('#new-game-card'),
   threshold: document.querySelector('.threshold'),
   kioskEnter: document.querySelector('#kiosk-enter'),
-  startOver: document.querySelector('#start-over'),
   presentationMode: document.querySelector('#presentation-mode'),
   corridorPan: document.querySelector('#corridor-pan'),
   corridorLeftWall: document.querySelector('.wall--left'),
@@ -162,6 +159,7 @@ let diagnosticsTapCount = 0;
 let diagnosticsTapTimer = null;
 let diagnosticsInterval = null;
 let classTrayOpenedAt = 0;
+let classTrayInitialized = false;
 
 function escapeHtml(value = '') {
   return String(value)
@@ -246,13 +244,15 @@ function editorChallenge(record) {
   const original = cleanDisplayText(record.text_full || '').replace(/\s+/g, ' ').trim();
   let maskCount = 0;
   const masked = cleanDisplayText(original
-    .replace(EDITOR_FORM_WORD_RE, (word) => {
+    .replace(EDITOR_FORM_WORD_RE, () => {
       maskCount += 1;
-      return word.toLowerCase().endsWith('s') ? 'notes' : 'note';
-    })
-    .replace(/\b(a)\s+note\b/gi, 'a note')
-    .replace(/\b(an)\s+note\b/gi, 'a note')
-    .replace(/\bnote\s+notes\b/gi, 'notes'))
+      return ` ${EDITOR_REDACTION_TOKEN} `;
+    }))
+    .replace(new RegExp(EDITOR_REDACTION_TOKEN, 'g'), '????')
+    .replace(/\(\s+(\?{4})\s+\)/g, '($1)')
+    .replace(/\s+([,.;:!])/g, '$1')
+    .replace(/\s+\)/g, ')')
+    .replace(/\(\s+/g, '(')
     .replace(/\s+/g, ' ')
     .trim();
 
@@ -922,7 +922,13 @@ function gameChoiceButtons() {
   return Array.from(document.querySelectorAll('[data-guess]'));
 }
 
+function setGameChoicePromptVisible(visible) {
+  if (els.gameChoicePrompt) els.gameChoicePrompt.hidden = !visible;
+  els.gameFieldset?.classList.toggle('is-choice-made', !visible);
+}
+
 function resetGameChoiceButtons() {
+  setGameChoicePromptVisible(true);
   gameChoiceButtons().forEach((button) => {
     const label = getKindNoun(button.dataset.guess);
     button.textContent = label;
@@ -935,6 +941,7 @@ function resetGameChoiceButtons() {
 }
 
 function updateGameChoiceSelection() {
+  setGameChoicePromptVisible(!state.gameKindGuess);
   document.querySelectorAll('[data-guess]').forEach((button) => {
     const selected = button.dataset.guess === state.gameKindGuess;
     const label = getKindNoun(button.dataset.guess);
@@ -950,6 +957,7 @@ function updateGameChoiceSelection() {
 function updateGameChoiceReveal() {
   const record = state.gameRecord;
   if (!record) return;
+  setGameChoicePromptVisible(false);
   gameChoiceButtons().forEach((button) => {
     const guess = button.dataset.guess;
     const label = getKindNoun(guess);
@@ -1209,9 +1217,6 @@ function renderNetwork() {
   const maxYearCount = Math.max(...topYears.map(([, count]) => count), 1);
   els.stringYears.innerHTML = topYears.map(([year, count]) => `<span style="--year-weight:${Math.max(0.18, count / maxYearCount).toFixed(2)}">${year}</span>`).join('');
 
-  if (els.useStringTheme) {
-    els.useStringTheme.textContent = `Also show “${selectedTheme.label}” in the corridor`;
-  }
 }
 
 function handleNetworkClick(event) {
@@ -1425,7 +1430,7 @@ function installLocalTestHooks() {
       AttractorMode.deactivate();
       state.longArgumentYear = String(year);
       state.longArgumentEra = 'all';
-      renderLongArgument();
+      applyState({ year: state.longArgumentYear });
       scrollToElement(document.querySelector('#reflection-wall'));
     },
     selectLongArgumentEra: (era = '2000–2009') => {
@@ -1436,9 +1441,9 @@ function installLocalTestHooks() {
       scrollToElement(document.querySelector('#reflection-wall'));
     },
     applyState,
-    openClassTray: (year = 2004) => {
+    openClassTray: (year) => {
       AttractorMode.deactivate();
-      syncClassYear(year);
+      if (year) syncClassYear(year);
       setClassTrayOpen(true);
     },
     setClassYear: (year = 2004) => {
@@ -1697,6 +1702,14 @@ function renderActiveFilterPills() {
 
 function setClassTrayOpen(open) {
   if (!els.classTray || !els.classTrayToggle) return;
+  if (open) {
+    if (state.classYear !== 'all') {
+      syncClassYear(state.classYear);
+    } else if (!classTrayInitialized) {
+      syncClassYear(2000);
+    }
+    classTrayInitialized = true;
+  }
   els.classTray.hidden = !open;
   els.classTrayToggle.setAttribute('aria-expanded', String(open));
   els.classTrayToggle.classList.toggle('is-open', open);
@@ -1794,24 +1807,10 @@ function clearCorridorFilter(filterType) {
   scrollToElement(document.querySelector('#walk-years'));
 }
 
-function useSelectedStringThemeInCorridor() {
-  if (!state.selectedStringTheme) return;
-  applyState({ topic: state.selectedStringTheme });
-  setActiveChapter('walk-years');
-  scrollToElement(document.querySelector('#walk-years'));
-}
-
-function clearStringThemeFromCorridor() {
-  applyState({ topic: 'all' });
-  setActiveChapter('walk-years');
-  scrollToElement(document.querySelector('#walk-years'));
-}
-
 function closeTransientPanels() {
   if (els.drawer?.open) els.drawer.close();
   setClassTrayOpen(false);
   closeWordBreezePanel();
-  if (els.sendCorridor) els.sendCorridor.open = false;
   state.activeRecordId = null;
 }
 
@@ -1915,6 +1914,7 @@ async function togglePresentationMode() {
 }
 
 function updatePresentationButton() {
+  if (!els.presentationMode) return;
   const active = Boolean(document.fullscreenElement) || document.body.classList.contains('is-presentation-mode');
   els.presentationMode.textContent = active ? 'Exit Presentation' : 'Presentation Mode';
   els.presentationMode.setAttribute('aria-pressed', String(active));
@@ -2028,10 +2028,10 @@ function bindEvents() {
     AttractorMode.deactivate();
     window.requestAnimationFrame(() => scrollToElement(document.querySelector('#walk-years')));
   });
-  els.reset.addEventListener('click', () => clearAllCorridorFilters());
-  els.startOver.addEventListener('click', () => startOver());
+  els.reset?.addEventListener('click', () => clearAllCorridorFilters());
+  els.startOver?.addEventListener('click', () => startOver());
   els.kioskEnter.addEventListener('click', enterCorridor);
-  els.presentationMode.addEventListener('click', togglePresentationMode);
+  els.presentationMode?.addEventListener('click', togglePresentationMode);
   document.addEventListener('fullscreenchange', updatePresentationButton);
   els.classTrayToggle?.addEventListener('click', () => setClassTrayOpen(els.classTray?.hidden));
   els.classYear?.addEventListener('input', (event) => syncClassYear(event.target.value));
@@ -2043,18 +2043,6 @@ function bindEvents() {
     if (window.performance.now() - classTrayOpenedAt < 650) return;
     if (!els.classTray?.hidden) setClassTrayOpen(false);
   }, { passive: true });
-  els.returnCorridor?.addEventListener('click', () => {
-    setActiveChapter('walk-years');
-    scrollToElement(document.querySelector('#walk-years'));
-  });
-  els.useStringTheme?.addEventListener('click', () => {
-    useSelectedStringThemeInCorridor();
-    if (els.sendCorridor) els.sendCorridor.open = false;
-  });
-  els.clearStringTheme?.addEventListener('click', () => {
-    clearStringThemeFromCorridor();
-    if (els.sendCorridor) els.sendCorridor.open = false;
-  });
   els.walkButtons.forEach((button) => {
     button.addEventListener('click', () => walkCorridor(button.dataset.walk));
   });

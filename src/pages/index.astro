@@ -106,8 +106,8 @@ import '../styles/corridor.css';
       <div class="class-tray" id="class-tray" hidden aria-labelledby="class-tray-title">
         <p class="class-tray__title" id="class-tray-title">Class of…</p>
         <label class="class-tray__label" for="class-year">Pick your graduation year</label>
-        <input id="class-year" type="range" min="1991" max="2026" value="2004" step="1" />
-        <output class="class-tray__window" id="class-year-output" for="class-year">Class of 2004: 2001–2004</output>
+        <input id="class-year" type="range" min="1991" max="2026" value="2000" step="1" />
+        <output class="class-tray__window" id="class-year-output" for="class-year">Class of 2000 (1997 - 2000)</output>
         <div class="class-tray__buttons">
           <button class="class-tray__step" id="class-year-back" type="button" aria-label="Choose previous class year">−</button>
           <button class="class-tray__go" id="class-year-go" type="button">Show your years</button>
@@ -154,13 +154,6 @@ import '../styles/corridor.css';
         <p>
           Darts and Pats are tiny letters, but together they expose a durable civic problem: shared space. Housing, crosswalks, buses, parties, storefronts, police, volunteers, and downtown life all become evidence of how campus and locality tug on each other.
         </p>
-      </section>
-
-      <section class="controls-panel controls-panel--actions" aria-label="Exhibit controls">
-        <p>Touch objects in the corridor to filter the archive. Use these if you need to clear the room or restart the kiosk.</p>
-        <button class="button button--small" id="reset-filters" type="button">Reset</button>
-        <button class="button button--small button--ghost" id="start-over" type="button">Start over</button>
-        <button class="button button--small button--ghost" id="presentation-mode" type="button">Presentation Mode</button>
       </section>
 
       <section class="corridor" id="walk-years" data-chapter="walk-years" aria-labelledby="corridor-title">
@@ -237,17 +230,7 @@ import '../styles/corridor.css';
         <div class="section-heading">
           <p class="kicker">Corkboard room</p>
           <h2 id="network-title">Follow the Strings</h2>
-          <p>This room has its own logic: tap a theme to recenter the board, tap a Dart or Pat clipping to open the drawer, or explicitly send a theme back to the Memory Corridor.</p>
-        </div>
-        <div class="string-room-actions" aria-label="Follow the Strings actions">
-          <button class="button button--small button--ghost" id="return-corridor" type="button">Return to Memory Corridor</button>
-          <details class="send-corridor" id="send-corridor">
-            <summary>Send to corridor</summary>
-            <div class="send-corridor__actions">
-              <button class="button button--small button--ghost" id="use-string-theme" type="button">Also show this theme in the corridor</button>
-              <button class="button button--small button--ghost" id="clear-string-theme" type="button">Clear corridor theme</button>
-            </div>
-          </details>
+          <p>Tap a theme to recenter the board. Tap a Dart or Pat clipping to open the drawer.</p>
         </div>
         <div class="network-board string-board" id="network-board">
           <svg id="network-edges" aria-hidden="true"></svg>
@@ -279,7 +262,7 @@ import '../styles/corridor.css';
           </div>
           <div class="game-fieldset" aria-label="Editor guesses">
             <fieldset>
-              <legend>Was it printed as (click one)?</legend>
+              <legend id="game-choice-prompt">WAS IT PRINTED AS A (CLICK ONE)?</legend>
               <div class="segmented">
                 <button class="button button--small button--ghost" data-guess="DART" type="button" aria-pressed="false">Dart</button>
                 <button class="button button--small button--ghost" data-guess="PAT" type="button" aria-pressed="false">Pat</button>
