@@ -1926,6 +1926,43 @@ body.is-attractor-active {
   font-weight: 900;
 }
 
+.attractor-background-traffic {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.attractor-background-vehicle {
+  position: absolute;
+  opacity: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  filter: drop-shadow(0 0.8rem 0.7rem rgba(36, 31, 43, 0.16));
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.attractor-background-vehicle--trolley {
+  left: -13rem;
+  bottom: clamp(14rem, 24vh, 18.5rem);
+  width: clamp(8.2rem, 10.6vw, 12.4rem);
+  aspect-ratio: 359 / 138;
+  background-image: url('/assets/generated/attractor-background-trolley-sprite.png');
+  animation: attractor-background-trolley-pass 44s cubic-bezier(0.42, 0, 0.22, 1) 5s infinite;
+}
+
+.attractor-mode.is-showing-background-trolley .attractor-background-vehicle--trolley {
+  animation: none;
+  opacity: 0.96;
+}
+
+.attractor-mode.is-showing-background-trolley .attractor-background-vehicle--trolley {
+  transform: translate3d(48vw, -0.05rem, 0) scale(0.86) rotate(0.12deg);
+}
+
 .attractor-mode__scene {
   position: absolute;
   inset: auto 0 0;
@@ -2560,6 +2597,29 @@ body.is-attractor-active {
 
   68% {
     opacity: 0.22;
+  }
+}
+
+@keyframes attractor-background-trolley-pass {
+  0%,
+  11% {
+    opacity: 0;
+    transform: translate3d(-18vw, 0.1rem, 0) scale(0.86) rotate(-0.1deg);
+  }
+
+  17%,
+  58% {
+    opacity: 0.96;
+  }
+
+  38% {
+    transform: translate3d(42vw, -0.05rem, 0) scale(0.86) rotate(0.12deg);
+  }
+
+  70%,
+  100% {
+    opacity: 0;
+    transform: translate3d(112vw, 0.02rem, 0) scale(0.86) rotate(0deg);
   }
 }
 
@@ -3994,6 +4054,11 @@ body.is-presentation-mode .exhibit-shell {
     width: min(calc(100% - clamp(2.5rem, 8vw, 8rem)), 44rem);
   }
 
+  .attractor-background-vehicle--trolley {
+    bottom: clamp(29rem, 35vh, 40rem);
+    width: clamp(7.6rem, 15vw, 11rem);
+  }
+
   .attractor-clipping {
     min-height: clamp(13rem, 18vw, 18rem);
   }
@@ -4343,6 +4408,11 @@ body.is-presentation-mode .exhibit-shell {
     width: min(var(--kiosk-portrait-stage-width), 54rem);
     min-height: clamp(18rem, 20vh, 28rem);
     transform: translateX(-50%);
+  }
+
+  .attractor-background-vehicle--trolley {
+    bottom: clamp(34rem, 34vh, 46rem);
+    width: clamp(9rem, 14vw, 15rem);
   }
 
   .attractor-clipping {
@@ -5016,6 +5086,7 @@ body.is-presentation-mode .exhibit-shell {
   .attractor-clipping,
   .attractor-balloon,
   .attractor-balloon.is-rising,
+  .attractor-background-vehicle,
   .attractor-ground-ribbon,
   .attractor-flag,
   .attractor-market-stalls span,
@@ -5027,6 +5098,10 @@ body.is-presentation-mode .exhibit-shell {
   }
 
   .attractor-balloon {
+    display: none;
+  }
+
+  .attractor-background-vehicle {
     display: none;
   }
 

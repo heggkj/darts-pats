@@ -1215,6 +1215,10 @@ function installLocalTestHooks() {
     renderAttractorClipping: () => renderAttractorClipping(nextAttractorRecord() || state.attractorPool[0]),
     fadeAttractorClipping: () => AttractorMode.fadeCurrentClipping(() => {}),
     runAttractorCycle: () => AttractorMode.runCycle(),
+    setAttractorVehicleState: (stateName = '') => {
+      els.attractor?.classList.remove('is-showing-background-trolley');
+      if (stateName === 'trolley' || stateName === 'bus') els.attractor?.classList.add('is-showing-background-trolley');
+    },
     applyState,
     openClassTray: (year = 2004) => {
       AttractorMode.deactivate();
