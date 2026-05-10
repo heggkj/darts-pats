@@ -555,6 +555,17 @@ a:focus-visible {
   box-shadow: var(--shadow);
 }
 
+.corridor > .section-heading {
+  display: grid;
+  gap: 0.44rem;
+  margin-bottom: 0.7rem;
+}
+
+.corridor > .section-heading .kicker,
+.corridor > .section-heading h2 {
+  margin: 0;
+}
+
 .word-breeze {
   display: grid;
   grid-template-columns: minmax(10rem, 0.34fr) 1fr;
@@ -5093,6 +5104,11 @@ body.is-presentation-mode .exhibit-shell {
   .section-heading p {
     max-width: 54ch;
     font-size: clamp(1.12rem, 2vw, 1.65rem);
+  }
+
+  .corridor > .section-heading {
+    gap: clamp(0.42rem, 0.8vw, 0.7rem);
+    margin-bottom: clamp(0.9rem, 1.4vw, 1.25rem);
   }
 
   .kicker {
