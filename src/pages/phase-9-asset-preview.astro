@@ -1,0 +1,628 @@
+---
+import '../styles/global.css';
+
+const assetBase = '/assets/prototypes/phase-9';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Phase 9 Asset Direction Preview</title>
+  </head>
+  <body class="phase-9-preview">
+    <main class="preview-shell">
+      <header class="preview-header">
+        <p class="kicker">Phase 9 review route</p>
+        <h1>Asset direction packet</h1>
+        <p>
+          These panes compare the current CSS/SVG exhibit treatment with draft generated concepts.
+          The generated art is intentionally not wired into the live exhibit; labels stay as HTML.
+        </p>
+      </header>
+
+      <section class="comparison" id="parade-landscape-comparison" aria-labelledby="parade-landscape-title">
+        <header>
+          <p class="kicker">The Breeze Parade</p>
+          <h2 id="parade-landscape-title">Landscape attractor background</h2>
+        </header>
+        <div class="comparison-grid comparison-grid--landscape">
+          <article class="preview-stage preview-stage--landscape current" id="preview-parade-landscape-current">
+            <div class="current-street"></div>
+            <div class="preview-copy">
+              <p class="kicker">Current</p>
+              <strong>The Breeze Parade</strong>
+              <span>A gentle parade of darts and pats published in The Breeze between 1991 and 2026.</span>
+              <button type="button">Touch here to enter The Memory Corridor</button>
+            </div>
+            <div class="current-card">
+              <b>Pat · 1994</b>
+              <strong>Streets, traffic & pedestrian safety</strong>
+              <span>A clipped archive note appears here as HTML.</span>
+            </div>
+          </article>
+          <article class="preview-stage preview-stage--landscape enhanced" id="preview-parade-landscape-asset" style={`--concept-image: url('${assetBase}/parade-background-landscape-draft.png')`}>
+            <div class="preview-copy">
+              <p class="kicker">Draft concept</p>
+              <strong>The Breeze Parade</strong>
+              <span>A gentle parade of darts and pats published in The Breeze between 1991 and 2026.</span>
+              <button type="button">Touch here to enter The Memory Corridor</button>
+            </div>
+            <div class="enhanced-card">
+              <b>Dart · 1998</b>
+              <strong>Housing, landlords & apartment life</strong>
+              <span>The card remains HTML over a quiet generated scene.</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="comparison" id="parade-portrait-comparison" aria-labelledby="parade-portrait-title">
+        <header>
+          <p class="kicker">The Breeze Parade</p>
+          <h2 id="parade-portrait-title">Portrait attractor poster</h2>
+        </header>
+        <div class="comparison-grid comparison-grid--portrait">
+          <article class="preview-stage preview-stage--portrait current" id="preview-parade-portrait-current">
+            <div class="current-street"></div>
+            <div class="preview-copy">
+              <p class="kicker">Current</p>
+              <strong>The Breeze Parade</strong>
+              <span>A gentle parade of darts and pats published in The Breeze between 1991 and 2026.</span>
+              <button type="button">Touch here to enter The Memory Corridor</button>
+            </div>
+            <div class="current-card">
+              <b>Pat · 2004</b>
+              <strong>Downtown, arts & events</strong>
+              <span>Portrait keeps the card clear of the title.</span>
+            </div>
+          </article>
+          <article class="preview-stage preview-stage--portrait enhanced" id="preview-parade-portrait-asset" style={`--concept-image: url('${assetBase}/parade-background-portrait-draft.png')`}>
+            <div class="preview-copy">
+              <p class="kicker">Draft concept</p>
+              <strong>The Breeze Parade</strong>
+              <span>A gentle parade of darts and pats published in The Breeze between 1991 and 2026.</span>
+              <button type="button">Touch here to enter The Memory Corridor</button>
+            </div>
+            <div class="enhanced-card">
+              <b>Dart · 2011</b>
+              <strong>Transit, buses & mobility</strong>
+              <span>The concept uses the bottom third as the parade scene.</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="comparison" id="rail-comparison" aria-labelledby="rail-title">
+        <header>
+          <p class="kicker">Memory Rail</p>
+          <h2 id="rail-title">Tab material concept</h2>
+        </header>
+        <div class="comparison-grid comparison-grid--objects">
+          <article class="rail-preview current" id="preview-memory-rail-current">
+            <p class="kicker">Current</p>
+            <div class="paper-rail">
+              {['Threshold', 'Memory Corridor', 'Follow the Strings', 'Open the Drawer', 'Editor’s Table', 'Reflection Wall', 'Class of…'].map((label, index) => (
+                <button class={index === 1 ? 'is-active' : ''} type="button">{label}</button>
+              ))}
+            </div>
+          </article>
+          <article class="rail-preview enhanced" id="preview-memory-rail-asset">
+            <p class="kicker">Draft concept</p>
+            <div class="rail-concept" style={`background-image: url('${assetBase}/memory-rail-tab-concept-draft.png')`}>
+              {['Threshold', 'Corridor', 'Strings', 'Drawer', 'Editor', 'Wall'].map((label, index) => (
+                <button class={index === 1 ? 'is-active' : ''} type="button">{label}</button>
+              ))}
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="comparison" id="class-ticket-comparison" aria-labelledby="class-ticket-title">
+        <header>
+          <p class="kicker">Class of…</p>
+          <h2 id="class-ticket-title">Ticket tray concept</h2>
+        </header>
+        <div class="comparison-grid comparison-grid--objects">
+          <article class="ticket-preview current" id="preview-class-tray-current">
+            <p class="kicker">Current</p>
+            <div class="class-current">
+              <strong>Class of…</strong>
+              <span>Pick your graduation year</span>
+              <b>Class of 2004: 2001–2004</b>
+              <button type="button">Show your years (2001–2004)</button>
+              <button type="button">Show all years</button>
+            </div>
+          </article>
+          <article class="ticket-preview enhanced" id="preview-class-tray-asset">
+            <p class="kicker">Draft concept</p>
+            <div class="ticket-concept" style={`background-image: url('${assetBase}/class-of-ticket-concept-draft.png')`}>
+              <strong>Class of…</strong>
+              <span>Pick your graduation year</span>
+              <b>Class of 2004: 2001–2004</b>
+              <button type="button">Show your years (2001–2004)</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="comparison" id="strings-comparison" aria-labelledby="strings-title">
+        <header>
+          <p class="kicker">Follow the Strings</p>
+          <h2 id="strings-title">Corkboard texture concept</h2>
+        </header>
+        <div class="comparison-grid comparison-grid--wide">
+          <article class="strings-preview current" id="preview-strings-current">
+            <p class="kicker">Current</p>
+            <div class="board-current">
+              <button class="theme main" type="button">Housing, landlords & apartment life</button>
+              <button class="theme" type="button">Parking</button>
+              <button class="theme" type="button">Neighbors</button>
+              <button class="card dart" type="button">Dart card</button>
+              <button class="card pat" type="button">Pat card</button>
+            </div>
+          </article>
+          <article class="strings-preview enhanced" id="preview-strings-asset">
+            <p class="kicker">Draft concept</p>
+            <div class="board-concept" style={`background-image: url('${assetBase}/corkboard-string-board-texture-draft.png')`}>
+              <button class="theme main" type="button">Housing, landlords & apartment life</button>
+              <button class="theme" type="button">Parking</button>
+              <button class="theme" type="button">Neighbors</button>
+              <button class="card dart" type="button">Dart card</button>
+              <button class="card pat" type="button">Pat card</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="comparison" id="drawer-unchanged-comparison" aria-labelledby="drawer-preview-title">
+        <header>
+          <p class="kicker">Reading drawer</p>
+          <h2 id="drawer-preview-title">Current reading surface stays primary</h2>
+        </header>
+        <article class="drawer-preview" id="preview-reading-drawer-current">
+          <div>
+            <span class="drawer-badge">Dart · 2008</span>
+            <h3>Police, public safety & city services</h3>
+            <p>
+              This preview intentionally leaves the drawer as an HTML-first reading surface. Generated
+              paper texture may be useful later, but the full text must remain the visual hero.
+            </p>
+          </div>
+          <dl>
+            <div><dt>Source</dt><dd>The Breeze · Record #2758</dd></div>
+            <div><dt>Era</dt><dd>2000–2009</dd></div>
+          </dl>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
+
+<style>
+  .phase-9-preview {
+    background:
+      linear-gradient(180deg, rgba(251, 248, 239, 0.98), rgba(239, 229, 207, 0.86)),
+      var(--paper);
+  }
+
+  .preview-shell {
+    width: min(100% - 2rem, 1560px);
+    margin-inline: auto;
+    padding: 2rem 0 6rem;
+  }
+
+  .preview-header,
+  .comparison {
+    margin-bottom: 1.5rem;
+    padding: clamp(1rem, 2vw, 1.6rem);
+    border: 1px solid rgba(69, 0, 132, 0.14);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.74);
+    box-shadow: var(--soft-shadow);
+  }
+
+  .preview-header h1 {
+    max-width: 14ch;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+  }
+
+  .preview-header p:last-child,
+  .comparison header p:last-child {
+    max-width: 78ch;
+    color: var(--muted);
+  }
+
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    align-items: start;
+  }
+
+  .comparison-grid--portrait {
+    grid-template-columns: repeat(2, minmax(19rem, 0.52fr));
+    justify-content: center;
+  }
+
+  .preview-stage,
+  .rail-preview,
+  .ticket-preview,
+  .strings-preview,
+  .drawer-preview {
+    position: relative;
+    overflow: hidden;
+    min-height: 30rem;
+    border: 1px solid rgba(69, 0, 132, 0.16);
+    border-radius: 18px;
+    background: var(--paper);
+    box-shadow: var(--soft-shadow);
+  }
+
+  .preview-stage--landscape {
+    aspect-ratio: 16 / 9;
+    min-height: auto;
+  }
+
+  .preview-stage--portrait {
+    aspect-ratio: 9 / 16;
+    min-height: auto;
+    max-height: 58rem;
+  }
+
+  .preview-stage.enhanced {
+    background: var(--concept-image) center / cover no-repeat;
+  }
+
+  .preview-stage.current {
+    background:
+      linear-gradient(90deg, rgba(69, 0, 132, 0.04), transparent 34%, rgba(203, 182, 119, 0.08)),
+      linear-gradient(180deg, rgba(251, 248, 239, 0.96), rgba(239, 229, 207, 0.68));
+  }
+
+  .current-street {
+    position: absolute;
+    inset: auto 0 0;
+    height: 31%;
+    border-top: 2px solid rgba(69, 0, 132, 0.24);
+    background:
+      repeating-linear-gradient(100deg, rgba(255, 255, 255, 0.68) 0 1.1rem, transparent 1.1rem 2rem) 8% 72% / 34% 28% no-repeat,
+      linear-gradient(90deg, rgba(69, 0, 132, 0.24), rgba(47, 111, 126, 0.16), rgba(203, 182, 119, 0.2));
+  }
+
+  .current-street::before,
+  .current-street::after {
+    position: absolute;
+    bottom: 18%;
+    width: 23%;
+    height: 40%;
+    border-radius: 8px 8px 0 0;
+    background: rgba(255, 255, 255, 0.72);
+    content: "";
+  }
+
+  .current-street::before {
+    left: 8%;
+  }
+
+  .current-street::after {
+    right: 9%;
+  }
+
+  .preview-copy {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    max-width: 54%;
+    gap: 0.75rem;
+    padding: clamp(1.2rem, 3vw, 3.4rem);
+  }
+
+  .preview-stage--portrait .preview-copy {
+    max-width: none;
+    text-align: center;
+  }
+
+  .preview-copy strong {
+    color: var(--jmu-purple);
+    font-size: clamp(3rem, 7vw, 7rem);
+    font-weight: 950;
+    line-height: 0.92;
+  }
+
+  .preview-stage--portrait .preview-copy strong {
+    font-size: clamp(3.4rem, 8vw, 6.2rem);
+  }
+
+  .preview-copy span {
+    max-width: 42rem;
+    color: var(--ink);
+    font-size: clamp(1rem, 1.8vw, 1.55rem);
+    line-height: 1.45;
+  }
+
+  .preview-copy button,
+  .ticket-concept button,
+  .class-current button,
+  .paper-rail button,
+  .rail-concept button,
+  .board-current button,
+  .board-concept button {
+    min-height: 3.5rem;
+    border: 2px solid var(--jmu-purple);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--jmu-purple);
+    font-weight: 900;
+  }
+
+  .preview-copy button {
+    width: fit-content;
+    min-height: 4.7rem;
+    padding-inline: 1.4rem;
+    font-size: clamp(1rem, 1.8vw, 1.45rem);
+  }
+
+  .preview-stage--portrait .preview-copy button {
+    justify-self: center;
+    min-height: 5.3rem;
+  }
+
+  .current-card,
+  .enhanced-card {
+    position: absolute;
+    z-index: 3;
+    right: 5%;
+    top: 9%;
+    display: grid;
+    width: min(33rem, 36%);
+    gap: 0.3rem;
+    padding: 1.1rem 1.3rem;
+    border-left: 0.42rem solid var(--jmu-gold);
+    border-radius: 9px;
+    background: rgba(255, 255, 255, 0.88);
+    color: var(--ink);
+    box-shadow: var(--shadow);
+    transform: rotate(1.5deg);
+  }
+
+  .enhanced-card {
+    background-image: url('/assets/prototypes/phase-9/clipping-card-texture-draft.png');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .current-card strong,
+  .enhanced-card strong {
+    color: var(--jmu-purple);
+    font-size: clamp(1.2rem, 2vw, 2rem);
+    line-height: 1.08;
+  }
+
+  .preview-stage--portrait .current-card,
+  .preview-stage--portrait .enhanced-card {
+    inset: 43% 7% auto;
+    width: auto;
+  }
+
+  .rail-preview,
+  .ticket-preview,
+  .strings-preview {
+    padding: 1.2rem;
+  }
+
+  .paper-rail,
+  .rail-concept {
+    display: grid;
+    gap: 0.7rem;
+    width: min(18rem, 100%);
+    margin: 0 auto;
+    padding: 1rem;
+    border-radius: 18px;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(239, 229, 207, 0.9)),
+      url('/assets/generated/newsprint-texture.svg');
+    box-shadow: var(--shadow);
+  }
+
+  .rail-concept {
+    min-height: 36rem;
+    justify-content: stretch;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .paper-rail button,
+  .rail-concept button {
+    justify-content: flex-start;
+    border-radius: 6px 18px 12px 6px;
+    border-left-width: 0.55rem;
+    padding-inline: 1rem;
+    text-align: left;
+  }
+
+  .paper-rail button.is-active,
+  .rail-concept button.is-active {
+    transform: translateX(0.75rem);
+    box-shadow: 0 0 0 4px rgba(203, 182, 119, 0.28);
+  }
+
+  .class-current,
+  .ticket-concept {
+    display: grid;
+    gap: 0.8rem;
+    max-width: 38rem;
+    margin: 4rem auto;
+    padding: 2rem;
+    border: 1px solid rgba(69, 0, 132, 0.18);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.78);
+    box-shadow: var(--soft-shadow);
+  }
+
+  .ticket-concept {
+    min-height: 20rem;
+    justify-content: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .class-current strong,
+  .ticket-concept strong {
+    color: var(--jmu-purple);
+    font-size: 2.4rem;
+    line-height: 1;
+  }
+
+  .class-current b,
+  .ticket-concept b {
+    color: var(--ink);
+    font-size: 1.3rem;
+  }
+
+  .board-current,
+  .board-concept {
+    position: relative;
+    min-height: 28rem;
+    border-radius: 18px;
+    background:
+      radial-gradient(circle at 50% 34%, rgba(255, 255, 255, 0.8), transparent 26%),
+      linear-gradient(135deg, rgba(203, 182, 119, 0.32), rgba(69, 0, 132, 0.12));
+  }
+
+  .board-concept {
+    min-height: 34rem;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .board-current button,
+  .board-concept button {
+    position: absolute;
+    padding: 0.8rem 1.1rem;
+    border-radius: 999px;
+    box-shadow: var(--soft-shadow);
+  }
+
+  .board-current .main,
+  .board-concept .main {
+    left: 50%;
+    top: 26%;
+    min-width: 18rem;
+    min-height: 5rem;
+    transform: translateX(-50%);
+    background: var(--jmu-purple);
+    color: white;
+  }
+
+  .board-current .theme:nth-of-type(2),
+  .board-concept .theme:nth-of-type(2) {
+    left: 10%;
+    top: 55%;
+  }
+
+  .board-current .theme:nth-of-type(3),
+  .board-concept .theme:nth-of-type(3) {
+    right: 12%;
+    top: 56%;
+  }
+
+  .board-current .card,
+  .board-concept .card {
+    width: 11rem;
+    min-height: 7rem;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.88);
+  }
+
+  .board-current .dart,
+  .board-concept .dart {
+    left: 13%;
+    top: 18%;
+    border-left-color: var(--dart);
+  }
+
+  .board-current .pat,
+  .board-concept .pat {
+    right: 15%;
+    top: 18%;
+    border-left-color: var(--jmu-gold);
+  }
+
+  .drawer-preview {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.38fr);
+    gap: 1rem;
+    min-height: 18rem;
+    padding: 1.5rem;
+  }
+
+  .drawer-preview h3 {
+    color: var(--jmu-purple);
+  }
+
+  .drawer-preview p {
+    max-width: 68ch;
+    font-size: 1.22rem;
+  }
+
+  .drawer-badge {
+    display: inline-flex;
+    margin-bottom: 0.8rem;
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    background: var(--jmu-purple);
+    color: white;
+    font-weight: 900;
+  }
+
+  .drawer-preview dl {
+    display: grid;
+    gap: 0.6rem;
+    align-content: start;
+    margin: 0;
+  }
+
+  .drawer-preview dl div {
+    padding: 0.9rem;
+    border-radius: 10px;
+    background: rgba(239, 229, 207, 0.72);
+  }
+
+  .drawer-preview dt {
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .drawer-preview dd {
+    margin: 0.2rem 0 0;
+  }
+
+  @media (max-width: 900px) {
+    .comparison-grid,
+    .comparison-grid--portrait {
+      grid-template-columns: 1fr;
+    }
+
+    .preview-copy,
+    .preview-stage--portrait .preview-copy {
+      max-width: none;
+    }
+
+    .current-card,
+    .enhanced-card {
+      inset: auto 6% 34%;
+      width: auto;
+    }
+
+    .drawer-preview {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
