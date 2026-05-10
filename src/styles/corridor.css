@@ -232,7 +232,8 @@
 .controls-panel,
 .network-section,
 .reader-section,
-.editor-game {
+.editor-game,
+.long-argument {
   margin-top: 1.25rem;
   padding: 1.7rem;
   border: 1px solid rgba(69, 0, 132, 0.14);
@@ -264,6 +265,249 @@
   background: url('/assets/generated/icon-newspaper.svg') center / contain no-repeat;
   opacity: 0.18;
   transform: rotate(7deg);
+}
+
+.long-argument {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(244, 239, 225, 0.76)),
+    url('/assets/generated/newsprint-texture.svg');
+}
+
+.long-argument::before {
+  position: absolute;
+  inset: auto 1.2rem 1.2rem auto;
+  width: clamp(8rem, 14vw, 16rem);
+  aspect-ratio: 1.4;
+  border: 2px solid rgba(69, 0, 132, 0.12);
+  border-radius: 16px 4px 18px 5px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.34), rgba(203, 182, 119, 0.1));
+  content: "";
+  opacity: 0.45;
+  transform: rotate(5deg);
+  pointer-events: none;
+}
+
+.long-argument__body {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 1rem;
+}
+
+.long-argument__controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.long-argument-era {
+  min-height: 3.4rem;
+  padding: 0.72rem 1rem;
+  border: 1px solid rgba(69, 0, 132, 0.22);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--jmu-purple);
+  font-weight: 900;
+  touch-action: manipulation;
+}
+
+.long-argument-era.is-active,
+.long-argument-era:focus-visible,
+.long-argument-era:active {
+  border-color: rgba(69, 0, 132, 0.72);
+  background: var(--jmu-purple);
+  color: white;
+  outline: 3px solid rgba(47, 111, 126, 0.35);
+  outline-offset: 2px;
+}
+
+.long-argument__window {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid rgba(69, 0, 132, 0.16);
+  border-radius: 12px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(244, 239, 225, 0.58));
+}
+
+.long-argument__window span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 950;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.long-argument__window strong {
+  display: block;
+  margin-top: 0.2rem;
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: clamp(1.5rem, 2.6vw, 2.6rem);
+  line-height: 0.98;
+}
+
+.long-argument__window dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(4.2rem, 1fr));
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.long-argument__window dt {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 950;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.long-argument__window dd {
+  margin: 0;
+  color: var(--jmu-purple);
+  font-size: 1.45rem;
+  font-weight: 950;
+}
+
+.long-argument__window p {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--civic-blue);
+  font-weight: 850;
+}
+
+.long-argument__timeline {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(4.4rem, 1fr));
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-radius: 16px;
+  background: rgba(69, 0, 132, 0.045);
+}
+
+.argument-year {
+  display: grid;
+  min-height: 5.7rem;
+  gap: 0.3rem;
+  justify-items: stretch;
+  padding: 0.55rem;
+  border: 1px solid rgba(69, 0, 132, 0.15);
+  border-radius: 9px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(244, 239, 225, 0.6));
+  color: var(--ink);
+  text-align: left;
+  box-shadow: 0 8px 14px rgba(36, 31, 43, 0.08);
+  touch-action: manipulation;
+}
+
+.argument-year.is-active,
+.argument-year:focus-visible,
+.argument-year:active {
+  border-color: rgba(69, 0, 132, 0.72);
+  outline: 3px solid rgba(47, 111, 126, 0.42);
+  outline-offset: 2px;
+  transform: translateY(-1px);
+}
+
+.argument-year.is-class-window {
+  box-shadow: 0 0 0 3px rgba(203, 182, 119, 0.42), 0 8px 14px rgba(36, 31, 43, 0.08);
+}
+
+.argument-year__date {
+  color: var(--jmu-purple);
+  font-weight: 950;
+}
+
+.argument-year__counts {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 850;
+}
+
+.argument-year__stack {
+  display: block;
+  height: 1.35rem;
+  border-radius: 999px;
+  background:
+    linear-gradient(90deg, rgba(69, 0, 132, 0.66) 0 var(--dart-pct), rgba(203, 182, 119, 0.76) var(--dart-pct) 100%);
+  overflow: hidden;
+}
+
+.argument-year__stack i {
+  display: block;
+  width: calc(var(--count-scale) * 100%);
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.22), transparent);
+}
+
+.long-argument__themes,
+.long-argument__cards {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.long-argument__themes h3,
+.long-argument__cards h3 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 1rem;
+}
+
+.long-argument__themes > div {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 0.75rem;
+}
+
+.argument-theme-card {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.85rem;
+  border: 1px solid rgba(69, 0, 132, 0.13);
+  border-left: 5px solid rgba(69, 0, 132, 0.55);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.68);
+}
+
+.argument-theme-card strong {
+  color: var(--jmu-purple);
+  line-height: 1.1;
+}
+
+.argument-theme-card span {
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 800;
+}
+
+.long-argument__source {
+  position: relative;
+  z-index: 1;
+  margin-top: 1rem;
+  border-top: 1px solid rgba(69, 0, 132, 0.12);
+  padding-top: 0.85rem;
+}
+
+.long-argument__source summary {
+  min-height: 3rem;
+  color: var(--jmu-purple);
+  cursor: pointer;
+  font-weight: 950;
+  touch-action: manipulation;
+}
+
+.long-argument__source p {
+  max-width: 82ch;
+  color: var(--jmu-slate);
 }
 
 .controls-panel {
@@ -1946,41 +2190,187 @@ body.is-attractor-active {
   font-weight: 900;
 }
 
-.attractor-background-traffic {
+.attractor-wire-life {
+  position: absolute;
+  left: clamp(28rem, 54vw, 58rem);
+  right: clamp(1.5rem, 5vw, 6rem);
+  top: clamp(15rem, 44vh, 24rem);
+  z-index: 2;
+  height: 5.4rem;
+  pointer-events: none;
+}
+
+.attractor-wire-life__line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 2.5rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(90, 74, 58, 0.38) 16% 86%, transparent);
+  transform: rotate(-1.1deg);
+}
+
+.attractor-bird {
+  position: absolute;
+  top: 2.12rem;
+  left: var(--bird-x, 20%);
+  width: 1.05rem;
+  height: 0.58rem;
+  border-radius: 54% 46% 44% 50%;
+  background: rgba(47, 41, 52, 0.76);
+  box-shadow: 0 0.18rem 0 rgba(90, 74, 58, 0.14);
+  transform: scale(var(--bird-scale, 1)) rotate(var(--bird-tilt, -2deg));
+  transform-origin: 50% 80%;
+  animation: attractor-bird-head-turn 18s steps(2, end) infinite;
+}
+
+.attractor-bird::before {
+  position: absolute;
+  right: -0.28rem;
+  top: -0.08rem;
+  width: 0.36rem;
+  height: 0.36rem;
+  border-radius: 50%;
+  background: rgba(47, 41, 52, 0.74);
+  content: "";
+  transform-origin: left center;
+  animation: attractor-bird-look 24s steps(2, end) infinite;
+}
+
+.attractor-bird::after {
+  position: absolute;
+  left: -0.28rem;
+  top: 0.14rem;
+  width: 0.45rem;
+  height: 0.24rem;
+  border-radius: 50% 0 0 50%;
+  background: rgba(47, 41, 52, 0.64);
+  content: "";
+  transform: rotate(-18deg);
+}
+
+.attractor-bird--one {
+  --bird-x: 16%;
+  --bird-scale: 0.9;
+  animation-delay: -7s;
+}
+
+.attractor-bird--two {
+  --bird-x: 35%;
+  --bird-scale: 1.04;
+  --bird-tilt: 1deg;
+  animation-delay: -12s;
+}
+
+.attractor-bird--three {
+  --bird-x: 58%;
+  --bird-scale: 0.82;
+  animation-delay: -3s;
+}
+
+.attractor-bird--visitor {
+  --bird-x: 76%;
+  top: 2.06rem;
+  animation: attractor-bird-visit 42s cubic-bezier(0.4, 0, 0.2, 1) 8s infinite;
+}
+
+.attractor-mode.is-showing-bird-takeoff .attractor-bird--visitor {
+  animation: none;
+  opacity: 1;
+  transform: translate3d(-6vw, -4.2rem, 0) scale(0.94) rotate(-12deg);
+}
+
+.attractor-ambient-balloons {
   position: absolute;
   inset: 0;
   z-index: 2;
-  overflow: hidden;
   pointer-events: none;
 }
 
-.attractor-background-vehicle {
+.attractor-ambient-balloon {
   position: absolute;
-  opacity: 0;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  filter: drop-shadow(0 0.8rem 0.7rem rgba(36, 31, 43, 0.16));
-  pointer-events: none;
-  will-change: transform, opacity;
+  left: var(--ambient-x, 50vw);
+  bottom: var(--ambient-y, 28vh);
+  width: var(--ambient-size, clamp(1.8rem, 2.5vw, 3.2rem));
+  aspect-ratio: 0.78;
+  border: 1px solid rgba(36, 31, 43, 0.1);
+  border-radius: 54% 47% 52% 49% / 63% 60% 42% 44%;
+  background:
+    radial-gradient(circle at 31% 25%, rgba(255, 255, 255, 0.66) 0 8%, transparent 9%),
+    radial-gradient(circle at 65% 78%, rgba(36, 31, 43, 0.16), transparent 40%),
+    linear-gradient(135deg, var(--ambient-accent, #d8c4ef) 0 16%, var(--ambient-fill, #6f4aa0) 45%, var(--ambient-edge, #3f2365) 100%);
+  box-shadow:
+    inset -0.22rem -0.34rem 0 rgba(36, 31, 43, 0.11),
+    0 0.45rem 1rem rgba(36, 31, 43, 0.14);
+  opacity: 0.72;
+  transform: translateY(0) rotate(var(--ambient-tilt, -2deg));
+  animation: attractor-ambient-balloon-bob var(--ambient-speed, 8s) ease-in-out infinite;
 }
 
-.attractor-background-vehicle--trolley {
-  left: -13rem;
-  bottom: clamp(14rem, 24vh, 18.5rem);
-  width: clamp(8.2rem, 10.6vw, 12.4rem);
-  aspect-ratio: 359 / 138;
-  background-image: url('/assets/generated/attractor-background-trolley-sprite.png');
-  animation: attractor-background-trolley-pass 44s cubic-bezier(0.42, 0, 0.22, 1) 5s infinite;
+.attractor-ambient-balloon::after {
+  position: absolute;
+  left: 50%;
+  top: 99%;
+  width: 1px;
+  height: var(--ambient-string, 5rem);
+  background: linear-gradient(180deg, rgba(90, 74, 58, 0.42), rgba(90, 74, 58, 0.05));
+  content: "";
 }
 
-.attractor-mode.is-showing-background-trolley .attractor-background-vehicle--trolley {
-  animation: none;
-  opacity: 0.96;
+.attractor-ambient-balloon--purple {
+  --ambient-x: 8vw;
+  --ambient-y: 29vh;
+  --ambient-size: clamp(2rem, 2.7vw, 3.4rem);
 }
 
-.attractor-mode.is-showing-background-trolley .attractor-background-vehicle--trolley {
-  transform: translate3d(48vw, -0.05rem, 0) scale(0.86) rotate(0.12deg);
+.attractor-ambient-balloon--gold {
+  --ambient-x: 25vw;
+  --ambient-y: 34vh;
+  --ambient-fill: #c9b062;
+  --ambient-accent: #fff2bd;
+  --ambient-edge: #8e7634;
+  --ambient-tilt: 2deg;
+  --ambient-speed: 9.5s;
+}
+
+.attractor-ambient-balloon--cream {
+  --ambient-x: 72vw;
+  --ambient-y: 26vh;
+  --ambient-fill: #efe3c1;
+  --ambient-accent: #fff8e2;
+  --ambient-edge: #b99b59;
+  --ambient-size: clamp(1.7rem, 2vw, 2.7rem);
+  --ambient-speed: 10s;
+}
+
+.attractor-ambient-balloon--violet {
+  --ambient-x: 88vw;
+  --ambient-y: 32vh;
+  --ambient-fill: #8d66ad;
+  --ambient-accent: #e3d4ef;
+  --ambient-edge: #5d3f6f;
+  --ambient-tilt: 4deg;
+  --ambient-speed: 11s;
+}
+
+.attractor-ambient-balloon--teal {
+  --ambient-x: 57vw;
+  --ambient-y: 22vh;
+  --ambient-fill: #3f7e88;
+  --ambient-accent: #b9d9dc;
+  --ambient-edge: #2c5d65;
+  --ambient-size: clamp(1.5rem, 1.8vw, 2.4rem);
+  --ambient-speed: 12s;
+}
+
+.attractor-ambient-balloon--small {
+  --ambient-x: 94vw;
+  --ambient-y: 45vh;
+  --ambient-fill: #5b2a86;
+  --ambient-accent: #d8c4ef;
+  --ambient-edge: #3f2365;
+  --ambient-size: clamp(1.3rem, 1.6vw, 2.1rem);
+  --ambient-speed: 9s;
 }
 
 .attractor-mode__scene {
@@ -1989,6 +2379,7 @@ body.is-attractor-active {
   z-index: 3;
   height: clamp(13rem, 28vh, 20rem);
   cursor: pointer;
+  pointer-events: none;
   touch-action: manipulation;
 }
 
@@ -2152,41 +2543,6 @@ body.is-attractor-active {
 .attractor-market-stalls span:nth-child(3) {
   --stall-offset-y: 0.2rem;
   --stall-tilt: 1.5deg;
-}
-
-.attractor-bus {
-  position: absolute;
-  right: 8vw;
-  bottom: 4.2rem;
-  width: 13rem;
-  height: 4.3rem;
-  border: 2px solid rgba(36, 31, 43, 0.18);
-  border-radius: 18px 22px 8px 8px;
-  background:
-    linear-gradient(90deg, rgba(69, 0, 132, 0.84), rgba(69, 0, 132, 0.62)),
-    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.35) 0 1.6rem, transparent 1.6rem 2.5rem);
-  box-shadow: 0 1.7rem 0 -1.18rem rgba(36, 31, 43, 0.36);
-  opacity: 0.58;
-  animation: attractor-bus-idle 10s ease-in-out infinite;
-}
-
-.attractor-bus::before,
-.attractor-bus::after {
-  position: absolute;
-  bottom: -0.55rem;
-  width: 1.35rem;
-  aspect-ratio: 1;
-  border-radius: 999px;
-  background: var(--ink);
-  content: "";
-}
-
-.attractor-bus::before {
-  left: 1.6rem;
-}
-
-.attractor-bus::after {
-  right: 1.5rem;
 }
 
 .attractor-newsbox {
@@ -2385,17 +2741,6 @@ body.is-attractor-active {
   }
 }
 
-@keyframes attractor-bus-idle {
-  0%,
-  100% {
-    transform: translateY(0) rotate(0deg);
-  }
-
-  48% {
-    transform: translateY(-0.08rem) rotate(-0.15deg);
-  }
-}
-
 @keyframes attractor-parade-sway {
   0%,
   100% {
@@ -2474,6 +2819,10 @@ body.is-attractor-active {
 }
 
 /* Phase 10: keep the live attractor layer in the same illustrated world as the parade art. */
+.attractor-mode__sky {
+  z-index: 6;
+}
+
 .attractor-mode__street {
   background:
     linear-gradient(180deg, rgba(251, 248, 239, 0), rgba(251, 248, 239, 0.1) 30%, rgba(36, 31, 43, 0.12)),
@@ -2562,6 +2911,106 @@ body.is-attractor-active {
   animation-delay: -2.6s;
 }
 
+.attractor-newsstand-moment {
+  position: absolute;
+  left: clamp(1.8rem, 4.2vw, 5.5rem);
+  bottom: clamp(0.85rem, 2.1vh, 2rem);
+  z-index: 4;
+  width: clamp(3.5rem, 5.3vw, 5.8rem);
+  height: clamp(4.5rem, 6.3vw, 7rem);
+  border: 1px solid rgba(36, 31, 43, 0.18);
+  border-radius: 0.35rem 0.35rem 0.2rem 0.2rem;
+  background:
+    linear-gradient(180deg, rgba(69, 0, 132, 0.35), rgba(69, 0, 132, 0.18)),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.16) 0 0.44rem, transparent 0.44rem 0.88rem);
+  box-shadow: 0 0.95rem 1.2rem rgba(36, 31, 43, 0.14);
+  opacity: 0.52;
+  pointer-events: none;
+}
+
+.attractor-newsstand-moment::before {
+  position: absolute;
+  left: 0.55rem;
+  right: 0.55rem;
+  top: 0.72rem;
+  height: 0.42rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.34);
+  box-shadow: 0 1.05rem 0 rgba(203, 182, 119, 0.22), 0 2.1rem 0 rgba(255, 255, 255, 0.22);
+  content: "";
+}
+
+.attractor-newsstand-moment__door {
+  position: absolute;
+  left: 0.62rem;
+  right: 0.62rem;
+  bottom: 0.58rem;
+  height: 42%;
+  border: 1px solid rgba(36, 31, 43, 0.2);
+  border-radius: 0.24rem;
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.38), rgba(69, 0, 132, 0.18));
+  transform-origin: left center;
+  animation: attractor-newsstand-door 38s ease-in-out 11s infinite;
+}
+
+.attractor-newsstand-moment__paper {
+  position: absolute;
+  left: 0.95rem;
+  bottom: 1.55rem;
+  width: 2.75rem;
+  height: 1.7rem;
+  border: 2px solid rgba(69, 0, 132, 0.42);
+  background:
+    linear-gradient(135deg, rgba(255, 252, 242, 0.98), rgba(226, 211, 238, 0.94)),
+    linear-gradient(45deg, transparent 46%, rgba(69, 0, 132, 0.32) 47% 53%, transparent 54%);
+  clip-path: polygon(0 10%, 100% 50%, 0 92%, 28% 50%);
+  opacity: 0;
+  transform: translateX(-0.2rem) rotate(-6deg);
+  animation: attractor-newsstand-paper 38s ease-in-out 11s infinite;
+}
+
+.attractor-newsstand-moment__flutter {
+  position: absolute;
+  left: 2.4rem;
+  bottom: 3rem;
+  width: 0.8rem;
+  height: 0.55rem;
+  border-radius: 0.12rem;
+  background: rgba(255, 255, 255, 0.68);
+  opacity: 0;
+  transform: rotate(8deg);
+  animation: attractor-newsstand-flutter 38s ease-in-out 11s infinite;
+}
+
+.attractor-mode.is-showing-newsstand-moment .attractor-newsstand-moment__door,
+.attractor-mode.is-showing-newsstand-moment .attractor-newsstand-moment__paper,
+.attractor-mode.is-showing-newsstand-moment .attractor-newsstand-moment__flutter {
+  animation: none;
+}
+
+.attractor-mode.is-showing-newsstand-moment .attractor-newsstand-moment__door {
+  transform: perspective(8rem) rotateY(-18deg);
+}
+
+.attractor-mode.is-showing-newsstand-moment .attractor-newsstand-moment {
+  opacity: 0.78;
+}
+
+.attractor-mode.is-showing-newsstand-moment .attractor-newsstand-moment__paper,
+.attractor-mode.is-showing-newsstand-moment .attractor-newsstand-moment__flutter {
+  opacity: 0.96;
+}
+
+.attractor-mode.is-showing-newsstand-moment .attractor-newsstand-moment__paper {
+  transform: translateX(0.42rem) rotate(-3deg);
+  filter: drop-shadow(0 0.24rem 0.34rem rgba(36, 31, 43, 0.24));
+}
+
+.attractor-mode.is-showing-newsstand-moment .attractor-newsstand-moment__flutter {
+  transform: translate3d(0.5rem, -0.4rem, 0) rotate(-7deg);
+}
+
 .attractor-balloon {
   bottom: 17vh;
   width: clamp(4.8rem, 5.7vw, 6.6rem);
@@ -2620,26 +3069,119 @@ body.is-attractor-active {
   }
 }
 
-@keyframes attractor-background-trolley-pass {
+@keyframes attractor-bird-head-turn {
   0%,
-  11% {
-    opacity: 0;
-    transform: translate3d(-18vw, 0.1rem, 0) scale(0.86) rotate(-0.1deg);
+  78%,
+  100% {
+    transform: scale(var(--bird-scale, 1)) rotate(var(--bird-tilt, -2deg));
   }
 
-  17%,
+  82%,
+  88% {
+    transform: scale(var(--bird-scale, 1)) rotate(calc(var(--bird-tilt, -2deg) + 6deg));
+  }
+}
+
+@keyframes attractor-bird-look {
+  0%,
+  74%,
+  100% {
+    transform: translateX(0) scaleX(1);
+  }
+
+  78%,
+  84% {
+    transform: translateX(-0.05rem) scaleX(-1);
+  }
+}
+
+@keyframes attractor-bird-visit {
+  0%,
+  52% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(0.9) rotate(-2deg);
+  }
+
   58% {
     opacity: 0.96;
+    transform: translate3d(-5vw, -4rem, 0) scale(0.9) rotate(-15deg);
   }
 
-  38% {
-    transform: translate3d(42vw, -0.05rem, 0) scale(0.86) rotate(0.12deg);
+  62%,
+  84% {
+    opacity: 0;
+    transform: translate3d(-10vw, -6rem, 0) scale(0.78) rotate(-18deg);
   }
 
+  90% {
+    opacity: 0;
+    transform: translate3d(7vw, -3rem, 0) scale(0.88) rotate(8deg);
+  }
+
+  96%,
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(0.9) rotate(-2deg);
+  }
+}
+
+@keyframes attractor-ambient-balloon-bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--ambient-tilt, -2deg));
+  }
+
+  50% {
+    transform: translateY(-0.48rem) rotate(calc(var(--ambient-tilt, -2deg) + 1.2deg));
+  }
+}
+
+@keyframes attractor-newsstand-door {
+  0%,
+  68%,
+  100% {
+    transform: perspective(8rem) rotateY(0deg);
+  }
+
+  73%,
+  82% {
+    transform: perspective(8rem) rotateY(-18deg);
+  }
+}
+
+@keyframes attractor-newsstand-paper {
+  0%,
   70%,
+  88%,
   100% {
     opacity: 0;
-    transform: translate3d(112vw, 0.02rem, 0) scale(0.86) rotate(0deg);
+    transform: translateX(-0.2rem) rotate(-6deg);
+  }
+
+  74%,
+  82% {
+    opacity: 0.78;
+    transform: translateX(0.12rem) rotate(-3deg);
+  }
+}
+
+@keyframes attractor-newsstand-flutter {
+  0%,
+  72%,
+  87%,
+  100% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) rotate(8deg);
+  }
+
+  76% {
+    opacity: 0.64;
+    transform: translate3d(0.5rem, -0.4rem, 0) rotate(-7deg);
+  }
+
+  82% {
+    opacity: 0.38;
+    transform: translate3d(0.18rem, -0.08rem, 0) rotate(3deg);
   }
 }
 
@@ -3821,9 +4363,10 @@ body.is-presentation-mode .exhibit-shell {
     min-height: 12rem;
   }
 
-  .attractor-bus {
-    right: 2vw;
-    width: 9rem;
+  .attractor-wire-life {
+    left: 44vw;
+    right: 1rem;
+    top: 48vh;
   }
 
   .attractor-ridge {
@@ -4074,9 +4617,10 @@ body.is-presentation-mode .exhibit-shell {
     width: min(calc(100% - clamp(2.5rem, 8vw, 8rem)), 44rem);
   }
 
-  .attractor-background-vehicle--trolley {
-    bottom: clamp(29rem, 35vh, 40rem);
-    width: clamp(7.6rem, 15vw, 11rem);
+  .attractor-wire-life {
+    left: 42vw;
+    right: clamp(1.25rem, 4vw, 4rem);
+    top: clamp(28rem, 43vh, 38rem);
   }
 
   .attractor-clipping {
@@ -4111,9 +4655,10 @@ body.is-presentation-mode .exhibit-shell {
     bottom: 8.6rem;
   }
 
-  .attractor-bus {
-    right: 4vw;
-    width: clamp(10rem, 20vw, 18rem);
+  .attractor-newsstand-moment {
+    bottom: clamp(1.2rem, 3vh, 3rem);
+    width: clamp(4.6rem, 8vw, 7.4rem);
+    height: clamp(5.8rem, 9vw, 8.8rem);
   }
 
   .controls-panel {
@@ -4430,9 +4975,10 @@ body.is-presentation-mode .exhibit-shell {
     transform: translateX(-50%);
   }
 
-  .attractor-background-vehicle--trolley {
-    bottom: clamp(34rem, 34vh, 46rem);
-    width: clamp(9rem, 14vw, 15rem);
+  .attractor-wire-life {
+    left: 38vw;
+    right: max(2rem, calc((100vw - var(--kiosk-portrait-stage-width)) / 2));
+    top: clamp(40rem, 39vh, 58rem);
   }
 
   .attractor-clipping {
@@ -4473,11 +5019,11 @@ body.is-presentation-mode .exhibit-shell {
     height: calc(var(--store-height, 7.4rem) * 1.45);
   }
 
-  .attractor-bus {
-    right: max(3vw, calc((100vw - var(--kiosk-portrait-stage-width)) / 2));
-    bottom: clamp(5.5rem, 6.5vh, 8.5rem);
-    width: clamp(15rem, 22vw, 25rem);
-    height: clamp(5.4rem, 7vw, 8rem);
+  .attractor-newsstand-moment {
+    left: max(3vw, calc((100vw - var(--kiosk-portrait-stage-width)) / 2 + 1rem));
+    bottom: clamp(4.2rem, 5vh, 7rem);
+    width: clamp(5.5rem, 7vw, 8rem);
+    height: clamp(7rem, 8.5vw, 9.5rem);
   }
 
   .attractor-newsbox {
@@ -5087,6 +5633,19 @@ body.is-presentation-mode .exhibit-shell {
   .button--kiosk-enter {
     min-height: max(5rem, 80px);
   }
+
+  .long-argument-era,
+  .argument-year {
+    min-height: max(4.5rem, 72px);
+  }
+
+  .long-argument__window {
+    grid-template-columns: 1fr;
+  }
+
+  .long-argument__timeline {
+    grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -5102,13 +5661,17 @@ body.is-presentation-mode .exhibit-shell {
   .attractor-clipping,
   .attractor-balloon,
   .attractor-balloon.is-rising,
-  .attractor-background-vehicle,
+  .attractor-ambient-balloon,
+  .attractor-bird,
+  .attractor-bird::before,
   .attractor-ground-ribbon,
   .attractor-flag,
+  .attractor-newsstand-moment__door,
+  .attractor-newsstand-moment__paper,
+  .attractor-newsstand-moment__flutter,
   .attractor-market-stalls span,
   .person,
-  .attractor-balloon-cluster i,
-  .attractor-bus {
+  .attractor-balloon-cluster i {
     transform: none !important;
     animation: none !important;
   }
@@ -5117,11 +5680,12 @@ body.is-presentation-mode .exhibit-shell {
     display: none;
   }
 
-  .attractor-background-vehicle {
-    display: none;
-  }
-
   .attractor-clipping {
     opacity: 1;
+  }
+
+  .attractor-newsstand-moment__paper,
+  .attractor-newsstand-moment__flutter {
+    opacity: 0;
   }
 }

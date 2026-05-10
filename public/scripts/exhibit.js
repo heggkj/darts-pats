@@ -72,6 +72,8 @@ const state = {
   stringGraph: null,
   selectedStringTheme: '',
   wordBreezeTerm: '',
+  longArgumentYear: '',
+  longArgumentEra: 'all',
   isAttractorActive: true,
   attractorPool: [],
   attractorIndex: 0,
@@ -117,6 +119,11 @@ const els = {
   gameText: document.querySelector('#game-text'),
   gamePoolNote: document.querySelector('#game-pool-note'),
   gameRelated: document.querySelector('#game-related'),
+  longArgumentEras: document.querySelector('#long-argument-eras'),
+  longArgumentYears: document.querySelector('#long-argument-years'),
+  longArgumentWindow: document.querySelector('#long-argument-window'),
+  longArgumentThemes: document.querySelector('#long-argument-themes'),
+  longArgumentCards: document.querySelector('#long-argument-cards'),
   revealGameCard: document.querySelector('#reveal-game-card'),
   newGameCard: document.querySelector('#new-game-card'),
   threshold: document.querySelector('.threshold'),
@@ -583,6 +590,129 @@ function renderGamePoolNote() {
   els.gamePoolNote.textContent = 'Some cards are masked because they name their own form.';
 }
 
+function eraYears(eraLabel = '') {
+  const match = String(eraLabel).match(/(\d{4})\D+(\d{4})/);
+  if (!match) return [];
+  const start = Number(match[1]);
+  const end = Number(match[2]);
+  return state.summary.yearly
+    .map((year) => year.year)
+    .filter((year) => year >= start && year <= end);
+}
+
+function longArgumentYears() {
+  if (state.longArgumentYear) return [Number(state.longArgumentYear)];
+  if (state.longArgumentEra !== 'all') return eraYears(state.longArgumentEra);
+  return classWindowYears().length ? classWindowYears() : state.summary.yearly.map((year) => year.year);
+}
+
+function longArgumentRecords() {
+  const years = new Set(longArgumentYears());
+  if (!years.size) return state.records;
+  return state.records.filter((record) => years.has(Number(record.year)));
+}
+
+function longArgumentLabel(years) {
+  if (state.longArgumentYear) return `${state.longArgumentYear}`;
+  if (state.longArgumentEra !== 'all') return state.longArgumentEra;
+  if (state.classYear !== 'all') return classWindowLabel();
+  const first = years[0];
+  const last = years[years.length - 1];
+  return first && last ? `${first}–${last}` : 'All years';
+}
+
+function renderLongArgument() {
+  if (!els.longArgumentYears || !state.summary?.yearly?.length) return;
+  const activeYears = longArgumentYears();
+  const activeYearSet = new Set(activeYears);
+  const classYears = new Set(classWindowYears());
+  const records = longArgumentRecords();
+  const total = records.length;
+  const darts = records.filter((record) => record.kind === 'DART').length;
+  const pats = records.filter((record) => record.kind === 'PAT').length;
+  const maxYearCount = Math.max(...state.summary.yearly.map((year) => year.count));
+  const label = longArgumentLabel(activeYears);
+  const mood = total === 0
+    ? 'quiet'
+    : Math.abs(darts - pats) <= Math.max(2, total * 0.12)
+      ? 'split almost down the middle'
+      : darts > pats
+        ? 'tilted toward Darts'
+        : 'tilted toward Pats';
+
+  if (els.longArgumentEras) {
+    const eraButtons = [
+      { era: 'all', label: 'All years' },
+      ...state.summary.eras.map((era) => ({ era: era.era, label: era.era })),
+    ];
+    els.longArgumentEras.innerHTML = eraButtons.map((item) => `
+      <button class="long-argument-era ${state.longArgumentEra === item.era && !state.longArgumentYear ? 'is-active' : ''}" data-long-era="${escapeHtml(item.era)}" type="button" aria-pressed="${state.longArgumentEra === item.era && !state.longArgumentYear}">
+        ${escapeHtml(item.label)}
+      </button>
+    `).join('');
+  }
+
+  els.longArgumentWindow.innerHTML = `
+    <div>
+      <span>${escapeHtml(label)}</span>
+      <strong>${escapeHtml(mood)}</strong>
+    </div>
+    <dl>
+      <div><dt>Cards</dt><dd>${total}</dd></div>
+      <div><dt>Darts</dt><dd>${darts}</dd></div>
+      <div><dt>Pats</dt><dd>${pats}</dd></div>
+    </dl>
+    ${classYears.size ? `<p>${escapeHtml(classWindowLabel())} is marked along the rail.</p>` : ''}
+  `;
+
+  els.longArgumentYears.innerHTML = state.summary.yearly.map((year) => {
+    const active = activeYearSet.has(Number(year.year));
+    const classWindow = classYears.has(Number(year.year));
+    const patPct = Math.round((year.pat_share || 0) * 100);
+    const dartPct = Math.round((year.dart_share || 0) * 100);
+    const scale = 0.38 + (year.count / maxYearCount) * 0.62;
+    return `
+      <button class="argument-year ${yearMoodClass(year)} ${active ? 'is-active' : ''} ${classWindow ? 'is-class-window' : ''}" data-long-year="${year.year}" style="--pat-pct:${patPct}%;--dart-pct:${dartPct}%;--count-scale:${scale}" type="button" aria-pressed="${state.longArgumentYear === String(year.year)}" aria-label="${year.year}: ${year.darts} Darts and ${year.pats} Pats. ${classWindow ? 'Inside the active Class-of window.' : ''}">
+        <span class="argument-year__date">${year.year}</span>
+        <span class="argument-year__stack" aria-hidden="true"><i></i></span>
+        <span class="argument-year__counts">${year.darts}D / ${year.pats}P</span>
+      </button>
+    `;
+  }).join('');
+
+  const themeCounts = new Map();
+  records.forEach((record) => {
+    const key = record.primary_topic_label || 'Town-gown note';
+    const item = themeCounts.get(key) || { label: key, count: 0, darts: 0, pats: 0 };
+    item.count += 1;
+    item[record.kind === 'PAT' ? 'pats' : 'darts'] += 1;
+    themeCounts.set(key, item);
+  });
+  const topThemes = [...themeCounts.values()]
+    .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label))
+    .slice(0, 4);
+
+  els.longArgumentThemes.innerHTML = `
+    <h3>Themes moving through this stretch</h3>
+    <div>
+      ${topThemes.map((theme) => `
+        <article class="argument-theme-card">
+          <strong>${escapeHtml(theme.label)}</strong>
+          <span>${theme.count} cards · ${theme.darts} D / ${theme.pats} P</span>
+        </article>
+      `).join('') || '<p class="empty-note">No themes in this stretch yet.</p>'}
+    </div>
+  `;
+
+  const representative = [...records]
+    .sort((a, b) => (b.tone_intensity || 0) - (a.tone_intensity || 0) || dateSort(a, b))
+    .slice(0, 4);
+  els.longArgumentCards.innerHTML = `
+    <h3>Open a card from this stretch</h3>
+    <div class="related-chips">${representative.map((record) => makeRelatedChip(record)).join('') || '<p class="empty-note">No cards in this stretch yet.</p>'}</div>
+  `;
+}
+
 function renderAll() {
   renderStats();
   renderWalls();
@@ -593,6 +723,7 @@ function renderAll() {
   renderWordBreeze();
   if (state.wordBreezeTerm) renderWordBreezeList(state.wordBreezeTerm);
   renderGamePoolNote();
+  renderLongArgument();
 }
 
 function sourceLine(record) {
@@ -1270,9 +1401,28 @@ function installLocalTestHooks() {
     renderAttractorClipping: () => renderAttractorClipping(nextAttractorRecord() || state.attractorPool[0]),
     fadeAttractorClipping: () => AttractorMode.fadeCurrentClipping(() => {}),
     runAttractorCycle: () => AttractorMode.runCycle(),
-    setAttractorVehicleState: (stateName = '') => {
-      els.attractor?.classList.remove('is-showing-background-trolley');
-      if (stateName === 'trolley' || stateName === 'bus') els.attractor?.classList.add('is-showing-background-trolley');
+    setAttractorBirdState: (stateName = '') => {
+      els.attractor?.classList.toggle('is-showing-bird-takeoff', stateName === 'takeoff');
+    },
+    showNewsstandMoment: () => {
+      els.attractor?.classList.add('is-showing-newsstand-moment');
+    },
+    hideNewsstandMoment: () => {
+      els.attractor?.classList.remove('is-showing-newsstand-moment');
+    },
+    selectLongArgumentYear: (year = 2007) => {
+      AttractorMode.deactivate();
+      state.longArgumentYear = String(year);
+      state.longArgumentEra = 'all';
+      renderLongArgument();
+      scrollToElement(document.querySelector('#reflection-wall'));
+    },
+    selectLongArgumentEra: (era = '2000–2009') => {
+      AttractorMode.deactivate();
+      state.longArgumentYear = '';
+      state.longArgumentEra = era;
+      renderLongArgument();
+      scrollToElement(document.querySelector('#reflection-wall'));
     },
     applyState,
     openClassTray: (year = 2004) => {
@@ -1557,6 +1707,8 @@ function closeTransientPanels() {
 function resetInteractiveState() {
   closeTransientPanels();
   state.selectedStringTheme = state.stringGraph?.topThemes?.[0]?.id || '';
+  state.longArgumentYear = '';
+  state.longArgumentEra = 'all';
   applyState({ year: 'all', classYear: 'all', era: 'all', topic: 'all', kind: 'all', search: '' });
   renderNetwork();
   makeGameCard();
@@ -1828,6 +1980,22 @@ function bindEvents() {
     if (drawerTarget) {
       const record = findRecord(drawerTarget);
       if (record) renderDrawer(record);
+      return;
+    }
+
+    const longArgumentYear = event.target.closest('[data-long-year]');
+    if (longArgumentYear) {
+      state.longArgumentYear = String(longArgumentYear.dataset.longYear);
+      state.longArgumentEra = 'all';
+      renderLongArgument();
+      return;
+    }
+
+    const longArgumentEra = event.target.closest('[data-long-era]');
+    if (longArgumentEra) {
+      state.longArgumentYear = '';
+      state.longArgumentEra = longArgumentEra.dataset.longEra || 'all';
+      renderLongArgument();
       return;
     }
 

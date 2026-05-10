@@ -27,8 +27,20 @@ import '../styles/corridor.css';
       <div class="attractor-balloon" id="attractor-balloon" aria-hidden="true">
         <span></span>
       </div>
-      <div class="attractor-background-traffic" aria-hidden="true">
-        <div class="attractor-background-vehicle attractor-background-vehicle--trolley"></div>
+      <div class="attractor-ambient-balloons" aria-hidden="true">
+        <span class="attractor-ambient-balloon attractor-ambient-balloon--purple"></span>
+        <span class="attractor-ambient-balloon attractor-ambient-balloon--gold"></span>
+        <span class="attractor-ambient-balloon attractor-ambient-balloon--cream"></span>
+        <span class="attractor-ambient-balloon attractor-ambient-balloon--violet"></span>
+        <span class="attractor-ambient-balloon attractor-ambient-balloon--teal"></span>
+        <span class="attractor-ambient-balloon attractor-ambient-balloon--small"></span>
+      </div>
+      <div class="attractor-wire-life" aria-hidden="true">
+        <span class="attractor-wire-life__line"></span>
+        <span class="attractor-bird attractor-bird--one"></span>
+        <span class="attractor-bird attractor-bird--two"></span>
+        <span class="attractor-bird attractor-bird--three"></span>
+        <span class="attractor-bird attractor-bird--visitor"></span>
       </div>
 
       <div class="attractor-mode__scene" id="attractor-scene" role="button" tabindex="0" aria-label="Enter the exhibit from The Breeze Parade">
@@ -38,6 +50,11 @@ import '../styles/corridor.css';
           <div class="attractor-ground-ribbon attractor-ground-ribbon--two"></div>
           <div class="attractor-flag attractor-flag--one"></div>
           <div class="attractor-flag attractor-flag--two"></div>
+          <div class="attractor-newsstand-moment">
+            <span class="attractor-newsstand-moment__door"></span>
+            <span class="attractor-newsstand-moment__paper"></span>
+            <span class="attractor-newsstand-moment__flutter"></span>
+          </div>
         </div>
       </div>
     </section>
@@ -69,8 +86,8 @@ import '../styles/corridor.css';
           <strong>Editor’s Table</strong>
         </button>
         <button class="rail-token rail-token--reflection" data-rail-target="reflection-wall" type="button">
-          <span class="rail-token__stamp">Wall</span>
-          <strong>Reflection Wall</strong>
+          <span class="rail-token__stamp">Time</span>
+          <strong>Long Argument</strong>
         </button>
         <button class="rail-token rail-token--class" id="class-tray-toggle" type="button" aria-expanded="false" aria-controls="class-tray">
           <span class="rail-token__stamp">Years</span>
@@ -269,12 +286,25 @@ import '../styles/corridor.css';
         </div>
       </section>
 
-      <section class="source-note reflection-wall" id="reflection-wall" data-chapter="reflection-wall" aria-labelledby="source-title">
-        <p class="kicker">Reflection wall</p>
-        <h2 id="source-title">What the wall remembers</h2>
-        <p>
-          All entries are drawn from Darts & Pats published in <em>The Breeze</em>, James Madison University’s student newspaper. They are presented as historical evidence of perception, humor, grievance, gratitude, and civic memory—not as neutral measurements of the town-gown relationship.
-        </p>
+      <section class="long-argument" id="reflection-wall" data-chapter="reflection-wall" aria-labelledby="long-argument-title">
+        <div class="section-heading">
+          <p class="kicker">Time wall</p>
+          <h2 id="long-argument-title">The Long Argument</h2>
+          <p id="long-argument-copy">A touchable year-by-year look at how Darts and Pats tilt, soften, and flare across the archive.</p>
+        </div>
+        <div class="long-argument__body">
+          <div class="long-argument__controls" aria-label="Choose an era for The Long Argument" id="long-argument-eras"></div>
+          <div class="long-argument__window" id="long-argument-window" aria-live="polite"></div>
+          <div class="long-argument__timeline" id="long-argument-years" aria-label="Pats and Darts by year"></div>
+          <div class="long-argument__themes" id="long-argument-themes" aria-label="Themes in the selected time window"></div>
+          <div class="long-argument__cards" id="long-argument-cards" aria-label="Representative cards from the selected time window"></div>
+        </div>
+        <details class="long-argument__source">
+          <summary>About this exhibit</summary>
+          <p>
+            All entries are drawn from Darts & Pats published in <em>The Breeze</em>, James Madison University’s student newspaper. They are presented as historical evidence of perception, humor, grievance, gratitude, and civic memory, not as neutral measurements of the town-gown relationship.
+          </p>
+        </details>
       </section>
     </main>
 
