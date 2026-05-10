@@ -1474,14 +1474,6 @@ a:focus-visible {
   gap: 0.7rem;
 }
 
-.game-result {
-  grid-column: 1 / -1;
-  min-height: 2.3rem;
-  margin: 0;
-  color: var(--jmu-purple);
-  font-weight: 850;
-}
-
 .game-reveal {
   display: grid;
   gap: 0.7rem;
@@ -5012,10 +5004,6 @@ body.is-presentation-mode .exhibit-shell {
   .game-controls {
     grid-template-columns: 1fr;
     gap: clamp(0.8rem, 1.4vw, 1.2rem);
-  }
-
-  .game-result {
-    font-size: clamp(1.12rem, 1.65vw, 1.4rem);
   }
 
   .game-related__grid {

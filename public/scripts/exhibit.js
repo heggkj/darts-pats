@@ -115,7 +115,6 @@ const els = {
   sendCorridor: document.querySelector('#send-corridor'),
   gameText: document.querySelector('#game-text'),
   gamePoolNote: document.querySelector('#game-pool-note'),
-  gameResult: document.querySelector('#game-result'),
   gameRelated: document.querySelector('#game-related'),
   revealGameCard: document.querySelector('#reveal-game-card'),
   newGameCard: document.querySelector('#new-game-card'),
@@ -757,8 +756,7 @@ function makeGameCard() {
     state.gameRecord = null;
     state.gameChallengeText = '';
     els.gameText.textContent = 'No playable card is available in this view.';
-    els.gameResult.textContent = 'Try clearing a filter or opening the full drawer.';
-    els.gameRelated.innerHTML = '';
+    els.gameRelated.innerHTML = '<p class="empty-note">Try clearing a filter or opening the full drawer.</p>';
     updateGameRevealState();
     return;
   }
@@ -769,7 +767,6 @@ function makeGameCard() {
   state.gameKindGuess = '';
   els.gameText.textContent = state.gameChallengeText || 'No card available.';
   renderGamePoolNote();
-  els.gameResult.textContent = 'No points. Just interpretation.';
   els.gameRelated.innerHTML = '';
   document.querySelectorAll('[data-guess]').forEach((button) => {
     button.setAttribute('aria-pressed', 'false');
@@ -793,7 +790,7 @@ function revealGameGuess() {
   const kindLabel = getKindNoun(record.kind);
 
   els.gameText.textContent = record.text_full || state.gameChallengeText;
-  els.gameResult.innerHTML = `
+  els.gameRelated.innerHTML = `
     <div class="game-reveal">
       <span class="game-reveal__badge">${escapeHtml(record.kind)} · ${escapeHtml(formatDate(record.date))}</span>
       <p>${escapeHtml(kindVerdict)}</p>
@@ -801,8 +798,6 @@ function revealGameGuess() {
       ${renderPillRow('Tags', record.topic_tag_labels)}
       <button class="button button--small button--ghost" data-record-id="${record.id}" type="button">Open this card</button>
     </div>
-  `;
-  els.gameRelated.innerHTML = `
     <div class="game-related__grid">
       ${renderRelatedGroup('Same topic', related.topic.slice(0, 3))}
       ${renderRelatedGroup(`Same year: ${record.year}`, related.year.slice(0, 3))}
