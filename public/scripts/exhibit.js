@@ -5,7 +5,7 @@ const IDLE_WARNING_MS = 2400;
 const EDITOR_FORM_WORD_RE = /\b(dart|darts|pat|pats)\b/gi;
 const ATTRACTOR_CARD_LENGTH = 180;
 const ATTRACTOR_HARSH_LANGUAGE_RE = /\b(fuck|shit|bitch|asshole|bastard|slut|whore|kill|killed|hate|hated|hateful|idiot|moron|stupid|dumb|loser|shut up|go away)\b/i;
-const APP_VERSION = 'phase-10c-final-polish-birds-balloons-filters';
+const APP_VERSION = 'phase-10d-filter-state-polish';
 const DISPLAY_ARTIFACT_RE = new RegExp(String.raw`\s*\[` + ['form', 'hidden'].join(String.raw`\s+`) + String.raw`\]\s*`, 'gi');
 const ATTRACTOR_FIRST_RELEASE_MS = 8000;
 const ATTRACTOR_MIN_REST_MS = 3500;
@@ -101,7 +101,7 @@ const els = {
   currentSummary: document.querySelector('#current-view-summary'),
   viewMeters: document.querySelector('#view-meters'),
   featuredCards: document.querySelector('#featured-cards'),
-  classWindowChip: document.querySelector('#class-window-chip'),
+  activeFilterPills: document.querySelector('#active-filter-pills'),
   wordBreeze: document.querySelector('#word-breeze'),
   wordBreezeCloud: document.querySelector('#word-breeze-cloud'),
   wordBreezeList: document.querySelector('#word-breeze-list'),
@@ -140,8 +140,6 @@ const els = {
   chapterSections: document.querySelectorAll('[data-chapter]'),
   classTrayToggle: document.querySelector('#class-tray-toggle'),
   classTray: document.querySelector('#class-tray'),
-  classWindowEdit: document.querySelector('#class-window-edit'),
-  classWindowClear: document.querySelector('#class-window-clear'),
   classYear: document.querySelector('#class-year'),
   classYearOutput: document.querySelector('#class-year-output'),
   classYearGo: document.querySelector('#class-year-go'),
@@ -389,7 +387,7 @@ function filterRecords() {
 
 function updateControlsFromState() {
   if (state.classYear !== 'all') syncClassYear(state.classYear);
-  updateClassWindowChip();
+  renderActiveFilterPills();
 }
 
 function applyState(patch = {}) {
@@ -1618,41 +1616,83 @@ function syncClassYear(year = els.classYear?.value || '2004') {
   if (els.classYearGo) els.classYearGo.textContent = 'Show your years';
 }
 
-function activeMemoryFilterLabel() {
-  const labelParts = [];
-  if (state.classYear !== 'all') return classWindowLabel();
-  if (state.year !== 'all') labelParts.push(`Year ${state.year}`);
-  if (state.topic !== 'all') labelParts.push(getTopicLabel(state.topic));
-  if (state.era !== 'all') labelParts.push(state.era);
-  if (state.kind !== 'all') labelParts.push(state.kind === 'dart' ? 'Darts' : 'Pats');
-  return labelParts.join(' / ');
+function activeTimeFilter() {
+  if (state.classYear !== 'all') {
+    const years = classWindowYears();
+    const classYear = years[years.length - 1];
+    return {
+      type: 'class',
+      classYear,
+      startYear: years[0],
+      endYear: classYear,
+      label: classWindowLabel(),
+      clearLabel: `Clear Class of ${classYear} memory window`,
+    };
+  }
+  if (state.year !== 'all') {
+    return {
+      type: 'year',
+      year: Number(state.year),
+      label: `Year: ${state.year}`,
+      clearLabel: `Clear year ${state.year} filter`,
+    };
+  }
+  return null;
 }
 
-function updateClassWindowChip() {
-  if (!els.classWindowChip) return;
-  const label = activeMemoryFilterLabel();
-  if (!label) {
-    els.classWindowChip.hidden = true;
-    if (els.classWindowEdit) els.classWindowEdit.textContent = '';
-    if (els.classWindowClear) els.classWindowClear.removeAttribute('aria-label');
+function activeThemeFilter() {
+  if (state.topic === 'all') return null;
+  const label = getTopicLabel(state.topic);
+  return {
+    type: 'topic',
+    topic: state.topic,
+    label: `Theme: ${label}`,
+    clearLabel: `Clear theme ${label} filter`,
+  };
+}
+
+function activeCorridorFilters() {
+  const filters = [];
+  const time = activeTimeFilter();
+  const theme = activeThemeFilter();
+  if (time) filters.push(time);
+  if (theme) filters.push(theme);
+  if (state.era !== 'all') {
+    filters.push({
+      type: 'era',
+      label: `Era: ${state.era}`,
+      clearLabel: `Clear era ${state.era} filter`,
+    });
+  }
+  if (state.kind !== 'all') {
+    const label = state.kind === 'dart' ? 'Darts' : 'Pats';
+    filters.push({
+      type: 'kind',
+      label: `Form: ${label}`,
+      clearLabel: `Clear ${label} filter`,
+    });
+  }
+  return filters;
+}
+
+function renderActiveFilterPills() {
+  if (!els.activeFilterPills) return;
+  const filters = activeCorridorFilters();
+  if (!filters.length) {
+    els.activeFilterPills.hidden = true;
+    els.activeFilterPills.innerHTML = '';
     return;
   }
 
-  els.classWindowChip.hidden = false;
-  if (els.classWindowEdit) {
-    els.classWindowEdit.textContent = label;
-    if (state.classYear !== 'all') {
-      els.classWindowEdit.setAttribute('aria-label', `${label}. Tap to change class years.`);
-    } else {
-      els.classWindowEdit.setAttribute('aria-label', `${label}. Active Memory Corridor filter.`);
-    }
-  }
-  if (els.classWindowClear) {
-    const clearLabel = state.classYear !== 'all'
-      ? `Clear ${label} memory window`
-      : `Clear ${label} Memory Corridor filter`;
-    els.classWindowClear.setAttribute('aria-label', clearLabel);
-  }
+  els.activeFilterPills.hidden = false;
+  els.activeFilterPills.innerHTML = filters.map((filter) => `
+    <button class="active-filter-pill active-filter-pill--${escapeHtml(filter.type)}" data-clear-filter="${escapeHtml(filter.type)}" type="button" aria-label="${escapeHtml(filter.clearLabel)}">
+      <span>${escapeHtml(filter.label)}</span>
+      <span class="active-filter-pill__x" aria-hidden="true">×</span>
+    </button>
+  `).join('') + (filters.length > 1 ? `
+    <button class="active-filter-pill active-filter-pill--clear-all" data-clear-filter="all" type="button" aria-label="Clear all Memory Corridor filters">Clear all</button>
+  ` : '');
 }
 
 function setClassTrayOpen(open) {
@@ -1667,7 +1707,7 @@ function eventIsInsideClassTray(event) {
   return Boolean(
     event.target.closest('#class-tray')
     || event.target.closest('#class-tray-toggle')
-    || event.target.closest('#class-window-chip')
+    || event.target.closest('#active-filter-pills')
   );
 }
 
@@ -1714,12 +1754,41 @@ function clearClassYear() {
   scrollToElement(document.querySelector('#walk-years'));
 }
 
-function clearActiveMemoryFilter() {
-  if (state.classYear !== 'all') {
-    clearClassYear();
+function closeWordBreezePanel() {
+  if (els.wordBreezeList) {
+    els.wordBreezeList.hidden = true;
+    els.wordBreezeList.innerHTML = '';
+  }
+  state.wordBreezeTerm = '';
+}
+
+function clearAllCorridorFilters({ scroll = true } = {}) {
+  state.longArgumentYear = '';
+  state.longArgumentEra = 'all';
+  closeWordBreezePanel();
+  applyState({ year: 'all', classYear: 'all', era: 'all', topic: 'all', kind: 'all', search: '' });
+  setClassTrayOpen(false);
+  if (scroll) {
+    setActiveChapter('walk-years');
+    scrollToElement(document.querySelector('#walk-years'));
+  }
+}
+
+function clearCorridorFilter(filterType) {
+  if (filterType === 'all' || filterType === 'class' || filterType === 'year') {
+    clearAllCorridorFilters();
     return;
   }
-  applyState({ year: 'all', era: 'all', topic: 'all', kind: 'all', search: '' });
+
+  const patch = {};
+  if (filterType === 'topic') patch.topic = 'all';
+  if (filterType === 'era') {
+    patch.era = 'all';
+    state.longArgumentEra = 'all';
+  }
+  if (filterType === 'kind') patch.kind = 'all';
+  closeWordBreezePanel();
+  applyState(patch);
   setClassTrayOpen(false);
   setActiveChapter('walk-years');
   scrollToElement(document.querySelector('#walk-years'));
@@ -1741,21 +1810,15 @@ function clearStringThemeFromCorridor() {
 function closeTransientPanels() {
   if (els.drawer?.open) els.drawer.close();
   setClassTrayOpen(false);
-  if (els.wordBreezeList) {
-    els.wordBreezeList.hidden = true;
-    els.wordBreezeList.innerHTML = '';
-  }
+  closeWordBreezePanel();
   if (els.sendCorridor) els.sendCorridor.open = false;
-  state.wordBreezeTerm = '';
   state.activeRecordId = null;
 }
 
 function resetInteractiveState() {
   closeTransientPanels();
   state.selectedStringTheme = state.stringGraph?.topThemes?.[0]?.id || '';
-  state.longArgumentYear = '';
-  state.longArgumentEra = 'all';
-  applyState({ year: 'all', classYear: 'all', era: 'all', topic: 'all', kind: 'all', search: '' });
+  clearAllCorridorFilters({ scroll: false });
   renderNetwork();
   makeGameCard();
   resetCorridorPan();
@@ -1965,24 +2028,17 @@ function bindEvents() {
     AttractorMode.deactivate();
     window.requestAnimationFrame(() => scrollToElement(document.querySelector('#walk-years')));
   });
-  els.reset.addEventListener('click', () => applyState({ year: 'all', classYear: 'all', era: 'all', topic: 'all', kind: 'all', search: '' }));
+  els.reset.addEventListener('click', () => clearAllCorridorFilters());
   els.startOver.addEventListener('click', () => startOver());
   els.kioskEnter.addEventListener('click', enterCorridor);
   els.presentationMode.addEventListener('click', togglePresentationMode);
   document.addEventListener('fullscreenchange', updatePresentationButton);
   els.classTrayToggle?.addEventListener('click', () => setClassTrayOpen(els.classTray?.hidden));
-  els.classWindowEdit?.addEventListener('click', () => {
-    if (state.classYear !== 'all') setClassTrayOpen(true);
-  });
-  els.classWindowClear?.addEventListener('click', (event) => {
-    event.stopPropagation();
-    clearActiveMemoryFilter();
-  });
   els.classYear?.addEventListener('input', (event) => syncClassYear(event.target.value));
   els.classYearGo?.addEventListener('click', jumpToClassYear);
   els.classYearBack?.addEventListener('click', () => nudgeClassYear(-1));
   els.classYearForward?.addEventListener('click', () => nudgeClassYear(1));
-  els.classYearClear?.addEventListener('click', clearClassYear);
+  els.classYearClear?.addEventListener('click', () => clearAllCorridorFilters());
   window.addEventListener('scroll', () => {
     if (window.performance.now() - classTrayOpenedAt < 650) return;
     if (!els.classTray?.hidden) setClassTrayOpen(false);
@@ -2026,6 +2082,12 @@ function bindEvents() {
       return;
     }
 
+    const clearFilter = event.target.closest('[data-clear-filter]');
+    if (clearFilter) {
+      clearCorridorFilter(clearFilter.dataset.clearFilter);
+      return;
+    }
+
     const drawerPrevious = event.target.closest('[data-drawer-prev]');
     const drawerNext = event.target.closest('[data-drawer-next]');
     const drawerTarget = drawerPrevious?.dataset.drawerPrev || drawerNext?.dataset.drawerNext;
@@ -2039,7 +2101,7 @@ function bindEvents() {
     if (longArgumentYear) {
       state.longArgumentYear = String(longArgumentYear.dataset.longYear);
       state.longArgumentEra = 'all';
-      renderLongArgument();
+      applyState({ year: state.longArgumentYear });
       return;
     }
 
