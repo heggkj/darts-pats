@@ -34,6 +34,12 @@ import '../styles/corridor.css';
         <span class="attractor-ambient-balloon attractor-ambient-balloon--violet"></span>
         <span class="attractor-ambient-balloon attractor-ambient-balloon--teal"></span>
         <span class="attractor-ambient-balloon attractor-ambient-balloon--small"></span>
+        <span class="attractor-ambient-balloon attractor-ambient-balloon--market-one"></span>
+        <span class="attractor-ambient-balloon attractor-ambient-balloon--market-two"></span>
+        <span class="attractor-ambient-balloon attractor-ambient-balloon--courthouse-one"></span>
+        <span class="attractor-ambient-balloon attractor-ambient-balloon--parade-one"></span>
+        <span class="attractor-ambient-balloon attractor-ambient-balloon--parade-two"></span>
+        <span class="attractor-ambient-balloon attractor-ambient-balloon--bus-stop"></span>
       </div>
       <div class="attractor-wire-life" aria-hidden="true">
         <span class="attractor-wire-life__line"></span>
@@ -114,10 +120,10 @@ import '../styles/corridor.css';
         <p class="kicker">The Breeze archive / Darts & Pats / 1991–2026</p>
         <h1 id="threshold-title">The Breeze Between Town and Gown</h1>
         <p class="threshold__lede">
-          Walk through Darts & Pats from <em>The Breeze</em> to explore tensions and ties between JMU and Harrisonburg/Rockingham. Touch floor tiles, doors, drawers, bulletin pins, and newspaper cards to open the archive.
+          Walk through Darts & Pats from <em>The Breeze</em> to explore tensions and ties between JMU and Harrisonburg/Rockingham. Touch floor tiles, doors, drawers, bulletin pins, and paper cards to open the archive.
         </p>
         <div class="threshold__actions">
-          <button class="button button--primary button--kiosk-enter" id="kiosk-enter" type="button">Tape to enter the corridor</button>
+          <button class="button button--primary button--kiosk-enter" id="kiosk-enter" type="button">Tap to enter the corridor</button>
           <a class="button button--ghost" href="#editor-game">Try the editor table</a>
         </div>
         <dl class="stat-strip" id="stat-strip" aria-live="polite">
@@ -159,7 +165,12 @@ import '../styles/corridor.css';
           <p class="kicker">2.5D corridor</p>
           <h2 id="corridor-title">The Memory Corridor</h2>
           <p id="corridor-subtitle">A quieter hallway of floor years, wall cards, and civic friction.</p>
-          <button class="active-memory-chip" id="class-window-chip" type="button" hidden></button>
+          <span class="active-memory-chip" id="class-window-chip" hidden>
+            <button class="active-memory-chip__label" id="class-window-edit" type="button"></button>
+            <button class="active-memory-chip__clear" id="class-window-clear" type="button">
+              <span aria-hidden="true">×</span>
+            </button>
+          </span>
         </div>
 
         <aside class="word-breeze" id="word-breeze" aria-labelledby="word-breeze-title">
@@ -271,7 +282,7 @@ import '../styles/corridor.css';
           </div>
           <div class="game-fieldset" aria-label="Editor guesses">
             <fieldset>
-              <legend>Was it printed as…</legend>
+              <legend>Was it printed as (click one)?</legend>
               <div class="segmented">
                 <button class="button button--small button--ghost" data-guess="DART" type="button" aria-pressed="false">Dart</button>
                 <button class="button button--small button--ghost" data-guess="PAT" type="button" aria-pressed="false">Pat</button>
