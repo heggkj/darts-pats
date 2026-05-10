@@ -4384,15 +4384,6 @@ body.is-attractor-active {
   background: rgba(255, 255, 255, 0.42);
 }
 
-body.is-presentation-mode {
-  --max-width: min(1760px, calc(100vw - 2rem));
-  font-size: 18px;
-}
-
-body.is-presentation-mode .exhibit-shell {
-  padding-top: 1rem;
-}
-
 @media (min-width: 1180px) {
   .exhibit-shell {
     width: min(calc(100% - 8.4rem), var(--max-width));

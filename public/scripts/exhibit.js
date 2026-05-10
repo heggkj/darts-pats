@@ -127,7 +127,6 @@ const els = {
   newGameCard: document.querySelector('#new-game-card'),
   threshold: document.querySelector('.threshold'),
   kioskEnter: document.querySelector('#kiosk-enter'),
-  presentationMode: document.querySelector('#presentation-mode'),
   corridorPan: document.querySelector('#corridor-pan'),
   corridorLeftWall: document.querySelector('.wall--left'),
   corridorRightWall: document.querySelector('.wall--right'),
@@ -1896,30 +1895,6 @@ function bindCorridorDrag() {
   els.corridorPan.addEventListener('pointercancel', endDrag);
 }
 
-async function togglePresentationMode() {
-  const canFullscreen = Boolean(document.documentElement.requestFullscreen);
-  try {
-    if (canFullscreen && !document.fullscreenElement) {
-      await document.documentElement.requestFullscreen();
-    } else if (document.fullscreenElement && document.exitFullscreen) {
-      await document.exitFullscreen();
-    } else {
-      document.body.classList.toggle('is-presentation-mode');
-      updatePresentationButton();
-    }
-  } catch (error) {
-    document.body.classList.toggle('is-presentation-mode');
-    updatePresentationButton();
-  }
-}
-
-function updatePresentationButton() {
-  if (!els.presentationMode) return;
-  const active = Boolean(document.fullscreenElement) || document.body.classList.contains('is-presentation-mode');
-  els.presentationMode.textContent = active ? 'Exit Presentation' : 'Presentation Mode';
-  els.presentationMode.setAttribute('aria-pressed', String(active));
-}
-
 function resetIdleTimer() {
   if (!els.idleOverlay) return;
   if (idleReturnInProgress) return;
@@ -2031,8 +2006,6 @@ function bindEvents() {
   els.reset?.addEventListener('click', () => clearAllCorridorFilters());
   els.startOver?.addEventListener('click', () => startOver());
   els.kioskEnter.addEventListener('click', enterCorridor);
-  els.presentationMode?.addEventListener('click', togglePresentationMode);
-  document.addEventListener('fullscreenchange', updatePresentationButton);
   els.classTrayToggle?.addEventListener('click', () => setClassTrayOpen(els.classTray?.hidden));
   els.classYear?.addEventListener('input', (event) => syncClassYear(event.target.value));
   els.classYearGo?.addEventListener('click', jumpToClassYear);
