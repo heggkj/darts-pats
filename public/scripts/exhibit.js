@@ -1453,7 +1453,7 @@ function syncClassYear(year = els.classYear?.value || '2004') {
   const range = classWindowRangeLabel(numericYear);
   els.classYearOutput.value = label;
   els.classYearOutput.textContent = label;
-  if (els.classYearGo) els.classYearGo.textContent = `Show your years (${range})`;
+  if (els.classYearGo) els.classYearGo.textContent = 'Show your years';
 }
 
 function updateClassWindowChip() {
