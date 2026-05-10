@@ -2448,103 +2448,39 @@ body.is-attractor-active {
   transform: skewX(-18deg) rotate(-0.4deg);
 }
 
-.attractor-motion-bus,
-.attractor-motion-car,
+.attractor-ground-ribbon,
 .attractor-flag {
   position: absolute;
   pointer-events: none;
 }
 
-.attractor-motion-bus,
-.attractor-motion-car {
-  left: -18rem;
-  bottom: clamp(2.35rem, 7vh, 4.5rem);
+.attractor-ground-ribbon {
   z-index: 2;
-  opacity: 0;
-  filter: drop-shadow(0 0.9rem 0.85rem rgba(36, 31, 43, 0.18));
-  transform: translate3d(-24vw, 0, 0);
-}
-
-.attractor-motion-bus {
-  width: clamp(10.5rem, 15vw, 17rem);
-  height: clamp(3.6rem, 5vw, 5.2rem);
-  border: 2px solid rgba(36, 31, 43, 0.16);
-  border-radius: 24px 28px 11px 13px;
-  background:
-    radial-gradient(circle at 17% 86%, #241f2b 0 0.62rem, transparent 0.66rem),
-    radial-gradient(circle at 84% 86%, #241f2b 0 0.62rem, transparent 0.66rem),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0 16%, transparent 17%),
-    linear-gradient(90deg, #59238c, #7741a7 52%, #4f2d78);
-  animation: attractor-bus-drive 38s cubic-bezier(0.38, 0, 0.22, 1) infinite;
-}
-
-.attractor-motion-bus span {
-  position: absolute;
-  left: 1.2rem;
-  right: 1.4rem;
-  top: 0.72rem;
-  height: 1.08rem;
+  width: clamp(4.4rem, 8vw, 8rem);
+  height: clamp(0.38rem, 0.7vw, 0.62rem);
   border-radius: 999px;
   background:
-    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.72) 0 1.55rem, rgba(255, 255, 255, 0.18) 1.55rem 2.25rem),
-    rgba(244, 239, 225, 0.42);
+    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.44) 18% 72%, transparent),
+    linear-gradient(90deg, rgba(69, 0, 132, 0.14), rgba(203, 182, 119, 0.22));
+  filter: blur(0.2px);
+  opacity: 0.28;
+  mix-blend-mode: screen;
+  --ribbon-tilt: -1deg;
+  transform: rotate(var(--ribbon-tilt));
+  animation: attractor-ground-ribbon-glint 16s ease-in-out infinite;
 }
 
-.attractor-motion-bus i,
-.attractor-motion-bus b,
-.attractor-motion-car i,
-.attractor-motion-car b {
-  position: absolute;
-  bottom: -0.4rem;
-  width: 1.15rem;
-  aspect-ratio: 1;
-  border-radius: 999px;
-  background: #241f2b;
-  content: "";
+.attractor-ground-ribbon--one {
+  left: 16vw;
+  bottom: clamp(4.6rem, 9vh, 7.3rem);
 }
 
-.attractor-motion-bus i {
-  left: 1.4rem;
-}
-
-.attractor-motion-bus b {
-  right: 1.4rem;
-}
-
-.attractor-motion-car {
-  left: auto;
-  right: -10rem;
-  bottom: clamp(1.9rem, 5.6vh, 3.5rem);
-  width: clamp(6rem, 9vw, 9rem);
-  height: clamp(2.4rem, 3.6vw, 3.6rem);
-  border: 2px solid rgba(36, 31, 43, 0.14);
-  border-radius: 22px 24px 11px 12px;
-  background:
-    radial-gradient(circle at 22% 92%, #241f2b 0 0.42rem, transparent 0.46rem),
-    radial-gradient(circle at 80% 92%, #241f2b 0 0.42rem, transparent 0.46rem),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0 23%, transparent 24%),
-    linear-gradient(90deg, #d4bf77, #bda454 62%, #7a5b89);
-  animation: attractor-car-pass 31s cubic-bezier(0.34, 0, 0.2, 1) 8s infinite;
-}
-
-.attractor-motion-car span {
-  position: absolute;
-  left: 1.4rem;
-  top: 0.42rem;
-  width: 2.5rem;
-  height: 0.82rem;
-  border-radius: 999px 999px 0.35rem 0.35rem;
-  background: rgba(255, 255, 255, 0.56);
-}
-
-.attractor-motion-car i {
-  left: 0.85rem;
-  width: 0.82rem;
-}
-
-.attractor-motion-car b {
-  right: 0.8rem;
-  width: 0.82rem;
+.attractor-ground-ribbon--two {
+  right: 22vw;
+  bottom: clamp(4.2rem, 8vh, 6.6rem);
+  width: clamp(3.6rem, 6.5vw, 6.8rem);
+  animation-delay: -6.5s;
+  --ribbon-tilt: 1.4deg;
 }
 
 .attractor-flag {
@@ -2567,20 +2503,6 @@ body.is-attractor-active {
 .attractor-flag--two {
   right: 24vw;
   animation-delay: -2.6s;
-}
-
-.attractor-mode.is-showing-bus .attractor-motion-bus,
-.attractor-mode.is-showing-car .attractor-motion-car {
-  animation: none;
-  opacity: 0.86;
-}
-
-.attractor-mode.is-showing-bus .attractor-motion-bus {
-  transform: translate3d(55vw, -0.08rem, 0) rotate(0.15deg);
-}
-
-.attractor-mode.is-showing-car .attractor-motion-car {
-  transform: translate3d(-58vw, 0, 0) rotate(-0.3deg);
 }
 
 .attractor-balloon {
@@ -2624,49 +2546,20 @@ body.is-attractor-active {
   background: linear-gradient(180deg, rgba(90, 74, 58, 0.45), rgba(90, 74, 58, 0.08));
 }
 
-@keyframes attractor-bus-drive {
+@keyframes attractor-ground-ribbon-glint {
   0%,
-  12% {
-    opacity: 0;
-    transform: translate3d(-28vw, 0.18rem, 0) rotate(-0.2deg);
+  100% {
+    opacity: 0.14;
+    transform: translateY(0) scaleX(0.82) rotate(var(--ribbon-tilt, -1deg));
   }
 
-  20%,
+  38% {
+    opacity: 0.3;
+    transform: translateY(-0.05rem) scaleX(1) rotate(var(--ribbon-tilt, -1deg));
+  }
+
   68% {
-    opacity: 0.82;
-  }
-
-  44% {
-    transform: translate3d(42vw, -0.06rem, 0) rotate(0.16deg);
-  }
-
-  82%,
-  100% {
-    opacity: 0;
-    transform: translate3d(118vw, 0.08rem, 0) rotate(0deg);
-  }
-}
-
-@keyframes attractor-car-pass {
-  0%,
-  18% {
-    opacity: 0;
-    transform: translate3d(28vw, 0.08rem, 0) rotate(0.35deg);
-  }
-
-  26%,
-  66% {
-    opacity: 0.78;
-  }
-
-  52% {
-    transform: translate3d(-40vw, -0.04rem, 0) rotate(-0.25deg);
-  }
-
-  78%,
-  100% {
-    opacity: 0;
-    transform: translate3d(-112vw, 0, 0) rotate(0deg);
+    opacity: 0.22;
   }
 }
 
@@ -5123,8 +5016,7 @@ body.is-presentation-mode .exhibit-shell {
   .attractor-clipping,
   .attractor-balloon,
   .attractor-balloon.is-rising,
-  .attractor-motion-bus,
-  .attractor-motion-car,
+  .attractor-ground-ribbon,
   .attractor-flag,
   .attractor-market-stalls span,
   .person,
@@ -5135,11 +5027,6 @@ body.is-presentation-mode .exhibit-shell {
   }
 
   .attractor-balloon {
-    display: none;
-  }
-
-  .attractor-motion-bus,
-  .attractor-motion-car {
     display: none;
   }
 

@@ -1215,11 +1215,6 @@ function installLocalTestHooks() {
     renderAttractorClipping: () => renderAttractorClipping(nextAttractorRecord() || state.attractorPool[0]),
     fadeAttractorClipping: () => AttractorMode.fadeCurrentClipping(() => {}),
     runAttractorCycle: () => AttractorMode.runCycle(),
-    setAttractorMotionState: (stateName = '') => {
-      els.attractor?.classList.remove('is-showing-bus', 'is-showing-car');
-      if (stateName === 'bus') els.attractor?.classList.add('is-showing-bus');
-      if (stateName === 'car') els.attractor?.classList.add('is-showing-car');
-    },
     applyState,
     openClassTray: (year = 2004) => {
       AttractorMode.deactivate();
