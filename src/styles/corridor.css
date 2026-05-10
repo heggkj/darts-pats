@@ -1469,6 +1469,26 @@ a:focus-visible {
   color: white;
 }
 
+.segmented .button.is-choice-correct {
+  border-color: rgba(31, 116, 71, 0.86);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(222, 244, 229, 0.86));
+  color: #16472d;
+  box-shadow: 0 10px 22px rgba(31, 116, 71, 0.18), inset 0 0 0 2px rgba(31, 116, 71, 0.12);
+}
+
+.segmented .button.is-choice-incorrect {
+  border-color: rgba(156, 55, 44, 0.84);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(249, 224, 219, 0.86));
+  color: #782b23;
+  box-shadow: 0 10px 22px rgba(156, 55, 44, 0.14), inset 0 0 0 2px rgba(156, 55, 44, 0.1);
+}
+
+.segmented .button.is-choice-revealed {
+  letter-spacing: 0.01em;
+}
+
 .game-controls {
   display: grid;
   gap: 0.7rem;
@@ -1494,10 +1514,18 @@ a:focus-visible {
   max-width: 100%;
   padding: 0.34rem 0.65rem;
   border-radius: 999px;
-  background: var(--jmu-light-purple);
-  color: var(--jmu-purple);
   font-size: 0.82rem;
   font-weight: 950;
+}
+
+.game-reveal__badge--matched {
+  background: rgba(31, 116, 71, 0.12);
+  color: #16472d;
+}
+
+.game-reveal__badge--different {
+  background: rgba(156, 55, 44, 0.1);
+  color: #782b23;
 }
 
 .game-related {

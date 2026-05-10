@@ -65,6 +65,7 @@ const state = {
   gameRecord: null,
   gameChallengeText: '',
   gameKindGuess: '',
+  gameRevealed: false,
   activeRecordId: null,
   editorEligibleRecords: [],
   editorWithheldRecords: [],
@@ -752,11 +753,14 @@ function renderDrawer(record) {
 
 function makeGameCard() {
   const pool = getEditorPool();
+  state.gameRevealed = false;
   if (!pool.length) {
     state.gameRecord = null;
     state.gameChallengeText = '';
+    state.gameKindGuess = '';
     els.gameText.textContent = 'No playable card is available in this view.';
     els.gameRelated.innerHTML = '<p class="empty-note">Try clearing a filter or opening the full drawer.</p>';
+    resetGameChoiceButtons();
     updateGameRevealState();
     return;
   }
@@ -768,15 +772,67 @@ function makeGameCard() {
   els.gameText.textContent = state.gameChallengeText || 'No card available.';
   renderGamePoolNote();
   els.gameRelated.innerHTML = '';
-  document.querySelectorAll('[data-guess]').forEach((button) => {
-    button.setAttribute('aria-pressed', 'false');
-    button.classList.add('button--ghost');
-  });
+  resetGameChoiceButtons();
   updateGameRevealState();
 }
 
+function gameChoiceButtons() {
+  return Array.from(document.querySelectorAll('[data-guess]'));
+}
+
+function resetGameChoiceButtons() {
+  gameChoiceButtons().forEach((button) => {
+    const label = getKindNoun(button.dataset.guess);
+    button.textContent = label;
+    button.setAttribute('aria-pressed', 'false');
+    button.removeAttribute('aria-disabled');
+    button.setAttribute('aria-label', `Choose ${label}`);
+    button.classList.add('button--ghost');
+    button.classList.remove('is-choice-selected', 'is-choice-correct', 'is-choice-incorrect', 'is-choice-revealed');
+  });
+}
+
+function updateGameChoiceSelection() {
+  document.querySelectorAll('[data-guess]').forEach((button) => {
+    const selected = button.dataset.guess === state.gameKindGuess;
+    const label = getKindNoun(button.dataset.guess);
+    button.textContent = label;
+    button.setAttribute('aria-pressed', String(selected));
+    button.setAttribute('aria-label', selected ? `${label} selected` : `Choose ${label}`);
+    button.classList.toggle('button--ghost', !selected);
+    button.classList.toggle('is-choice-selected', selected);
+    button.classList.remove('is-choice-correct', 'is-choice-incorrect', 'is-choice-revealed');
+  });
+}
+
+function updateGameChoiceReveal() {
+  const record = state.gameRecord;
+  if (!record) return;
+  gameChoiceButtons().forEach((button) => {
+    const guess = button.dataset.guess;
+    const label = getKindNoun(guess);
+    const selected = guess === state.gameKindGuess;
+    const correct = guess === record.kind;
+    const incorrectSelected = selected && !correct;
+    const icon = correct ? '✓' : incorrectSelected ? '×' : '';
+    button.textContent = icon ? `${icon} ${label}` : label;
+    button.setAttribute('aria-pressed', String(selected));
+    button.setAttribute('aria-disabled', 'true');
+    button.setAttribute('aria-label', correct
+      ? `${label}, The Breeze printed form`
+      : incorrectSelected
+        ? `${label}, your selected reading differs`
+        : label);
+    button.classList.toggle('button--ghost', !selected && !correct);
+    button.classList.toggle('is-choice-selected', selected);
+    button.classList.toggle('is-choice-correct', correct);
+    button.classList.toggle('is-choice-incorrect', incorrectSelected);
+    button.classList.add('is-choice-revealed');
+  });
+}
+
 function updateGameRevealState() {
-  els.revealGameCard.disabled = !(state.gameKindGuess && state.gameRecord);
+  els.revealGameCard.disabled = state.gameRevealed || !(state.gameKindGuess && state.gameRecord);
 }
 
 function revealGameGuess() {
@@ -784,17 +840,21 @@ function revealGameGuess() {
   if (!record) return;
   const sameKind = state.gameKindGuess === record.kind;
   const kindVerdict = sameKind
-    ? 'You read it the way The Breeze printed it.'
-    : 'Your reading differs from the published form — useful evidence that these little notes can be slippery.';
+    ? 'You matched how The Breeze printed it.'
+    : 'Your reading differs from the published form.';
   const related = relatedRecords(record);
   const kindLabel = getKindNoun(record.kind);
 
+  state.gameRevealed = true;
   els.gameText.textContent = record.text_full || state.gameChallengeText;
+  updateGameChoiceReveal();
+  updateGameRevealState();
   els.gameRelated.innerHTML = `
     <div class="game-reveal">
-      <span class="game-reveal__badge">${escapeHtml(record.kind)} · ${escapeHtml(formatDate(record.date))}</span>
+      <span class="game-reveal__badge ${sameKind ? 'game-reveal__badge--matched' : 'game-reveal__badge--different'}">${sameKind ? '✓ Matched' : '× Different reading'}</span>
       <p>${escapeHtml(kindVerdict)}</p>
-      <p>The archive tagged this card as <strong>${escapeHtml(kindLabel)}</strong> on ${escapeHtml(formatDate(record.date))}. Its main theme is <strong>${escapeHtml(record.primary_topic_label || 'Town-gown note')}</strong>.</p>
+      <p>The Breeze printed this as a <strong>${escapeHtml(kindLabel)}</strong> on ${escapeHtml(formatDate(record.date))}.</p>
+      <p>Main theme: <strong>${escapeHtml(record.primary_topic_label || 'Town-gown note')}</strong>.</p>
       ${renderPillRow('Tags', record.topic_tag_labels)}
       <button class="button button--small button--ghost" data-record-id="${record.id}" type="button">Open this card</button>
     </div>
@@ -1254,10 +1314,19 @@ function installLocalTestHooks() {
       AttractorMode.deactivate();
       makeGameCard();
     },
+    getEditorCardKind: () => state.gameRecord?.kind || '',
     revealEditorCard: () => {
       AttractorMode.deactivate();
       if (!state.gameRecord) makeGameCard();
       state.gameKindGuess = state.gameRecord?.kind || 'DART';
+      updateGameChoiceSelection();
+      revealGameGuess();
+    },
+    revealEditorCardWithGuess: (guess = 'DART') => {
+      AttractorMode.deactivate();
+      if (!state.gameRecord) makeGameCard();
+      state.gameKindGuess = guess;
+      updateGameChoiceSelection();
       revealGameGuess();
     },
     openDiagnostics: () => setDiagnosticsOpen(true),
@@ -1785,12 +1854,9 @@ function bindEvents() {
 
   document.querySelectorAll('[data-guess]').forEach((button) => {
     button.addEventListener('click', () => {
+      if (state.gameRevealed) return;
       state.gameKindGuess = button.dataset.guess;
-      document.querySelectorAll('[data-guess]').forEach((item) => {
-        const selected = item === button;
-        item.setAttribute('aria-pressed', String(selected));
-        item.classList.toggle('button--ghost', !selected);
-      });
+      updateGameChoiceSelection();
       updateGameRevealState();
     });
   });
